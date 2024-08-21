@@ -67,8 +67,8 @@ const Contact = () => {
                 <h1 className='text-gray-500 text-2xl font-normal text-center max-sm:text-xl max-sm:px-5'>Enter your number!</h1>
                 <div className='flex justify-center'>
                     <form onSubmit={handleData} className='w-[70%] flex  items-center gap-5 max-sm:gap-1 rounded-2xl bg-white'>
-                        <input onChange={(e) => setNumber(e.target.value)} value={number} name='number' type="text" placeholder={t("contact.inputValue")} className='w-[70%] max-sm:w-[65%] h-[60px] pl-5 text-lg text-black rounded-l-xl rounded-bl-xl outline-none' />
-                        <button className='w-[25%] max-sm:w-[30%] h-[40px] rounded-xl bg-blue-700 text-white'>{t("contact.inputBtn")}</button>
+                        <input onChange={(e) => setNumber(e.target.value)} value={number} name='number' type="text" placeholder="Your number..." className='w-[70%] max-sm:w-[65%] h-[60px] pl-5 text-lg text-black rounded-l-xl rounded-bl-xl outline-none' />
+                        <button className='w-[25%] max-sm:w-[30%] h-[40px] rounded-xl bg-blue-700 text-white'>Submit</button>
                     </form>
                 </div>
             </div>

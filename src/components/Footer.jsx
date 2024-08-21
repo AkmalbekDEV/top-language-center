@@ -17,7 +17,7 @@ const Footer = () => {
               <div className='max-sm:flex max-sm:justify-center'>
                 <img src={Logo} alt="" className='w-[100px] rounded-[50%] mb-10' />
               </div>
-              <Link to={"https://top-home-changer.vercel.app"} className='text-xl font-medium max-sm:mr-5 w-full flex items-center justify-center py-3 px-5 rounded-xl bg-gray-100'>Homeworks</Link>
+              <h1 className='font-medium text-blue-700 text-2xl'>Top Language Center</h1>
             </div>
           </div>
           <div className='grid gap-3'>
