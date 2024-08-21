@@ -113,7 +113,7 @@ const DynamicPage = () => {
             </div>
             <div className='flex justify-center mt-20'>
                 <div className='grid gap-5'>
-                    <h1 className='text-4xl font-medium text-center'>Kurs haqida</h1>
+                    <h1 className='text-4xl font-medium text-center'>About this course</h1>
                     <div className='flex justify-center border-b-4 rounded-xl border-blue-700'>
                         <div className='border-b-2 border-blue-500'></div>
                     </div>
