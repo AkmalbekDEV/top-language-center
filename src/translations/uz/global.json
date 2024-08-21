@@ -1,0 +1,90 @@
+{
+    "header": {
+        "navlink1": "Asosiy",
+        "navlink2": "Kurslar",
+        "navlink3": "Ustozlar",
+        "switchlang": "Tilni o'zgartirish"
+    },
+    "hero": {
+        "title": "English With Begov",
+        "motto": "Learn, Grow, Succeed!"
+    },
+    "about": {
+        "title": "Biz haqimizda",
+        "desc": "Bu yerda siz bizning imkoniyatlarimiz haqida ma'lumot olishingiz va o'quv markazimiz bilan yaqinroq tanishishingiz mumkin.",
+        "cardTitle1": "Dam olish va o'rganish",
+        "cardDesc1": "Siz nafaqat bizdan o'rganishingiz, balki o'quv markazimizdan bahramand bo'lishingiz va ishlashingiz mumkin.",
+        "cardTitle2": "Sertifikat",
+        "cardDesc2": "Bizning o'quv markazimizda hukumat tomonidan berilgan rasmiy sertifikat ham bor, bizga ishonishingiz mumkin.",
+        "cardTitle3": "Individuvallik",
+        "cardDesc3": "Bizning o'quv markazimiz har bir talabaga individual yondashadi va ularning muammolarini hal qilishga yordam beradi.",
+        "cardTitle4": "Kreativ Fikrlash",
+        "cardDesc4": "O'quv markazimizda tahsil olayotgan talaba ingliz tilini o'rganish bilan birga jamoada ishlash va ijodiy fikrlashni o'rganadi."
+    },
+    "courses": {
+        "title": "Bizning Kurslar",
+        "students": "Maksimum o'quvchilar",
+        "valute": "so'm",
+        "btn": "Kurs haqida"
+    },
+    "teachers": {
+        "title": "Bizning Teacher",
+        "desc": "Bu yerda siz teacher haqida ma'lumot olishingiz mumkin.",
+        "type": "Asosiy ustoz",
+        "teacherDesc": "Salom, men Begov Dostonbek. Men 24 yoshdaman. Top Language Centerda ingliz tili grammatikasi va pre-ielts fanlaridan dars beraman. Shu kungacha 300 dan ortiq talabalarga grammatika va pre-ielts fanlaridan saboq berdim va ularni IELTS darajasiga olib chiqdim.",
+        "time": "2020 - yildan beri",
+        "name": "Begov Dostonbek",
+        "btn": "Rezyume"
+    },
+    "contact": {
+        "title": "Administrator bilan bog'laning va kurslar haqida ma'lumot oling",
+        "desc": "Telefon raqamingizni kiriting!",
+        "inputValue": "Raqamingiz...",
+        "inputBtn": "Yuborish!"
+    },
+    "footer": {
+        "grid1": {
+            "title": "Biz ijtimoiy tarmoqlarda"
+        },
+        "grid2": {
+            "title": "Havolalar",
+            "link1": "Asosiy",
+            "link2": "Kurslar",
+            "link3": "Ustozlar"
+        },
+        "grid3": {
+            "title": "Resurslar",
+            "resource1": "Asosiy",
+            "resource2": "Ustozlar",
+            "resource3": "Kurslar"
+        },
+        "grid4": {
+            "title": "Kontaktlar",
+            "contact1": "17A, Urganch",
+            "contact2": "Elektron Pochta",
+            "contact3": "Mobil chaqiruv"
+        },
+        "about": "Mualliflik huquqi 2024 @ himoyalangan",
+        "creator": "Dasturchi:"
+    },
+    "coursesPage": {
+        "price": "Narx",
+        "students": "Maksimum o'quvchilar",
+        "teacher": "Ustoz",
+        "continuity": "Davomiylik",
+        "time": "oy"
+    },
+    "dynamicPage": {
+        "navi": "Orqaga",
+        "price": "Narx",
+        "students": "Maksimum o'quvchilar",
+        "teacher": "Ustoz",
+        "continuity": "Davomiylik",
+        "valute": "so'm",
+        "time": "oy",
+        "subTitle": "Kursga yoziling!",
+        "subName": "Sizning ismingiz...",
+        "subNumber": "Sizning raqamingiz...",
+        "subBtn": "Yozilish"
+    }
+}
