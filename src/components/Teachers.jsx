@@ -15,9 +15,6 @@ const Teachers = () => {
                     <h1 className='text-2xl font-medium text-gray-500'>
                         I began my teaching journey in 2017 and have since helped over 10,000 students, with more than 100 reaching a C1 language level. <br /> <div className='my-3'></div> I was the first in my region to score 8.5 in Writing, and my highest scores are 9 in Listening and Reading, and 8.5 in Speaking and Writing.
                     </h1>
-                    <div className='max-sm:flex max-sm:justify-center'>
-                        <Link download={true} className='px-8 py-2 rounded-xl bg-blue-700 w-fit text-white'>Download CV</Link>
-                    </div>
                 </div>
                 <img src={Shakhriyor} className='w-[35%] max-sm:w-full rounded-2xl' alt="" />
             </div>
