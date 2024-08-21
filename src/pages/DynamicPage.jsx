@@ -120,8 +120,8 @@ const DynamicPage = () => {
                 </div>
             </div>
             <div className='flex justify-center gap-10 max-sm:flex-col mt-10 max-sm:px-5'>
-                <div className='p-5 rounded-xl shadow-2xl w-[30%] max-sm:w-full max-sm:text-sm'>
-                    <p className='text-3xl max-sm:text-2xl font-medium'>{data.desc}</p>
+                <div className='p-5 rounded-xl shadow-2xl w-[65%] max-sm:w-full max-sm:text-sm'>
+                    {data.name === "IELTS Top" ? <p className='text-[25px] max-sm:text-xl font-medium'>{data.desc}</p> : <p className='text-xl font-medium'>{data.desc}</p>}
                 </div>
                 <form id='ref' onSubmit={handleData} className='rounded-xl shadow-xl w-[400px] h-[300px] max-sm:w-full p-5 grid gap-5 bg-blue-700'>
                     <h1 className='text-center text-2xl font-medium text-white'>Sign Up For The Course</h1>

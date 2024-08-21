@@ -10,6 +10,7 @@ import TeachersPage from './pages/TeachersPage'
 import global_uz from './translations/uz/global.json'
 import i18next from 'i18next'
 import Results from './pages/Results'
+import Lessons from './components/Lessons'
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine)
@@ -60,6 +61,7 @@ function App() {
             <Route path='/courses' element={<CoursesPage />} />
             <Route path='/teachers' element={<TeachersPage />} />
             <Route path='/results' element={<Results />} />
+            <Route path='/self-study' element={<Lessons />} />
             <Route path='/item/:id' element={<DynamicPage />} />
           </Routes>
           <Footer />

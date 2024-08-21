@@ -29,8 +29,13 @@ const Navbar = () => {
     i18n.changeLanguage(lang)
   };
 
-  const handleClick = () => {
+  const handleClick1 = () => {
     navigate('/results')
+    onClose
+  }
+
+  const handleClick2 = () => {
+    navigate('/self-study')
     onClose
   }
 
@@ -45,7 +50,10 @@ const Navbar = () => {
               <h1 className='tracking-wide text-blue-800 text-sm'>OFFICIAL WEBSITE</h1>
             </div>
           </div>
-          <button onClick={() => navigate('/results')} className='px-5  max-sm:hidden py-2 rounded-xl text-blue-700 border-2 font-medium hover:text-white hover:bg-blue-700 transition-all border-blue-700'>Some of the results</button>
+          <div className='flex items-center gap-5'>
+            <button onClick={() => navigate('/results')} className='px-5  max-sm:hidden py-2 rounded-xl text-blue-700 border-2 font-medium hover:text-white hover:bg-blue-700 transition-all border-blue-700'>Latest high results</button>
+            <button onClick={() => navigate('/self-study')} className='px-5  max-sm:hidden py-2 rounded-xl text-blue-700 border-2 font-medium hover:text-white hover:bg-blue-700 transition-all border-blue-700'>For Self-Study</button>
+          </div>
           <BiMenu className='hidden max-sm:block cursor-pointer' size={35} onClick={onOpen} />
           <Drawer
             isOpen={isOpen}
@@ -58,7 +66,8 @@ const Navbar = () => {
               <DrawerCloseButton color='white' />
               <DrawerHeader textColor={'white'}>Menu</DrawerHeader>
               <DrawerBody>
-                <div onClick={handleClick} className='rounded-xl bg-none flex items-center justify-center w-full py-4 hover:bg-[#ffffff20] cursor-pointer transition-all text-white text-xl font-medium'>Some of the results</div>
+                <div onClick={handleClick1} className='rounded-xl bg-none flex items-center justify-center w-full py-4 hover:bg-[#ffffff20] cursor-pointer transition-all text-white text-xl font-medium'>Some of the results</div>
+                <div onClick={handleClick2} className='rounded-xl bg-none flex items-center justify-center w-full py-4 hover:bg-[#ffffff20] cursor-pointer transition-all text-white text-xl font-medium'>For Self-study</div>
               </DrawerBody>
               <DrawerFooter textColor={'white'} fontWeight={'medium'}>
                 TOP LANGUAGE CENTER

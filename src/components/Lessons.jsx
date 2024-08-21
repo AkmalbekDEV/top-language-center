@@ -1,28 +1,54 @@
 import React from 'react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
+import Movies from './Movies'
 
 const Lessons = () => {
     return (
-        <div className='grid gap-14 mt-16'>
-            <h1 className='font-medium text-5xl text-center'>For <span className='text-blue-700'>Self-study</span></h1>
-            <div className='flex items-center justify-evenly gap-10 overflow-x-scroll px-5'>
-                <div className='rounded-xl shadow-xl grid p-5 min-w-[48%] max-sm:min-w-[100%] mb-10 max-sm:mb-8'>
-                    <img src="https://miro.medium.com/v2/resize:fit:3840/1*3l_gNnYqeGpwNUoQEYGM9w.jpeg" alt="" />
-                    <div className='flex items-center justify-between'>
-                        <h1 className='text-3xl font-medium text-blue-700 mt-3'>Title</h1>
-                    </div>
-                </div>
-                <div className='rounded-xl shadow-xl grid p-5 min-w-[48%] max-sm:min-w-[100%] mb-10 max-sm:mb-8'>
-                    <img src="https://miro.medium.com/v2/resize:fit:3840/1*3l_gNnYqeGpwNUoQEYGM9w.jpeg" alt="" />
-                    <div className='flex items-center justify-between'>
-                        <h1 className='text-3xl font-medium text-blue-700 mt-3'>Title</h1>
-                    </div>
-                </div>
-                <div className='rounded-xl shadow-xl grid p-5 min-w-[48%] max-sm:min-w-[100%] mb-10 max-sm:mb-8'>
-                    <img src="https://miro.medium.com/v2/resize:fit:3840/1*3l_gNnYqeGpwNUoQEYGM9w.jpeg" alt="" />
-                    <div className='flex items-center justify-between'>
-                        <h1 className='text-3xl font-medium text-blue-700 mt-3'>Title</h1>
-                    </div>
-                </div>
+        <div className='max-w-[1250px] mx-auto'>
+            <div className='grid gap-14 mt-44'>
+                <h1 className='font-medium text-5xl text-center'>For <span className='text-blue-700'>Self-study</span></h1>
+                <Tabs variant='soft-rounded' colorScheme='blue'>
+                    <TabList display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                        <Tab fontSize={'25px'}>General</Tab>
+                        <Tab fontSize={'25px'}>Movies</Tab>
+                    </TabList>
+
+                    <TabPanels>
+                        <TabPanel marginTop={'5'}>
+                            <a href="https://t.me/completeieltsbookandaudios" target='_blank'>Audios and explainations are here</a>
+                            <div className='grid grid-cols-4 gap-5 mt-5'>
+                                <Link to={'https://drive.google.com/file/d/1zquYLiVrLJ2JRJRyuYpq5C9ySL7uz7ef/view?usp=drive_link'} className='border-2 p-5 rounded-xl hover:shadow-xl transition-all'>
+                                    <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724112000&semt=ais_hybrid" alt="" />
+                                    <h1 className='text-center text-xl mt-5'>Book 1</h1>
+                                </Link>
+                                <Link to={'https://drive.google.com/file/d/1YnZCO9bXSnvn70PIHEeLIMbhzQDrnXLl/view?usp=drive_link'} className='border-2 p-5 rounded-xl hover:shadow-xl transition-all'>
+                                    <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724112000&semt=ais_hybrid" alt="" />
+                                    <h1 className='text-center text-xl mt-5'>Book 2</h1>
+                                </Link>
+                                <Link to={'https://drive.google.com/file/d/1wEIDnkJKwrvH9StBcI3F4ZvRBJmmhewi/view?usp=drive_link'} className='border-2 p-5 rounded-xl hover:shadow-xl transition-all'>
+                                    <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724112000&semt=ais_hybrid" alt="" />
+                                    <h1 className='text-center text-xl mt-5'>Book 3</h1>
+                                </Link>
+                                <Link to={'https://drive.google.com/file/d/1twlUYpnTPdBd0HTflaiAqalim9Ob9OYM/view?usp=drive_link'} className='border-2 p-5 rounded-xl hover:shadow-xl transition-all'>
+                                    <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724112000&semt=ais_hybrid" alt="" />
+                                    <h1 className='text-center text-xl mt-5'>Book 4</h1>
+                                </Link>
+                            </div>
+                        </TabPanel>
+                        <TabPanel marginTop={'5'}>
+                            <a href="https://t.me/completeieltsbookandaudios" target='_blank'>Audios and explainations are here</a>
+                            <div className='grid grid-cols-4 gap-5 mt-5'>
+                                {Movies.map((item, index) => (
+                                    <Link key={index} to={item.link} className='border-2 p-5 rounded-xl hover:shadow-xl transition-all'>
+                                        <img className='rounded-xl' src={item.img} alt="" />
+                                        <h1 className='text-center text-xl mt-5'>{item.title}</h1>
+                                    </Link>
+                                ))}
+                            </div>
+                        </TabPanel>
+                    </TabPanels>
+                </Tabs>
             </div>
         </div>
     )

@@ -11,7 +11,7 @@ const Results = () => {
 
     const getData = async () => {
         try {
-            const res = await axios.get('https://a67474a4e6e67b1c.mokky.dev/results')
+            const res = await axios.get('https://a67474a4e6e67b1c.mokky.dev/results?sortBy=-score')
             setData(res.data)
         } catch (error) {
             console.log(error);
@@ -25,7 +25,7 @@ const Results = () => {
     return (
         <div className='max-w-[1250px] mx-auto'>
             <div className='mt-44 rounded-2xl shadow-2xl p-8 max-sm:p-3 max-sm:mx-5 border'>
-                <h1 className='font-medium text-4xl max-sm:mx-3 max-sm:text-3xl max-sm:mt-2 text-center mb-8'>Some of the results</h1>
+                <h1 className='font-medium text-4xl max-sm:mx-3 max-sm:text-3xl max-sm:mt-2 text-center mb-8'>Latest high results</h1>
                 <div className='grid grid-cols-3 max-sm:grid-cols-1 gap-5'>
                     {data.map((data, index) => (
                         <div key={index} className='grid gap-3 p-5 max-sm:p-5 w-auto border-2 rounded-xl grid-flow-row'>

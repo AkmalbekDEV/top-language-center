@@ -22,7 +22,6 @@ const Home = () => {
         </div>
       </div>
       <div id='contact' className='max-w-[1250px] mx-auto max-xl:px-10 max-sm:px-0'>
-        <Lessons />
         <Contact />
         <Social />
       </div>
