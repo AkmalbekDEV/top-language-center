@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from '../assets/logo.jpg'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, MenuButton, MenuList, MenuItem, Button, useDisclosure } from '@chakra-ui/react'
 import { BsArrowDown } from 'react-icons/bs'
 import ReactCountryFlag from 'react-country-flag'
@@ -24,6 +24,7 @@ const Navbar = () => {
   const navigate = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
+  const location = useLocation()
 
   const handleChangeLanguage = (lang) => {
     i18n.changeLanguage(lang)
@@ -31,13 +32,15 @@ const Navbar = () => {
 
   const handleClick1 = () => {
     navigate('/results')
-    onClose
   }
 
   const handleClick2 = () => {
     navigate('/self-study')
-    onClose
   }
+
+  useEffect(() => {
+    onClose();
+  }, [location.pathname])
 
   return (
     <section className='shadow-md fixed w-full top-0 left-0 z-50 bg-white'>
@@ -66,7 +69,7 @@ const Navbar = () => {
               <DrawerCloseButton color='white' />
               <DrawerHeader textColor={'white'}>Menu</DrawerHeader>
               <DrawerBody>
-                <div onClick={handleClick1} className='rounded-xl bg-none flex items-center justify-center w-full py-4 hover:bg-[#ffffff20] cursor-pointer transition-all text-white text-xl font-medium'>Some of the results</div>
+                <div onClick={handleClick1} className='rounded-xl bg-none flex items-center justify-center w-full py-4 hover:bg-[#ffffff20] cursor-pointer transition-all text-white text-xl font-medium'>Latest high results</div>
                 <div onClick={handleClick2} className='rounded-xl bg-none flex items-center justify-center w-full py-4 hover:bg-[#ffffff20] cursor-pointer transition-all text-white text-xl font-medium'>For Self-study</div>
               </DrawerBody>
               <DrawerFooter textColor={'white'} fontWeight={'medium'}>
