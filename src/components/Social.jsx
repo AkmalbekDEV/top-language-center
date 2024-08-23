@@ -8,7 +8,7 @@ const Social = () => {
     return (
         <div>
             <div className='grid gap-10 mt-20'>
-                <h1 className='text-5xl text-center font-bold'>We are in social medias</h1>
+                <h1 className='text-5xl text-center font-bold'>We are on social medias</h1>
                 <div className='flex items-center justify-center gap-10'>
                     <a href="https://instagram.com/shakhriyor_saparboev">
                         <BsInstagram size={80} color='blue' />
