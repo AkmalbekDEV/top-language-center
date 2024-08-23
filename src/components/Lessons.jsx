@@ -37,7 +37,6 @@ const Lessons = () => {
                             </div>
                         </TabPanel>
                         <TabPanel marginTop={'5'}>
-                            <a href="https://t.me/completeieltsbookandaudios" target='_blank'>Audios and explainations are here</a>
                             <div className='grid grid-cols-4 max-sm:grid-cols-2 gap-5 mt-5'>
                                 {Movies.map((item, index) => (
                                     <Link key={index} to={item.link} className='border-2 p-5 rounded-xl hover:shadow-xl transition-all'>
