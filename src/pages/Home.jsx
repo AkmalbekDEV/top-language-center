@@ -6,6 +6,8 @@ import Teachers from '../components/Teachers'
 import Contact from '../components/Contact'
 import Social from '../components/Social'
 import Lessons from '../components/Lessons'
+import Review from '../components/Review'
+import Comment from '../components/Comment'
 
 const Home = () => {
   return (
@@ -22,7 +24,9 @@ const Home = () => {
         </div>
       </div>
       <div id='contact' className='max-w-[1250px] mx-auto max-xl:px-10 max-sm:px-0'>
+        <Review />
         <Contact />
+        <Comment />
         <Social />
       </div>
     </div>
