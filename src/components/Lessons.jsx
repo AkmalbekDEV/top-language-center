@@ -16,7 +16,7 @@ const Lessons = () => {
 
                     <TabPanels>
                         <TabPanel marginTop={'5'}>
-                            <a href="https://t.me/completeieltsbookandaudios" target='_blank'>Audios and explainations are here</a>
+                            <a href="https://t.me/+TUdaKtA1YVw2MTYy" target='_blank'>Audios and explainations are here</a>
                             <div className='grid grid-cols-4 max-sm:grid-cols-2 gap-5 mt-5'>
                                 <Link to={'https://drive.google.com/file/d/1zquYLiVrLJ2JRJRyuYpq5C9ySL7uz7ef/view?usp=drive_link'} className='border-2 p-5 rounded-xl hover:shadow-xl transition-all'>
                                     <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724112000&semt=ais_hybrid" alt="" />
