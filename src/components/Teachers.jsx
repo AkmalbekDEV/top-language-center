@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ProductContext } from '../context/ProductContext'
 import { useTranslation } from 'react-i18next'
-import Shakhriyor from '../assets/shakhriyor.jpg'
+import Shakhriyor from '../assets/shakhriyor.png'
 import { Link } from 'react-router-dom'
 
 const Teachers = () => {
@@ -16,7 +16,7 @@ const Teachers = () => {
                         Since beginning my teaching journey in 2017, I have guided thousands of students to achieve their desired IELTS scores, with hundreds reaching the C1 level. My dedication, combined with my students' thirst for knowledge and a professional approach, has consistently produced remarkable results.
                     </h1>
                 </div>
-                <img src={Shakhriyor} className='w-[35%] max-sm:w-full rounded-2xl' alt="" />
+                <img src={Shakhriyor} className='w-[35%] h-[80%] object-cover max-sm:w-full rounded-2xl' alt="" />
             </div>
         </section>
     )
