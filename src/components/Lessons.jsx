@@ -34,6 +34,18 @@ const Lessons = () => {
                                     <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724112000&semt=ais_hybrid" alt="" />
                                     <h1 className='text-center text-xl max-sm:text-base mt-5'>Grammar B2</h1>
                                 </Link>
+                                <Link to={'https://drive.google.com/file/d/1VBqgnANIUrFk3xiJbukcsJCIy2Z43JR3/view?usp=drive_link'} className='border-2 p-5 rounded-xl hover:shadow-xl transition-all'>
+                                    <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724112000&semt=ais_hybrid" alt="" />
+                                    <h1 className='text-center text-xl max-sm:text-base mt-5'>Grammar For IELTS</h1>
+                                </Link>
+                                <Link to={'https://drive.google.com/file/d/1r41aF6Ry-kqOIADIgFRSKkLGOTxZmF7e/view?usp=drive_link'} className='border-2 p-5 rounded-xl hover:shadow-xl transition-all'>
+                                    <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724112000&semt=ais_hybrid" alt="" />
+                                    <h1 className='text-center text-xl max-sm:text-base mt-5'>MINDSET for IELTS 2 (Intermediate)</h1>
+                                </Link>
+                                <Link to={'https://drive.google.com/file/d/1EokZZsZWWPwVjCtZoe6Q_qr1PomeI61C/view?usp=drive_link'} className='border-2 p-5 rounded-xl hover:shadow-xl transition-all'>
+                                    <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724112000&semt=ais_hybrid" alt="" />
+                                    <h1 className='text-center text-xl max-sm:text-base mt-5'>MINDSET for IELTS 3 (Upper-Intermediate)</h1>
+                                </Link>
                             </div>
                         </TabPanel>
                         <TabPanel>
