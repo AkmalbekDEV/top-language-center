@@ -50,7 +50,7 @@ function App() {
         <div className="scroll-smooth text-blue-800">
           <Routes>
             <Route path="*" element={<MainLayoutRoutes />} />
-            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/login" element={<AdminLogin />} />
           </Routes>
         </div>
       ) : (
