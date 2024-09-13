@@ -13,6 +13,11 @@ const AdminPage = () => {
   const [type, setType] = useState("password");
   const [text, setText] = useState("show");
   const toast = useToast();
+  if (import.meta.env.PROD) {
+    console.log("Production mode");
+  } else {
+    console.log("Development mode");
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
