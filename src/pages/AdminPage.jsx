@@ -20,13 +20,15 @@ const AdminPage = () => {
     const hashedSecretKey = import.meta.env.VITE_APP_SECRET_KEY;
     const secretKey = new TextEncoder().encode(hashedSecretKey);
     console.log(password == correctPassword);
+    console.log(
+      "Given password" + password + " Real password:" + correctPassword
+    );
     const alg = "HS256";
     if (password === correctPassword) {
       const token = await new SignJWT({ role: "admin" })
         .setProtectedHeader({ alg })
         .setExpirationTime("2h")
         .sign(secretKey);
-
       console.log(token);
 
       localStorage.setItem("Token", token);
