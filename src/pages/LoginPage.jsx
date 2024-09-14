@@ -41,9 +41,6 @@ const LoginPage = () => {
     const correctPassword = import.meta.env.VITE_APP_ADMIN_PASSWORD;
     const hashedSecretKey = import.meta.env.VITE_APP_SECRET_KEY;
     const secretKey = new TextEncoder().encode(hashedSecretKey);
-    console.log(
-      "Given password: " + password + " Real password: " + correctPassword
-    );
     if (password === correctPassword) {
       const token = await new SignJWT({ role: "admin" })
         .setProtectedHeader({ alg: "HS256" })

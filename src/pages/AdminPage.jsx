@@ -11,7 +11,6 @@ const AdminRoute = () => {
       const token = localStorage.getItem("token");
       const refreshToken = localStorage.getItem("refreshToken");
       const secretKey = new TextEncoder().encode(import.meta.env.VITE_APP_SECRET_KEY);
-      console.log(secretKey);
       if (!token) {
         setIsAuthorized(false);
         return;
@@ -38,11 +37,8 @@ const AdminRoute = () => {
         }
       }
     };
-    console.log(isAuthorized);
     verifyToken();
-    console.log(isAuthorized);
   }, []);
-  console.log(isAuthorized);
   if (isAuthorized === null) {
     return <div>Loading...</div>;
   }
