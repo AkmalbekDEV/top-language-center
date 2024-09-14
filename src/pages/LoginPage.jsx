@@ -44,7 +44,7 @@ const LoginPage = () => {
     if (password === correctPassword) {
       const token = await new SignJWT({ role: "admin" })
         .setProtectedHeader({ alg: "HS256" })
-        .setExpirationTime("1h")
+        .setExpirationTime("1d")
         .sign(secretKey);
       const refreshToken = await new SignJWT({ role: "admin" })
         .setProtectedHeader({ alg: "HS256" })
