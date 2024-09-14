@@ -3,8 +3,10 @@ import Aos from "aos";
 import { useEffect, useState } from "react";
 import global_uz from "./translations/uz/global.json";
 import i18next from "i18next";
-import AdminLogin from "./pages/AdminPage";
 import MainLayoutRoutes from "./pages/MainLayoutRoutes";
+import GroupPage from "./pages/Groups";
+import LoginPage from "./pages/LoginPage";
+import AdminRoute from "./pages/AdminPage";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -50,7 +52,10 @@ function App() {
         <div className="scroll-smooth text-blue-800">
           <Routes>
             <Route path="*" element={<MainLayoutRoutes />} />
-            <Route path="/login" element={<AdminLogin />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route element={<AdminRoute />}>
+              <Route path="/groups" element={<GroupPage />} />
+            </Route>
           </Routes>
         </div>
       ) : (
