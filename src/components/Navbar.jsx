@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Logo from '../assets/logo.jpg'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Menu, MenuButton, MenuList, MenuItem, Button, useDisclosure } from '@chakra-ui/react'
-import { BsArrowDown } from 'react-icons/bs'
-import ReactCountryFlag from 'react-country-flag'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useDisclosure } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
-import { FaTimes } from 'react-icons/fa'
-import { CiMenuFries } from 'react-icons/ci'
 import { BiMenu } from 'react-icons/bi'
 import {
   Drawer,
@@ -20,7 +16,6 @@ import {
 
 const Navbar = () => {
   const [t, i18n] = useTranslation("global")
-  const [click, setClick] = useState(false)
   const navigate = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()

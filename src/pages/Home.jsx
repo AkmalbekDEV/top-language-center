@@ -1,11 +1,9 @@
 import React from "react";
 import Hero from "../components/Hero";
-import Amenities from "../components/About";
 import Courses from "../components/Courses";
 import Teachers from "../components/Teachers";
 import Contact from "../components/Contact";
 import Social from "../components/Social";
-import Lessons from "../components/Lessons";
 import Review from "../components/Review";
 import Comment from "../components/Comment";
 

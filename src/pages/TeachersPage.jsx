@@ -1,6 +1,4 @@
-import { useConst } from '@chakra-ui/react'
-import React, { useContext } from 'react'
-import { ProductContext } from '../context/ProductContext'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Begov from '../assets/begov.jpg'
 

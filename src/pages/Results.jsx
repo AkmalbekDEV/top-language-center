@@ -1,9 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { BiArrowToRight } from 'react-icons/bi'
 import { BsArrowRight } from 'react-icons/bs'
 import { CgNametag } from 'react-icons/cg'
-import { MdCreditScore, MdScore, MdSportsScore } from 'react-icons/md'
+import { MdScore } from 'react-icons/md'
 import { TiTime } from 'react-icons/ti'
 
 const Results = () => {

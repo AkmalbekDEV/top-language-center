@@ -1,21 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiUser } from 'react-icons/bi'
-import { BsArrowRight, BsDot, BsWatch } from 'react-icons/bs'
-import { GiPriceTag, GiTeacher } from 'react-icons/gi'
-import { TbTimeline } from 'react-icons/tb'
-import { useNavigate, useParams } from 'react-router-dom'
+import { BsArrowRight, BsWatch } from 'react-icons/bs'
+import { GiTeacher } from 'react-icons/gi'
+import { useParams } from 'react-router-dom'
 import {
-    Table,
-    Thead,
-    Tbody,
-    Tfoot,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-    TableContainer,
     useToast,
 } from '@chakra-ui/react'
 import { ImPriceTag } from 'react-icons/im'
@@ -26,7 +15,6 @@ const DynamicPage = () => {
     const [t, i18n] = useTranslation("global")
     const [data, setData] = useState([])
     const params = useParams()
-    const exit = useNavigate()
     const toast = useToast()
 
     const getData = async () => {

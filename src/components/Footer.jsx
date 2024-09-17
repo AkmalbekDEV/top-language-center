@@ -1,9 +1,6 @@
 import React from "react";
 import Logo from "../assets/logo.jpg";
-import { BsFacebook, BsInstagram, BsYoutube } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import WBS from "../assets/wbs.png";
 
 const Footer = () => {
   const [t, i18n] = useTranslation("global");

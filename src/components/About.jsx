@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { ProductContext } from '../context/ProductContext'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Amenities = () => {

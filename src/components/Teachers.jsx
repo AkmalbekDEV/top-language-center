@@ -1,8 +1,6 @@
-import React, { useContext } from 'react'
-import { ProductContext } from '../context/ProductContext'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Shakhriyor from '../assets/shakhriyor.png'
-import { Link } from 'react-router-dom'
 
 const Teachers = () => {
     const [t, i18n] = useTranslation("global")

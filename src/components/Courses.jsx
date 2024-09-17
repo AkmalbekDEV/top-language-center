@@ -1,11 +1,6 @@
 import React, { useContext } from 'react'
-import { Autoplay } from 'swiper/modules'
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { BiUser } from 'react-icons/bi';
 import { ProductContext } from '../context/ProductContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Courses = () => {
