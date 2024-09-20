@@ -10,7 +10,9 @@ const AdminRoute = () => {
     const verifyToken = async () => {
       const token = localStorage.getItem("token");
       const refreshToken = localStorage.getItem("refreshToken");
-      const secretKey = new TextEncoder().encode(import.meta.env.VITE_APP_SECRET_KEY);
+      const secretKey = new TextEncoder().encode(
+        import.meta.env.VITE_APP_SECRET_KEY
+      );
       if (!token) {
         setIsAuthorized(false);
         return;

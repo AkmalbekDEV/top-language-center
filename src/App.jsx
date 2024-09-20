@@ -7,6 +7,7 @@ import MainLayoutRoutes from "./pages/MainLayoutRoutes";
 import GroupPage from "./pages/Groups";
 import LoginPage from "./pages/LoginPage";
 import AdminRoute from "./pages/AdminPage";
+import StudentsPage from "./pages/StudentsPage";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -55,6 +56,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route element={<AdminRoute />}>
               <Route path="/groups" element={<GroupPage />} />
+              <Route path="/students" element={<StudentsPage />} />
             </Route>
           </Routes>
         </div>

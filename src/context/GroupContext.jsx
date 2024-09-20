@@ -1,5 +1,6 @@
-import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
+import { groupsListUrl } from "../utils/urls";
+import Axios from "../api";
 
 export const GroupContext = createContext();
 
@@ -8,11 +9,8 @@ const GroupProvider = ({ children }) => {
 
   const getData = async () => {
     try {
-      const response = await axios.get(
-        "https://237341f0875e23cd.mokky.dev/groups"
-      );
+      const response = await Axios.get(groupsListUrl);
       setState(response.data);
-      console.log("Adafsafds");
     } catch (error) {
       console.log(error);
     }
@@ -23,9 +21,7 @@ const GroupProvider = ({ children }) => {
   }, []);
 
   return (
-    <GroupContext.Provider value={{ state }}>
-      {children}
-    </GroupContext.Provider>
+    <GroupContext.Provider value={{ state }}>{children}</GroupContext.Provider>
   );
 };
 
