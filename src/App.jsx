@@ -56,7 +56,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route element={<AdminRoute />}>
               <Route path="/groups" element={<GroupPage />} />
-              <Route path="/students" element={<StudentsPage />} />
+              <Route path="/students/:groupId" element={<StudentsPage />} />
             </Route>
           </Routes>
         </div>

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { GroupContext } from "../context/GroupContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const GroupPage = () => {
   const navigate = useNavigate();
@@ -11,7 +11,6 @@ const GroupPage = () => {
     navigate("/login");
   };
   const { state } = useContext(GroupContext);
-  console.log(state);
   return (
     <div>
       <div className="flex items-center justify-center w-full h-screen">
@@ -31,7 +30,8 @@ const GroupPage = () => {
             <div className="grid grid-cols-3 justify-items-center gap-5 max-sm:grid-cols-2">
               {state.map((group) => {
                 return (
-                  <button
+                  <Link
+                    to={`/students/${group.id}`}
                     // onClick={() => navigate(`/${group.href}`)}
                     key={group.id}
                     className="cursor-pointer hover:bg-blue-700 hover:shadow-md hover:shadow-blue-600 transition-all px-5 py-3 max-sm:flex max-sm:justify-center rounded-xl bg-blue-600"
@@ -39,7 +39,7 @@ const GroupPage = () => {
                     <h1 className="text-lg font-medium text-white">
                       {group.name}
                     </h1>
-                  </button>
+                  </Link>
                 );
               })}
               <button className="cursor-pointer border-solid border-2 border-blue-600 px-5 py-3 max-sm:flex max-sm:justify-center rounded-xl bg-white">

@@ -17,39 +17,58 @@ import {
   AlertDialogFooter,
 } from "@chakra-ui/react";
 import { StudentContext } from "../context/StudentsContext";
+import { useParams } from "react-router-dom";
 
 const StudentsPage = () => {
-  const { state, error, loading, postData, fetchData, deleteData } = useContext(StudentContext);
-  const [inputData, setInputData] = useState({ name: '', type: "Unpaid", group_id: 1 });
+  const { state, error, loading, postData, fetchData, deleteData } =
+    useContext(StudentContext);
+  const { groupId } = useParams();
+  const [inputData, setInputData] = useState({
+    name: "",
+    type: "Unpaid",
+    group_id: groupId,
+  });
   const [isOpen, setIsOpen] = useState(false);
   const [studentIdToDelete, setStudentIdToDelete] = useState(null);
   const cancelRef = useRef();
 
-  const toast = useToast()
+  const toast = useToast();
   useEffect(() => {
-    fetchData()
-  }, [fetchData]);
+    fetchData(groupId);
+  }, [fetchData, groupId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await postData(inputData);
-    } catch (error) {
-      console.log("Big error:", error);
+    if (inputData.name.trim() !== "") {
+      try {
+        await postData(inputData);
+      } catch (error) {
+        console.log("Big error:", error);
+      }
+      toast({
+        position: "top",
+        duration: 5000,
+        isClosable: true,
+        status: "success",
+        title: "Added!",
+        description: "New student successfully added",
+      });
+    } else {
+      toast({
+        position: "top",
+        duration: 2000,
+        isClosable: true,
+        status: "error",
+        title: "Empty!",
+        description: "Input shouldn't be empty",
+      });
     }
-    toast({
-      position: "top",
-      duration: 5000,
-      isClosable: true,
-      status: "success",
-      title: "Added!",
-      description: "New student successfully added"
-  })
+    setInputData({ name: "" });
   };
 
   const handleDeleteClick = (id) => {
     setStudentIdToDelete(id);
-    setIsOpen(true)
+    setIsOpen(true);
   };
 
   const handleDeleteConfirm = async () => {
@@ -73,6 +92,7 @@ const StudentsPage = () => {
     <div className="max-w-[1250px] mx-auto mt-36 max-sm:px-5">
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
+      <h1>Group {groupId}</h1>
       <div className="flex items-center justify-center max-sm:justify-between max-sm:flex-col-reverse">
         <div className="flex items-center gap-3 max-sm:mb-5">
           <Popover className="bg-gray-200 z-50" closeOnEsc>
@@ -137,12 +157,15 @@ const StudentsPage = () => {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[5px] py-4">
                 <div className="flex justify-center gap-2">
-                    <Button className="px-5 py-1 rounded-xl bg-gray-200 text-blue-600 max-sm:mr-[5px]">
-                      Edit
-                    </Button>
-                    <Button className="px-5 py-1 rounded-xl bg-gray-200 text-blue-600 max-sm:mr-[5px]" onClick={() => handleDeleteClick(student.id)}>
-                      Delete
-                    </Button>
+                  <Button className="px-5 py-1 rounded-xl bg-gray-200 text-blue-600 max-sm:mr-[5px]">
+                    Edit
+                  </Button>
+                  <Button
+                    className="px-5 py-1 rounded-xl bg-gray-200 text-blue-600 max-sm:mr-[5px]"
+                    onClick={() => handleDeleteClick(student.id)}
+                  >
+                    Delete
+                  </Button>
                 </div>
               </td>
             </tr>
@@ -161,7 +184,8 @@ const StudentsPage = () => {
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure you want to delete this student? This action cannot be undone.
+              Are you sure you want to delete this student? This action cannot
+              be undone.
             </AlertDialogBody>
 
             <AlertDialogFooter>

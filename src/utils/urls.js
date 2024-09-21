@@ -16,6 +16,8 @@ export const groupDeleteUrl = (id) =>  `/category/${id}/`
 
 export const studentsListUrl = '/students'
 
+export const studentsListRelationUrl = (groupId) => `/students?_relations=groups&group_id=${groupId}`
+
 export const studentAddUrl = '/students'
 
 export const studentEditUrl = (id) => `/students/${id}/`
