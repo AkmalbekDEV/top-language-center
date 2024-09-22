@@ -8,7 +8,9 @@ export const groupsListUrl = '/groups'
 
 export const groupAddUrl = '/groups'
 
-export const groupDeleteUrl = (id) =>  `/category/${id}/`
+export const groupDeleteUrl = (id) =>  `/groups/${id}/`
+
+export const groupEditUrl = (id) =>  `/groups/${id}/`
 
 
 // Students

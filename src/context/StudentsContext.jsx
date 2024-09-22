@@ -1,59 +1,115 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import Axios from "../api";
 import {
   studentAddUrl,
   studentDeleteUrl,
+  studentEditUrl,
   studentsListRelationUrl,
 } from "../utils/urls";
 
 export const StudentContext = createContext();
 
 const StudentProvider = ({ children }) => {
-  const [state, setState] = useState([]);
+  const [state, setState] = useState({ students: [], groupName: "" });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
   const fetchData = useCallback(async (groupId) => {
+    setLoading(true);
+    setError(null);
     try {
-      await Axios.get(studentsListRelationUrl(groupId)).then((response) => {
-        const data = response.data;
-        const groupStudents = data.filter(
-          (student) => student.group.id.toString() === groupId
-        );
-        setState(groupStudents);
-      });
+      const response = await Axios.get(studentsListRelationUrl(groupId));
+      const data = response.data;
+      const groupStudents = data.filter(
+        (student) => student.group.id.toString() === groupId
+      );
+      if (groupStudents.length > 0) {
+        setState({
+          students: groupStudents,
+          groupName: groupStudents[0].group.name,
+        });
+      } else {
+        setState({
+          students: [],
+          groupName: "",
+        });
+      }
     } catch (err) {
-      console.log(err);
+      setError(err);
+      setState({
+        students: [],
+        groupName: "",
+      });
+    } finally {
+      setLoading(false);
     }
   }, []);
+
   const postData = async (body) => {
     setLoading(true);
     setError(null);
     try {
       const response = await Axios.post(studentAddUrl, body);
-      setState((prevData) => [...prevData, response.data]);
+      setState((prevState) => ({
+        ...prevState,
+        students: [...prevState.students, response.data],
+      }));
       console.log(response.data);
     } catch (error) {
       setError(error);
     } finally {
       setLoading(false);
     }
+    console.log(body);
   };
+
   const deleteData = async (id) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await Axios.delete(studentDeleteUrl(id));
-      setState(state.filter((student) => student.id !== id));
-      console.log(response.data);
+      await Axios.delete(studentDeleteUrl(id));
+      setState((prevState) => ({
+        ...prevState,
+        students: prevState.students.filter((student) => student.id !== id),
+      }));
+      console.log("Student deleted");
     } catch (error) {
       setError(error);
     } finally {
       setLoading(false);
     }
   };
+
+  const editStudent = async (body, id) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await Axios.patch(studentEditUrl(id), body);
+      const updatedStudent = response.data;
+      setState((prevState) => ({
+        ...prevState,
+        students: prevState.students.map((student) =>
+          student.id === id ? updatedStudent : student
+        ),
+      }));
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <StudentContext.Provider
-      value={{ state, error, loading, postData, fetchData, deleteData }}
+      value={{
+        state,
+        error,
+        loading,
+        postData,
+        fetchData,
+        deleteData,
+        editStudent,
+      }}
     >
       {children}
     </StudentContext.Provider>
