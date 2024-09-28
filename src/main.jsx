@@ -14,13 +14,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <I18nextProvider i18n={i18next}>
       <ProductProvider>
-        <GroupProvider>
-          <StudentProvider>
+        <StudentProvider>
+          <GroupProvider>
             <ChakraProvider>
               <App />
             </ChakraProvider>
-          </StudentProvider>
-        </GroupProvider>
+          </GroupProvider>
+        </StudentProvider>
       </ProductProvider>
     </I18nextProvider>
   </BrowserRouter>

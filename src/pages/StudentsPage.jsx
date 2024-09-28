@@ -15,10 +15,11 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { StudentContext } from "../context/StudentsContext";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const StudentsPage = () => {
   const {
@@ -32,6 +33,8 @@ const StudentsPage = () => {
   } = useContext(StudentContext);
   const { students, groupName } = state;
   const { groupId } = useParams();
+  const { isOpen: isOpenPopover1, onOpen: onOpenPopover1, onClose: onClosePopover1 } = useDisclosure();
+  const { isOpen: isOpenPopover2, onOpen: onOpenPopover2, onClose: onClosePopover2 } = useDisclosure();
   const [inputData, setInputData] = useState({
     id: null,
     name: "",
@@ -42,10 +45,10 @@ const StudentsPage = () => {
     id: null,
     name: "",
     type: "",
-    group_id: "",
+    group_id: groupId,
   });
-  const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  // const navigate = useNavigate(); 
+  const [isDelOpen, setIsDelOpen] = useState(false);
   const [studentIdToDelete, setStudentIdToDelete] = useState(null);
   const cancelRef = useRef();
 
@@ -54,27 +57,57 @@ const StudentsPage = () => {
   }, [fetchData, groupId]);
   const handleEdit = async (e) => {
     e.preventDefault();
+    if (editData.name.trim() === "") {
+      toast({
+        position: "top",
+        duration: 2000,
+        isClosable: true,
+        status: "error",
+        title: "Empty!",
+        description: "Input shouldn't be empty",
+      });
+      return;
+    }
     try {
       await editStudent(editData, editData.id);
-      setIsOpen(false);
-      setEditData({ id: null, name: "", type: "" });
+      toast({
+        position: "top",
+        duration: 5000,
+        isClosable: true,
+        status: "success",
+        title: "Edited!",
+        description: "The student successfully edited",
+      });
+      setEditData({
+        id: null,
+        name: "",
+        type: "",
+        group_id: groupId,
+      });
+      onClosePopover2();
     } catch (error) {
       console.log("Edit error: ", error);
     }
-    toast({
-      position: "top",
-      duration: 5000,
-      isClosable: true,
-      status: "success",
-      title: "Edited!",
-      description: "The student successfully edited",
-    });
   };
   const toast = useToast();
-  console.log("Students: ", students);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (inputData.name.trim() !== "") {
+    if (inputData.name.trim() === "") {
+      toast({
+        position: "top",
+        duration: 2000,
+        isClosable: true,
+        status: "error",
+        title: "Empty!",
+        description: "Input shouldn't be empty",
+      });
+      setInputData({
+        id: null,
+        name: "",
+        type: "Unpaid", // Set to the default value 
+        group_id: groupId,
+      });
+    } else {
       try {
         await postData(inputData);
       } catch (error) {
@@ -88,50 +121,52 @@ const StudentsPage = () => {
         title: "Added!",
         description: "New student successfully added",
       });
-    } else {
-      toast({
-        position: "top",
-        duration: 2000,
-        isClosable: true,
-        status: "error",
-        title: "Empty!",
-        description: "Input shouldn't be empty",
+
+      setInputData({
+        id: null,
+        name: "",
+        type: "Unpaid",
+        group_id: groupId,
       });
     }
-    setInputData({ name: "" });
+
+    onClosePopover1();
   };
   const handleEditChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
-  const handleToggle = () => {
-    if (inputData.type === "Unpaid") {
-      setInputData({ type: "Paid" });
-    } else {
-      setInputData({ type: "Unpaid" });
-    }
-  };
+  // const handleToggle = () => { 
+  //   if (inputData.type === "Unpaid") { 
+  //     setInputData({ type: "Paid" }); 
+  //   } else { 
+  //     setInputData({ type: "Unpaid" }); 
+  //   } 
+  // }; 
   const handleEditClick = (student) => {
-    setEditData({ id: student.id, name: student.name, type: student.type });
+    onOpenPopover2()
+    setEditData({ id: student.id, name: student.name, type: student.type, group_id: groupId });
   };
-  console.log(editData);
+  const handleEditPopoverButton = (student) => {
+    handleEditClick(student)
+    onOpenPopover2()
+  }
   const handleDeleteClick = (id) => {
     setStudentIdToDelete(id);
-    setIsOpen(true);
+    setIsDelOpen(true);
   };
 
   const handleDeleteConfirm = async () => {
     if (studentIdToDelete !== null) {
       await deleteData(studentIdToDelete);
-      setIsOpen(false);
+      setIsDelOpen(false);
       setStudentIdToDelete(null);
     }
   };
 
   const handleClose = () => {
-    setIsOpen(false);
+    setIsDelOpen(false);
     setStudentIdToDelete(null);
   };
-
   const handleChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
@@ -148,22 +183,29 @@ const StudentsPage = () => {
             >
               Back
             </Link>
-            <Popover className="bg-gray-200 z-50" closeOnEsc>
+            <Popover
+              className="bg-gray-200 z-50"
+              isOpen={isOpenPopover1}
+              onClose={onClosePopover1}
+            >
               <PopoverTrigger>
-                <Button className="px-5 py-1 rounded-xl bg-gray-200 text-blue-600 text-xl font-medium">
+                <Button
+                  onClick={onOpenPopover1}
+                  className="px-5 py-1 rounded-xl bg-gray-200 text-blue-600 text-xl font-medium"
+                >
                   Add student
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="bg-gray-200 rounded-xl p-5 z-50">
                 <PopoverArrow />
                 <PopoverHeader className="flex items-center justify-between border-b-2 border-black pb-2 mb-2">
-                  O'quvchi qo'shish
+                  O&apos;quvchi qo&apos;shish
                   <PopoverCloseButton />
                 </PopoverHeader>
                 <PopoverBody>
                   <form className="grid gap-2" onSubmit={handleSubmit}>
                     <h1 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-                      Student's Name
+                      Student&apos;s Name
                     </h1>
                     <input
                       name="name"
@@ -180,10 +222,13 @@ const StudentsPage = () => {
                       name="type"
                       value={inputData.type}
                       onChange={handleChange}
+                      required
                       className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
                     >
                       <option value="Paid">Paid</option>
-                      <option value="Unpaid">Unpaid</option>
+                      <option value="Unpaid">
+                        Unpaid
+                      </option>
                     </select>
                     <button className="text-center text-lg rounded-xl hover:shadow-md hover:shadow-blue-500 transition-all active:bg-blue-700 font-medium text-white px-5 py-2 mt-5 bg-blue-600">
                       Submit!
@@ -217,7 +262,7 @@ const StudentsPage = () => {
         </thead>
         <tbody>
           {students.map((student, index) => {
-            const uniqueId = `${index + 1}`;
+            const uniqueId = `${index + 1}`
             return (
               <tr
                 key={student.id}
@@ -230,19 +275,24 @@ const StudentsPage = () => {
                   {student?.name}
                 </td>
                 <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
-                  <span className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${student.type === "Paid" ? "bg-gradient-to-r from-green-200 to-green-300 text-green-800 border-green-400 hover:from-green-300 hover:to-green-400 hover:text-green-900" : "bg-gradient-to-r from-orange-200 to-orange-300 text-orange-800 border-orange-400 hover:from-orange-300 hover:to-orange-400 hover:text-orange-900"}`}>
+                  <span
+                    className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${student.type === "Paid"
+                      ? "bg-gradient-to-r from-green-200 to-green-300 text-green-800 border-green-400 hover:from-green-300 hover:to-green-400 hover:text-green-900"
+                      : "bg-gradient-to-r from-orange-200 to-orange-300 text-orange-800 border-orange-400 hover:from-orange-300 hover:to-orange-400 hover:text-orange-900"
+                      }`}
+                  >
                     {student?.type}
                   </span>
                 </td>
                 <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                   <div className="flex justify-center gap-2 max-sm:gap-0">
-                    <Popover className="bg-gray-200">
+                    <Popover className="bg-gray-200" isOpen={isOpenPopover2 && editData.id === student.id} onClose={onClosePopover2}>
                       <PopoverTrigger>
                         <Button
                           size={{ base: "xs", sm: "sm" }}
                           colorScheme="green"
                           className="max-sm:mr-[5px]"
-                          onClick={() => handleEditClick(student)}
+                          onClick={() => handleEditPopoverButton(student)}
                         >
                           <MdEdit />
                         </Button>
@@ -256,12 +306,12 @@ const StudentsPage = () => {
                         <PopoverBody>
                           <form className="grid gap-2" onSubmit={handleEdit}>
                             <h1 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-                              Student's Name
+                              Student&apos;s Name
                             </h1>
                             <input
                               name="name"
                               type="text"
-                              value={editData?.name}
+                              value={editData.name}
                               onChange={handleEditChange}
                               placeholder="O'quvchining ismi..."
                               className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
@@ -271,14 +321,15 @@ const StudentsPage = () => {
                             </h1>
                             <select
                               name="type"
-                              value={editData?.type}
+                              required
+                              value={editData.type}
                               onChange={handleEditChange}
                               className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
                             >
                               <option value="Paid">Paid</option>
                               <option value="Unpaid">Unpaid</option>
                             </select>
-                            <button className="text-center text-lg rounded-xl hover:shadow-md hover:shadow-blue-500 transition-all active:bg-blue-700 font-medium text-white px-5 py-2 mt-5 bg-blue-600">
+                            <button className="text-center text-lg rounded-xl hover:shadow-md hover:shadow-blue-500 transition-all active:bg-blue-700 font-medium text-white px-5 py-2 mt-5 bg-blue-600" onClick={onClosePopover2}>
                               Save
                             </button>
                           </form>
@@ -300,9 +351,10 @@ const StudentsPage = () => {
         </tbody>
       </table>
       <AlertDialog
-        isOpen={isOpen}
+        isOpen={isDelOpen}
         leastDestructiveRef={cancelRef}
         onClose={handleClose}
+        closeOnEsc
       >
         <AlertDialogOverlay>
           <AlertDialogContent>

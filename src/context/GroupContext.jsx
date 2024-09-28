@@ -1,54 +1,70 @@
-import React, { createContext, useCallback, useState } from "react";
-import { groupAddUrl, groupDeleteUrl, groupEditUrl, groupsListUrl } from "../utils/urls";
+import React, { createContext, useCallback, useContext, useState } from "react";
+import {
+  groupAddUrl,
+  groupDeleteUrl,
+  groupEditUrl,
+  groupsListUrl,
+} from "../utils/urls";
 import Axios from "../api";
+import { StudentContext } from "./StudentsContext";
 
 export const GroupContext = createContext();
 
 const GroupProvider = ({ children }) => {
   const [state, setState] = useState([]);
+  const { state: studentState, setState: setStudentState } = useContext(StudentContext); // Get the setState function from StudentContext
 
   const getData = useCallback(async () => {
     try {
       const response = await Axios.get(groupsListUrl);
       setState(response.data);
-      console.log(response.data)
     } catch (error) {
       console.log(error);
     }
   }, []);
   const postData = async (body) => {
     try {
-      const response = await Axios.post(groupAddUrl, body)
-      setState((prevData) => [...prevData, response.data])
-      console.log(response.data)
+      const response = await Axios.post(groupAddUrl, body);
+      setState((prevData) => [...prevData, response.data]);
+      console.log(response.data);
     } catch (err) {
-      throw err
+      throw err;
     }
-  }
+  };
   const deleteData = async (id) => {
     try {
-      const response = await Axios.delete(groupDeleteUrl(id))
-      setState(state.filter(student => student.id !== id))
-      console.log(response.data)
+      await Axios.delete(groupDeleteUrl(id));
+      setState((prevGroups) => prevGroups.filter((group) => group.id !== id));
+
+      // Clear students associated with the deleted group
+      setStudentState((prevState) => ({
+        ...prevState,
+        students: prevState.students.filter(
+          (student) => student.group.id !== id
+        ),
+      }));
+      console.log("The Group and its students deleted");
     } catch (err) {
-      throw err
+      throw err;
     }
-  }
+  };
   const editGroup = async (body, id) => {
     try {
       const response = await Axios.patch(groupEditUrl(id), body);
       const updatedGroup = response.data;
       setState((prevGroup) =>
-        prevGroup.map((group) =>
-          group.id === id ? updatedGroup : group
-        )
+        prevGroup.map((group) => (group.id === id ? updatedGroup : group))
       );
     } catch (err) {
       setError(err);
     }
   };
   return (
-    <GroupContext.Provider value={{ state, getData, postData, deleteData, editGroup }}>{children}</GroupContext.Provider>
+    <GroupContext.Provider
+      value={{ state, getData, postData, deleteData, editGroup }}
+    >
+      {children}
+    </GroupContext.Provider>
   );
 };
 

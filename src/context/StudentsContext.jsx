@@ -54,13 +54,11 @@ const StudentProvider = ({ children }) => {
         ...prevState,
         students: [...prevState.students, response.data],
       }));
-      console.log(response.data);
     } catch (error) {
       setError(error);
     } finally {
       setLoading(false);
     }
-    console.log(body);
   };
 
   const deleteData = async (id) => {
@@ -103,6 +101,7 @@ const StudentProvider = ({ children }) => {
     <StudentContext.Provider
       value={{
         state,
+        setState, // For group deleting purpose
         error,
         loading,
         postData,
