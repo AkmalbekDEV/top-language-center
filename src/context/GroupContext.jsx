@@ -4,6 +4,8 @@ import {
   groupDeleteUrl,
   groupEditUrl,
   groupsListUrl,
+  studentDeleteUrl,
+  studentsListRelationUrl,
 } from "../utils/urls";
 import Axios from "../api";
 import { StudentContext } from "./StudentsContext";
@@ -36,6 +38,15 @@ const GroupProvider = ({ children }) => {
       await Axios.delete(groupDeleteUrl(id));
       setState((prevGroups) => prevGroups.filter((group) => group.id !== id));
 
+      const studentResponse = await Axios.get(studentsListRelationUrl(id))
+      const students = studentResponse.data
+
+      // Delete each student associated with the deleted group
+      for (const student of students) {
+        await Axios.delete(studentDeleteUrl(student.id));
+        console.log(`Student with id ${student.id} deleted`);
+      }
+
       // Clear students associated with the deleted group
       setStudentState((prevState) => ({
         ...prevState,
@@ -43,6 +54,7 @@ const GroupProvider = ({ children }) => {
           (student) => student.group.id !== id
         ),
       }));
+
       console.log("The Group and its students deleted");
     } catch (err) {
       throw err;
