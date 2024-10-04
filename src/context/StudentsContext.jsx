@@ -10,7 +10,7 @@ import {
 export const StudentContext = createContext();
 
 const StudentProvider = ({ children }) => {
-  const [state, setState] = useState({ students: [], groupName: "" });
+  const [state, setState] = useState({ students: [], groupName: "", groupPassword: [] });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -27,6 +27,7 @@ const StudentProvider = ({ children }) => {
         setState({
           students: groupStudents,
           groupName: groupStudents[0].group.name,
+          groupPassword: groupStudents.map(student => ({ id: student.group.id, password: student.group.password })),
         });
       } else {
         setState({

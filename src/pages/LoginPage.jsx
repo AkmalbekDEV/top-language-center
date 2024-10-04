@@ -7,12 +7,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { SignJWT, jwtVerify } from "jose";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
   const [text, setText] = useState("show");
+  const [adminClick, setAdminClick] = useState(false)
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -35,6 +36,10 @@ const LoginPage = () => {
     };
     checkToken();
   }, [navigate]);
+
+  const handleAdminClick = () => {
+    setAdminClick(true)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,6 +80,8 @@ const LoginPage = () => {
   return (
     <div>
       <div className="flex items-center justify-evenly w-full h-screen max-w-[1250px] mx-auto max-sm:px-5">
+      {
+        adminClick ? 
         <form
           className="w-full flex items-center justify-center flex-col gap-5"
           onSubmit={handleSubmit}
@@ -101,6 +108,16 @@ const LoginPage = () => {
             Enter!
           </Button>
         </form>
+      :
+      <div className="grid gap-5">
+        <h1 className='text-4xl font-medium text-center text-blue-700'>Are you a Student or a Teacher?</h1>
+        <div className='flex items-center justify-center gap-5'>
+          <Link to="/forstudents" className='transition-all px-5 py-2 rounded-xl bg-blue-700 text-white hover:shadow-md hover:shadow-blue-600 active:bg-blue-800'>Student</Link>
+          <h1 className='text-2xl font-bold text-blue-700'>|</h1>
+          <button onClick={handleAdminClick} className='transition-all px-5 py-2 rounded-xl bg-blue-700 text-white hover:shadow-md hover:shadow-blue-600 active:bg-blue-800'>Teacher</button>
+        </div>
+      </div>
+      }
       </div>
     </div>
   );

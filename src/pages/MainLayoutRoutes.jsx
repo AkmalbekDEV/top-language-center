@@ -9,6 +9,7 @@ import TeachersPage from "./TeachersPage";
 import Results from "./Results";
 import Lessons from "../components/Lessons";
 import ErrorPage from "./ErrorPage";
+import ForStudentsPage from "../pages/ForStudentsPage";
 
 function MainLayoutRoutes() {
   return (
@@ -24,6 +25,7 @@ function MainLayoutRoutes() {
         <Route path="/results" element={<Results />} />
         <Route path="/self-study" element={<Lessons />} />
         <Route path="/item/:id" element={<DynamicPage />} />
+        <Route path="/forstudents" element={<ForStudentsPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <footer>

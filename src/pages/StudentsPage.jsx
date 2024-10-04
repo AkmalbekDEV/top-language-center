@@ -20,6 +20,7 @@ import {
 import { MdEdit, MdDelete } from "react-icons/md";
 import { StudentContext } from "../context/StudentsContext";
 import { Link, useParams } from "react-router-dom";
+import { GroupContext } from "../context/GroupContext";
 
 const StudentsPage = () => {
   const {
@@ -31,7 +32,11 @@ const StudentsPage = () => {
     deleteData,
     editStudent,
   } = useContext(StudentContext);
-  const { students, groupName } = state;
+  const {
+    editPassword
+  } = useContext(GroupContext)
+  const { students, groupName, groupPassword } = state;
+  
   const { groupId } = useParams();
   const { isOpen: isOpenPopover1, onOpen: onOpenPopover1, onClose: onClosePopover1 } = useDisclosure();
   const { isOpen: isOpenPopover2, onOpen: onOpenPopover2, onClose: onClosePopover2 } = useDisclosure();
@@ -47,7 +52,44 @@ const StudentsPage = () => {
     type: "",
     group_id: groupId,
   });
-  // const navigate = useNavigate(); 
+  const [editPswrd, setEditPswrd] = useState({ id: null, password: "" });
+
+  const handleEditPassword = (
+    async (e) => {
+      e.preventDefault();
+      try {
+        await editPassword(editPswrd, editPswrd.id);
+        setEditPswrd({ id: null, password: "" });
+        toast({
+          position: "top",
+          duration: 5000,
+          isClosable: true,
+          status: "success",
+          title: "Edited!",
+          description: "The password was successfully edited",
+        });
+      } catch (error) {
+        console.error("Edit error: ", error);
+        toast({
+          position: "top",
+          duration: 5000,
+          isClosable: true,
+          status: "error",
+          title: "Edit Failed",
+          description: "There was an error editing the password",
+        });
+      }
+    }
+  );
+
+  const handleEditPasswordChange = (e) => {
+    setEditPswrd((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  
+  const handleEditPasswordClick = (group) => {
+    setEditPswrd({ id: Number(group.id), password: group.password });
+  };
+  // const navigate = useNavigate();
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [studentIdToDelete, setStudentIdToDelete] = useState(null);
   const cancelRef = useRef();
@@ -241,6 +283,50 @@ const StudentsPage = () => {
           <div className="text-center">
             <h1 className="text-4xl font-medium">Group in {groupName}</h1>
           </div>
+          {
+            groupPassword[0]?.password && 
+            <div className="flex justify-end items-center gap-4">
+              <h1 className="text-xl font-medium">Password:</h1>
+              <Popover
+              className="bg-gray-200 z-50"
+            >
+              <PopoverTrigger>
+                <Button
+                  className="px-5 py-1 rounded-xl bg-gray-200 text-blue-600 text-xl font-medium"
+                  onClick={() => handleEditPasswordClick({id: +groupId, password: groupPassword[0]?.password
+                  })}
+                >
+                  {groupPassword[0]?.password}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="bg-gray-200 rounded-xl p-5 z-50">
+                <PopoverArrow />
+                <PopoverHeader className="flex items-center justify-between border-b-2 border-black pb-2 mb-2">
+                  Edit password
+                  <PopoverCloseButton />
+                </PopoverHeader>
+                <PopoverBody>
+                  <form className="grid gap-2" onSubmit={handleEditPassword}>
+                    <h1 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+                        Group&apos;s Password
+                      </h1>
+                      <input
+                        name="password"
+                        type="text"
+                        value={editPswrd.password}
+                        onChange={handleEditPasswordChange}
+                        placeholder="Enter password..."
+                        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+                      />
+                    <button className="text-center text-lg rounded-xl hover:shadow-md hover:shadow-blue-500 transition-all active:bg-blue-700 font-medium text-white px-5 py-2 mt-5 bg-blue-600">
+                      Submit!
+                    </button>
+                  </form>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+            </div>
+          }
         </div>
       </div>
       <table className="w-full text-center text-sm font-light mt-12 rounded-xl border-2 border-blue-500">

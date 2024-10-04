@@ -14,7 +14,7 @@ export const GroupContext = createContext();
 
 const GroupProvider = ({ children }) => {
   const [state, setState] = useState([]);
-  const { state: studentState, setState: setStudentState } = useContext(StudentContext); // Get the setState function from StudentContext
+  const { setState: setStudentState } = useContext(StudentContext); // Get the setState function from StudentContext
 
   const getData = useCallback(async () => {
     try {
@@ -24,6 +24,7 @@ const GroupProvider = ({ children }) => {
       console.log(error);
     }
   }, []);
+
   const postData = async (body) => {
     try {
       const response = await Axios.post(groupAddUrl, body);
@@ -33,6 +34,7 @@ const GroupProvider = ({ children }) => {
       throw err;
     }
   };
+
   const deleteData = async (id) => {
     try {
       await Axios.delete(groupDeleteUrl(id));
@@ -60,6 +62,7 @@ const GroupProvider = ({ children }) => {
       throw err;
     }
   };
+
   const editGroup = async (body, id) => {
     try {
       const response = await Axios.patch(groupEditUrl(id), body);
@@ -68,12 +71,24 @@ const GroupProvider = ({ children }) => {
         prevGroup.map((group) => (group.id === id ? updatedGroup : group))
       );
     } catch (err) {
-      setError(err);
+      throw err
     }
   };
+  
+  const editPassword = async (password, id) => {
+    try {
+      const response = await Axios.patch(groupEditUrl(+id), password)
+      const updatedPassword = response.data
+      setState((prevGroup) => 
+        prevGroup.map((group) => group.id === id ? updatedPassword : group)
+      )
+    } catch (err) {
+      throw err
+    }
+  }
   return (
     <GroupContext.Provider
-      value={{ state, getData, postData, deleteData, editGroup }}
+      value={{ state, getData, postData, deleteData, editGroup, editPassword }}
     >
       {children}
     </GroupContext.Provider>
