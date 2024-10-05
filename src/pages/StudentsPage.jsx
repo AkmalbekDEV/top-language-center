@@ -33,13 +33,16 @@ const StudentsPage = () => {
     editStudent,
   } = useContext(StudentContext);
   const {
-    editPassword
+    editPassword,
+    state: groups,
+    getData: getGroups
   } = useContext(GroupContext)
   const { students, groupName, groupPassword } = state;
   
   const { groupId } = useParams();
   const { isOpen: isOpenPopover1, onOpen: onOpenPopover1, onClose: onClosePopover1 } = useDisclosure();
   const { isOpen: isOpenPopover2, onOpen: onOpenPopover2, onClose: onClosePopover2 } = useDisclosure();
+  const { isOpen: isOpenPopover3, onOpen: onOpenPopover3, onClose: onClosePopover3 } = useDisclosure()
   const [inputData, setInputData] = useState({
     id: null,
     name: "",
@@ -53,11 +56,41 @@ const StudentsPage = () => {
     group_id: groupId,
   });
   const [editPswrd, setEditPswrd] = useState({ id: null, password: "" });
+  const toast = useToast();
 
-  const handleEditPassword = (
-    async (e) => {
+
+  console.log("Without ! ", groups.some(group => group.password === editPswrd.password))
+  console.log("With ! ", !groups.some(group => group.password === editPswrd.password))
+  console.log("Mapped: ", groups.map(group => group.password))
+
+  const handleEditPassword = async (e) => {
       e.preventDefault();
+      if(editPswrd.password.trim() === "") {
+        toast({
+          position: "top",
+          duration: 2000,
+          isClosable: true,
+          status: "error",
+          title: "Empty!",
+          description: "Input shouldn't be empty",
+        });
+        return;
+      }
       try {
+        // Checking if the new password is unique
+        const isUnique = !groups.some(group => group.password === editPswrd.password);
+        console.log(!groups.some(group => group.password === editPswrd.password))
+        if (!isUnique) {
+          toast({
+            position: "top",
+            duration: 5000,
+            isClosable: true,
+            status: "error",
+            title: "Duplicate Password",
+            description: "The password is already in use. Please choose a different one.",
+          });
+          return;
+        }
         await editPassword(editPswrd, editPswrd.id);
         setEditPswrd({ id: null, password: "" });
         toast({
@@ -68,6 +101,7 @@ const StudentsPage = () => {
           title: "Edited!",
           description: "The password was successfully edited",
         });
+        onClosePopover3()
       } catch (error) {
         console.error("Edit error: ", error);
         toast({
@@ -80,23 +114,25 @@ const StudentsPage = () => {
         });
       }
     }
-  );
-
+  
   const handleEditPasswordChange = (e) => {
     setEditPswrd((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   
   const handleEditPasswordClick = (group) => {
     setEditPswrd({ id: Number(group.id), password: group.password });
+    onOpenPopover3()
   };
   // const navigate = useNavigate();
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [studentIdToDelete, setStudentIdToDelete] = useState(null);
   const cancelRef = useRef();
-
+  
   useEffect(() => {
     fetchData(groupId);
-  }, [fetchData, groupId]);
+    getGroups()
+  }, [fetchData, groupId, getGroups]);
+
   const handleEdit = async (e) => {
     e.preventDefault();
     if (editData.name.trim() === "") {
@@ -131,7 +167,6 @@ const StudentsPage = () => {
       console.log("Edit error: ", error);
     }
   };
-  const toast = useToast();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (inputData.name.trim() === "") {
@@ -288,6 +323,8 @@ const StudentsPage = () => {
             <div className="flex justify-end items-center gap-4">
               <h1 className="text-xl font-medium">Password:</h1>
               <Popover
+              isOpen={isOpenPopover3}
+              onClose={onClosePopover3}
               className="bg-gray-200 z-50"
             >
               <PopoverTrigger>

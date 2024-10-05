@@ -173,11 +173,11 @@ const GroupPage = () => {
       state.map((group) => (
         <div
           key={group.id}
-          className="flex cursor-pointer hover:bg-blue-700 hover:shadow-md hover:shadow-blue-600 transition-all border-2 border-blue-600 max-sm:flex max-sm:justify-center rounded-xl bg-blue-600 max-[406px]:w-72 max-[406px]:justify-around"
+          className="flex cursor-pointer w-[290px] items-center justify-between hover:bg-blue-700 hover:shadow-md hover:shadow-blue-600 transition-all border-2 border-blue-600 max-[580px]:flex max-[580px]:justify-center rounded-xl bg-blue-600 max-[580px]:w-72 max-[580px]:justify-between"
         >
           <Link
             to={`/students/${group.id}`}
-            className="text-lg font-medium text-white py-5 pl-5 pr-4 max-md:pr-1.5 max-md:pl-2"
+            className="text-lg font-medium text-white py-5 pl-[10px] pr-[3px] max-md:pr-[3px] max-md:pl-2"
           >
             {group.name}
           </Link>
@@ -201,7 +201,7 @@ const GroupPage = () => {
                 <PopoverBody>
                   <form className="grid gap-2" onSubmit={handleEdit}>
                     <h1 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-                      Group's Name
+                      Group&apos;s Name
                     </h1>
                     <input
                       name="name"
@@ -252,7 +252,7 @@ const GroupPage = () => {
           <h1 className="text-5xl text-blue-600 text-center font-bold mt-16 mb-12 max-sm:text-4xl">
             Choose the group
           </h1>
-          <div className="grid justify-items-center content-center grid-cols-3 gap-5 max-md:grid-cols-2 max-[406px]:grid-cols-1">
+          <div className="grid justify-items-center content-center grid-cols-3 gap-5 max-md:grid-cols-1 max-lg:grid-cols-2">
             {groupItems}
             <Popover className="bg-gray-200 z-50" closeOnEsc>
               <PopoverTrigger>
@@ -274,7 +274,7 @@ const GroupPage = () => {
                 <PopoverBody>
                   <form className="grid gap-2" onSubmit={handleSubmit}>
                     <h1 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-                      Group's Name
+                      Group&apos;s Name
                     </h1>
                     <input
                       name="name"
