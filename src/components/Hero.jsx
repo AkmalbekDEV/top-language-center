@@ -1,9 +1,7 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import TypewriterComponent from 'typewriter-effect'
 
 const Hero = () => {
-    const [t, i18n] = useTranslation("global")
 
     return (
         <section id='home' className='flex items-center justify-center mt-44 max-sm:mb-[250px]'>

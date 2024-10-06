@@ -1,11 +1,9 @@
 import { useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 const Contact = () => {
     const [number, setNumber] = useState("")
-    const [t, i18n] = useTranslation("global")
     const toast = useToast()
 
     const handleData = (e) => {

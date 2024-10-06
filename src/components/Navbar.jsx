@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import Logo from '../assets/logo.jpg'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDisclosure } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next'
 import { BiMenu } from 'react-icons/bi'
 import {
   Drawer,
@@ -15,15 +14,10 @@ import {
 } from '@chakra-ui/react'
 
 const Navbar = () => {
-  const [t, i18n] = useTranslation("global")
   const navigate = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
   const location = useLocation()
-
-  const handleChangeLanguage = (lang) => {
-    i18n.changeLanguage(lang)
-  };
 
   const handleClick1 = () => {
     navigate('/results')

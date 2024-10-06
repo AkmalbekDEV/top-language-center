@@ -1,8 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Aos from "aos";
 import { useEffect, useState } from "react";
-import global_uz from "./translations/uz/global.json";
-import i18next from "i18next";
+// import global_uz from "./translations/uz/global.json";
 import MainLayoutRoutes from "./pages/MainLayoutRoutes";
 import GroupPage from "./pages/Groups";
 import LoginPage from "./pages/LoginPage";
@@ -37,15 +36,15 @@ function App() {
     });
   }, []);
 
-  i18next.init({
-    interpolation: { escapeValue: false },
-    lng: "uz",
-    resources: {
-      uz: {
-        global: global_uz,
-      },
-    },
-  });
+  // i18next.init({
+  //   interpolation: { escapeValue: false },
+  //   lng: "uz",
+  //   resources: {
+  //     uz: {
+  //       global: global_uz,
+  //     },
+  //   },
+  // });
 
   return (
     <>

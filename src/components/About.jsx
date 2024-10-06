@@ -1,8 +1,6 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 const Amenities = () => {
-    const [t, i18n] = useTranslation("global")
 
     return (
         <section className='grid gap-5 pb-16'>

@@ -1,9 +1,7 @@
 import React from "react";
 import Logo from "../assets/logo.jpg";
-import { useTranslation } from "react-i18next";
 
 const Footer = () => {
-  const [t, i18n] = useTranslation("global");
 
   return (
     <div className="border-t-2 pt-14 pb-10 mt-20">

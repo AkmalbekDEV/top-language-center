@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { BsArrowRight, BsWatch } from "react-icons/bs";
 import { GiTeacher } from "react-icons/gi";
 import { useParams } from "react-router-dom";
@@ -10,7 +9,6 @@ import { ImPriceTag } from "react-icons/im";
 const DynamicPage = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const [t, i18n] = useTranslation("global");
   const [data, setData] = useState([]);
   const params = useParams();
   const toast = useToast();

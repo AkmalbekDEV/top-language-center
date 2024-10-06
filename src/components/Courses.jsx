@@ -1,11 +1,9 @@
 import React, { useContext } from 'react'
 import { ProductContext } from '../context/ProductContext';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 const Courses = () => {
     const { state } = useContext(ProductContext)
-    const [t, i18n] = useTranslation("global")
 
     return (
         <section className='py-5'>

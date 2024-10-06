@@ -1,9 +1,7 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import Begov from '../assets/begov.jpg'
 
 const TeachersPage = () => {
-    const [t, i18n] = useTranslation("global")
 
     return (
         <div className='max-w-[1250px] mx-auto'>

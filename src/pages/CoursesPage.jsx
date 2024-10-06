@@ -3,12 +3,10 @@ import { ProductContext } from '../context/ProductContext'
 import { GiPriceTag, GiTeacher } from 'react-icons/gi'
 import { BsWatch } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 
 const CoursesPage = () => {
   const { state } = useContext(ProductContext)
   const navigate = useNavigate()
-  const [t, i18n] = useTranslation("global")
 
   return (
     <div className='max-w-[1250px] mx-auto mt-40'>
