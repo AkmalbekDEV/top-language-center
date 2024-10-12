@@ -7,17 +7,20 @@ import ProductProvider from "./context/ProductContext.jsx";
 import GroupProvider from "./context/GroupContext.jsx";
 import StudentProvider from "./context/StudentsContext.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
+import JournalProvider from "./context/journals/JournalContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-      <ProductProvider>
-        <StudentProvider>
+    <ProductProvider>
+      <StudentProvider>
+        <JournalProvider>
           <GroupProvider>
             <ChakraProvider>
               <App />
             </ChakraProvider>
           </GroupProvider>
-        </StudentProvider>
-      </ProductProvider>
+        </JournalProvider>
+      </StudentProvider>
+    </ProductProvider>
   </BrowserRouter>
 );

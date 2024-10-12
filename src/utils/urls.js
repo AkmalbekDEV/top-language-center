@@ -25,3 +25,10 @@ export const studentAddUrl = '/students'
 export const studentEditUrl = (id) => `/students/${id}/`
 
 export const studentDeleteUrl = (id) => `/students/${id}/`
+
+
+// Journals
+
+export const journalsListUrl = ["/standard_journal", "/advanced_journal", "/top_journal"]
+
+export const journalRelationUrl = (course_type, groupId) => `${journalsListUrl[course_type]}?_relations=groups&group_id=${groupId}`

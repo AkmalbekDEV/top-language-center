@@ -1,7 +1,7 @@
 import { jwtVerify } from "jose";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import refreshAuthToken from "../utils/refreshAuthToken";
+import refreshAuthToken from "../../utils/refreshAuthToken";
 
 const AdminRoute = () => {
   const [isAuthorized, setIsAuthorized] = useState(null);
@@ -19,7 +19,7 @@ const AdminRoute = () => {
       }
       try {
         const { payload } = await jwtVerify(token, secretKey);
-        if (payload.role !== "admin") {
+        if (payload.role !== "admin" && payload.role !== "student") {
           setIsAuthorized(false);
           return;
         }

@@ -6,6 +6,7 @@ import {
   studentEditUrl,
   studentsListRelationUrl,
 } from "../utils/urls";
+import PropTypes from "prop-types";
 
 export const StudentContext = createContext();
 
@@ -115,5 +116,9 @@ const StudentProvider = ({ children }) => {
     </StudentContext.Provider>
   );
 };
+
+StudentProvider.propTypes = {
+  children: PropTypes.node.isRequired
+}
 
 export default StudentProvider;

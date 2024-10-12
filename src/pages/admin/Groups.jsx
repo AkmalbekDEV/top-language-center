@@ -1,4 +1,4 @@
-import React, {
+import {
   useContext,
   useEffect,
   useRef,
@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useCallback
 } from "react";
-import { GroupContext } from "../context/GroupContext";
+import { GroupContext } from "../../context/GroupContext";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useToast,
@@ -20,7 +20,7 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import { MdDelete, MdEdit } from "react-icons/md";
-import PopoverComponent from "../components/ui/Popover";
+import PopoverComponent from "../../components/ui/Popover";
 
 const GroupPage = () => {
   const navigate = useNavigate();
@@ -194,13 +194,12 @@ const GroupPage = () => {
   useEffect(() => {
     getData();
   }, [getData]);
-  console.log(editData)
   const groupItems = useMemo(
     () =>
       state.map((group) => (
         <div
           key={group.id}
-          className="flex cursor-pointer w-[290px] items-center justify-between hover:bg-blue-700 hover:shadow-md hover:shadow-blue-600 transition-all border-2 border-blue-600 max-[580px]:flex max-[580px]:justify-center rounded-xl bg-blue-600 max-[580px]:w-72 max-[580px]:justify-between"
+          className="flex cursor-pointer w-[290px] items-center justify-between hover:bg-blue-700 hover:shadow-md hover:shadow-blue-600 transition-all border-2 border-blue-600 max-[580px]:flex rounded-xl bg-blue-600 max-[580px]:w-72 max-[580px]:justify-between"
         >
           <Link
             to={`/students/${group.id}`}

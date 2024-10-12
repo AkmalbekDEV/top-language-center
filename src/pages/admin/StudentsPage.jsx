@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   Popover,
   PopoverTrigger,
@@ -18,10 +18,10 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import { MdEdit, MdDelete } from "react-icons/md";
-import { StudentContext } from "../context/StudentsContext";
+import { StudentContext } from "../../context/StudentsContext";
 import { Link, useParams } from "react-router-dom";
-import { GroupContext } from "../context/GroupContext";
-import PopoverComponent from "../components/ui/Popover";
+import { GroupContext } from "../../context/GroupContext";
+import PopoverComponent from "../../components/ui/Popover";
 
 const StudentsPage = () => {
   const {
@@ -39,7 +39,7 @@ const StudentsPage = () => {
     getData: getGroups
   } = useContext(GroupContext);
   const { students, groupName, groupPassword } = state;
-
+  
   const { groupId } = useParams();
   const {
     isOpen: isOpenPopover1,
@@ -72,7 +72,6 @@ const StudentsPage = () => {
   });
   const [editPswrd, setEditPswrd] = useState({ id: null, password: "" });
   const toast = useToast();
-  console.log(groupPassword);
   // console.log(
   //   "Without ! ",
   //   groups.some((group) => group.password === editPswrd.password)
@@ -155,7 +154,6 @@ const StudentsPage = () => {
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [studentIdToDelete, setStudentIdToDelete] = useState(null);
   const cancelRef = useRef();
-
   useEffect(() => {
     fetchData(groupId);
     getGroups();
@@ -240,6 +238,7 @@ const StudentsPage = () => {
 
     onClosePopover1();
   };
+
   const handleEditChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
@@ -284,7 +283,6 @@ const StudentsPage = () => {
   const handleChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
-  console.log(editData);
   return (
     <div>
       <marquee className="bg-black text-white">
@@ -301,6 +299,9 @@ const StudentsPage = () => {
                 to="/groups"
               >
                 Back
+              </Link>
+              <Link className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]" to={`/students/journals/${groupId}`}>
+                Journals
               </Link>
               <PopoverComponent
                 trigger={
@@ -452,22 +453,20 @@ const StudentsPage = () => {
                   </td>
                   <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                     <span
-                      className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${
-                        student.first_month === "true"
-                          ? "bg-gradient-to-r from-green-200 to-green-300 text-green-800 border-green-400 hover:from-green-300 hover:to-green-400 hover:text-green-900"
-                          : "bg-gradient-to-r from-orange-200 to-orange-300 text-orange-800 border-orange-400 hover:from-orange-300 hover:to-orange-400 hover:text-orange-900"
-                      }`}
+                      className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${student.first_month === "true"
+                        ? "bg-gradient-to-r from-green-200 to-green-300 text-green-800 border-green-400 hover:from-green-300 hover:to-green-400 hover:text-green-900"
+                        : "bg-gradient-to-r from-orange-200 to-orange-300 text-orange-800 border-orange-400 hover:from-orange-300 hover:to-orange-400 hover:text-orange-900"
+                        }`}
                     >
                       {student?.first_month === "true" ? "Paid" : "Unpaid"}
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                     <span
-                      className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${
-                        student.second_month === "true"
-                          ? "bg-gradient-to-r from-green-200 to-green-300 text-green-800 border-green-400 hover:from-green-300 hover:to-green-400 hover:text-green-900"
-                          : "bg-gradient-to-r from-orange-200 to-orange-300 text-orange-800 border-orange-400 hover:from-orange-300 hover:to-orange-400 hover:text-orange-900"
-                      }`}
+                      className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${student.second_month === "true"
+                        ? "bg-gradient-to-r from-green-200 to-green-300 text-green-800 border-green-400 hover:from-green-300 hover:to-green-400 hover:text-green-900"
+                        : "bg-gradient-to-r from-orange-200 to-orange-300 text-orange-800 border-orange-400 hover:from-orange-300 hover:to-orange-400 hover:text-orange-900"
+                        }`}
                     >
                       {student?.second_month === "true" ? "Paid" : "Unpaid"}
                     </span>

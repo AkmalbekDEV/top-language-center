@@ -29,9 +29,8 @@ const GroupProvider = ({ children }) => {
     try {
       const response = await Axios.post(groupAddUrl, body);
       setState((prevData) => [...prevData, response.data]);
-      console.log(response.data);
     } catch (err) {
-      throw err;
+      console.log(err);
     }
   };
 
@@ -59,7 +58,7 @@ const GroupProvider = ({ children }) => {
 
       console.log("The Group and its students deleted");
     } catch (err) {
-      throw err;
+      console.log(err);
     }
   };
 
@@ -71,7 +70,7 @@ const GroupProvider = ({ children }) => {
         prevGroup.map((group) => (group.id === id ? updatedGroup : group))
       );
     } catch (err) {
-      throw err
+      console.log(err)
     }
   };
   
@@ -83,7 +82,7 @@ const GroupProvider = ({ children }) => {
         prevGroup.map((group) => group.id === id ? updatedPassword : group)
       )
     } catch (err) {
-      throw err
+      console.log(err)
     }
   }
   return (

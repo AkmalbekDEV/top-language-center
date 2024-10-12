@@ -9,7 +9,7 @@ import TeachersPage from "./TeachersPage";
 import Results from "./Results";
 import Lessons from "../components/Lessons";
 import ErrorPage from "./ErrorPage";
-import GroupsForStudents from "./GroupsForStudents";
+import GroupsForStudents from "./student/GroupsForStudents";
 
 function MainLayoutRoutes() {
   return (
