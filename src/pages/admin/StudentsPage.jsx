@@ -15,13 +15,14 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { StudentContext } from "../../context/StudentsContext";
 import { Link, useParams } from "react-router-dom";
 import { GroupContext } from "../../context/GroupContext";
 import PopoverComponent from "../../components/ui/Popover";
+import { JournalContext } from "../../context/journals/JournalContext";
 
 const StudentsPage = () => {
   const {
@@ -31,44 +32,43 @@ const StudentsPage = () => {
     postData,
     fetchData,
     deleteData,
-    editStudent
+    editStudent,
   } = useContext(StudentContext);
   const {
     editPassword,
     state: groups,
-    getData: getGroups
+    getData: getGroups,
   } = useContext(GroupContext);
   const { students, groupName, groupPassword } = state;
-  
   const { groupId } = useParams();
   const {
     isOpen: isOpenPopover1,
     onOpen: onOpenPopover1,
-    onClose: onClosePopover1
+    onClose: onClosePopover1,
   } = useDisclosure();
   const {
     isOpen: isOpenPopover2,
     onOpen: onOpenPopover2,
-    onClose: onClosePopover2
+    onClose: onClosePopover2,
   } = useDisclosure();
   const {
     isOpen: isOpenPopover3,
     onOpen: onOpenPopover3,
-    onClose: onClosePopover3
+    onClose: onClosePopover3,
   } = useDisclosure();
   const [inputData, setInputData] = useState({
     id: null,
     name: "",
     first_month: "false",
     second_month: "false",
-    group_id: groupId
+    group_id: groupId,
   });
   const [editData, setEditData] = useState({
     id: null,
     name: "",
     first_month: "",
     second_month: "",
-    group_id: groupId
+    group_id: groupId,
   });
   const [editPswrd, setEditPswrd] = useState({ id: null, password: "" });
   const toast = useToast();
@@ -94,7 +94,7 @@ const StudentsPage = () => {
         isClosable: true,
         status: "error",
         title: "Empty!",
-        description: "Input shouldn't be empty"
+        description: "Input shouldn't be empty",
       });
       return;
     }
@@ -114,7 +114,7 @@ const StudentsPage = () => {
           status: "error",
           title: "Duplicate Password",
           description:
-            "The password is already in use. Please choose a different one."
+            "The password is already in use. Please choose a different one.",
         });
         return;
       }
@@ -126,7 +126,7 @@ const StudentsPage = () => {
         isClosable: true,
         status: "success",
         title: "Edited!",
-        description: "The password was successfully edited"
+        description: "The password was successfully edited",
       });
       onClosePopover3();
     } catch (error) {
@@ -137,7 +137,7 @@ const StudentsPage = () => {
         isClosable: true,
         status: "error",
         title: "Edit Failed",
-        description: "There was an error editing the password"
+        description: "There was an error editing the password",
       });
     }
   };
@@ -154,10 +154,11 @@ const StudentsPage = () => {
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [studentIdToDelete, setStudentIdToDelete] = useState(null);
   const cancelRef = useRef();
-  useEffect(() => {
-    fetchData(groupId);
-    getGroups();
-  }, [fetchData, groupId, getGroups]);
+
+useEffect(() => {
+  fetchData(groupId);
+  getGroups();
+}, [fetchData, groupId, getGroups]);
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -168,7 +169,7 @@ const StudentsPage = () => {
         isClosable: true,
         status: "error",
         title: "Empty!",
-        description: "Input shouldn't be empty"
+        description: "Input shouldn't be empty",
       });
       return;
     }
@@ -180,14 +181,14 @@ const StudentsPage = () => {
         isClosable: true,
         status: "success",
         title: "Edited!",
-        description: "The student successfully edited"
+        description: "The student successfully edited",
       });
       setEditData({
         id: null,
         name: "",
         first_month: "",
         second_month: "",
-        group_id: groupId
+        group_id: groupId,
       });
       onClosePopover2();
     } catch (error) {
@@ -203,14 +204,14 @@ const StudentsPage = () => {
         isClosable: true,
         status: "error",
         title: "Empty!",
-        description: "Input shouldn't be empty"
+        description: "Input shouldn't be empty",
       });
       setInputData({
         id: null,
         name: "",
         first_month: "false", // Set to the default value
         second_month: "false",
-        group_id: groupId
+        group_id: groupId,
       });
     } else {
       try {
@@ -224,7 +225,7 @@ const StudentsPage = () => {
         isClosable: true,
         status: "success",
         title: "Added!",
-        description: "New student successfully added"
+        description: "New student successfully added",
       });
 
       setInputData({
@@ -232,7 +233,7 @@ const StudentsPage = () => {
         name: "",
         first_month: "false",
         second_month: "false",
-        group_id: groupId
+        group_id: groupId,
       });
     }
 
@@ -256,7 +257,7 @@ const StudentsPage = () => {
       name: student.name,
       first_month: student.first_month,
       second_month: student.second_month,
-      group_id: groupId
+      group_id: groupId,
     });
   };
   const handleEditPopoverButton = (student) => {
@@ -300,7 +301,10 @@ const StudentsPage = () => {
               >
                 Back
               </Link>
-              <Link className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]" to={`/students/journals/${groupId}`}>
+              <Link
+                className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
+                to={`/students/journals/${students[0]?.group?.type.toLowerCase()}/${groupId}`}
+              >
                 Journals
               </Link>
               <PopoverComponent
@@ -377,7 +381,7 @@ const StudentsPage = () => {
                       onClick={() =>
                         handleEditPasswordClick({
                           id: +groupId,
-                          password: groupPassword[0]?.password
+                          password: groupPassword[0]?.password,
                         })
                       }
                     >
@@ -453,20 +457,22 @@ const StudentsPage = () => {
                   </td>
                   <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                     <span
-                      className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${student.first_month === "true"
-                        ? "bg-gradient-to-r from-green-200 to-green-300 text-green-800 border-green-400 hover:from-green-300 hover:to-green-400 hover:text-green-900"
-                        : "bg-gradient-to-r from-orange-200 to-orange-300 text-orange-800 border-orange-400 hover:from-orange-300 hover:to-orange-400 hover:text-orange-900"
-                        }`}
+                      className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${
+                        student.first_month === "true"
+                          ? "bg-gradient-to-r from-green-200 to-green-300 text-green-800 border-green-400 hover:from-green-300 hover:to-green-400 hover:text-green-900"
+                          : "bg-gradient-to-r from-orange-200 to-orange-300 text-orange-800 border-orange-400 hover:from-orange-300 hover:to-orange-400 hover:text-orange-900"
+                      }`}
                     >
                       {student?.first_month === "true" ? "Paid" : "Unpaid"}
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                     <span
-                      className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${student.second_month === "true"
-                        ? "bg-gradient-to-r from-green-200 to-green-300 text-green-800 border-green-400 hover:from-green-300 hover:to-green-400 hover:text-green-900"
-                        : "bg-gradient-to-r from-orange-200 to-orange-300 text-orange-800 border-orange-400 hover:from-orange-300 hover:to-orange-400 hover:text-orange-900"
-                        }`}
+                      className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${
+                        student.second_month === "true"
+                          ? "bg-gradient-to-r from-green-200 to-green-300 text-green-800 border-green-400 hover:from-green-300 hover:to-green-400 hover:text-green-900"
+                          : "bg-gradient-to-r from-orange-200 to-orange-300 text-orange-800 border-orange-400 hover:from-orange-300 hover:to-orange-400 hover:text-orange-900"
+                      }`}
                     >
                       {student?.second_month === "true" ? "Paid" : "Unpaid"}
                     </span>

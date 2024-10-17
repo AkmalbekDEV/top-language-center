@@ -1,61 +1,77 @@
-import { createContext, useCallback, useState } from "react"
-import Axios from "../../api"
-import { journalRelationUrl } from "../../utils/urls"
-import PropTypes from "prop-types"
+import { createContext, useCallback, useState } from "react";
+import Axios from "../../api";
+import { journalRelationUrl, weeksListUrl } from "../../utils/urls";
+import PropTypes from "prop-types";
 
-export const JournalContext = createContext()
+export const JournalContext = createContext();
 
 const JournalProvider = ({ children }) => {
-
-  const [journal, setJournal] = useState([])
+  const [journal, setJournal] = useState([]);
+  const [week, setWeek] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const getJournals = useCallback(async (journalType, groupId) => {
-    setLoading(true)
-    setError(null)
+    setLoading(true);
+    setError(null);
     try {
-      const response = await Axios.get(journalRelationUrl(journalType, groupId))
-      const data = response.data
+      const response = await Axios.get(
+        journalRelationUrl(journalType, groupId)
+      );
+      const data = response.data;
 
       const groupJournals = data.filter(
         (journal) => journal.group.id.toString() === groupId
-      )
-      if(groupJournals.length > 0) {
+      );
+      if (groupJournals.length > 0) {
         setJournal({
           journals: groupJournals,
+          groups: groupJournals[0].group,
           groupName: groupJournals[0].group.name,
-        })
-      }
-      else {
+        });
+      } else {
         setJournal({
           journals: [],
-          groupName: ""
-        })
+          groups: groupJournals[0].group,
+          groupName: "",
+        });
       }
-    }
-    catch (err) {
-      setError(err)
+    } catch (err) {
+      setError(err);
       setJournal({
         journals: [],
-        groupName: ""
-      })
+        groups: groupJournals[0].group,
+        groupName: "",
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [])
+  }, []);
+
+  const getWeeks = useCallback(async (weekType) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await Axios.get(weeksListUrl[weekType]);
+      setWeek(response.data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   return (
     <JournalContext.Provider
-      value={{ journal, loading, error, getJournals }}
+      value={{ journal, week, loading, error, getJournals, getWeeks }}
     >
       {children}
     </JournalContext.Provider>
-  )
-}
+  );
+};
 
 JournalProvider.propTypes = {
-  children: PropTypes.node.isRequired
-}
+  children: PropTypes.node.isRequired,
+};
 
-export default JournalProvider
+export default JournalProvider;

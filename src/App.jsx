@@ -14,7 +14,7 @@ import JournalPage from "./pages/admin/JournalPage";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-  const { state, getData } = useContext(GroupContext)
+  const { state, getData } = useContext(GroupContext);
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
@@ -44,7 +44,7 @@ function App() {
   useEffect(() => {
     getData();
   }, [getData]);
-  
+
   // i18next.init({
   //   interpolation: { escapeValue: false },
   //   lng: "uz",
@@ -62,12 +62,21 @@ function App() {
           <Routes>
             <Route path="*" element={<MainLayoutRoutes />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/student-login" element={<StudentLogin groups={state} />} />
+            <Route
+              path="/student-login"
+              element={<StudentLogin groups={state} />}
+            />
             <Route element={<AdminRoute />}>
-              <Route path="/student-groups/:id" element={<GroupsForStudents groups={state} />} />
+              <Route
+                path="/student-groups/:id"
+                element={<GroupsForStudents groups={state} />}
+              />
               <Route path="/groups" element={<GroupPage />} />
               <Route path="/students/:groupId" element={<StudentsPage />} />
-              <Route path="/students/journals/:id" element={<JournalPage />} />
+              <Route
+                path="/students/journals/:groupType/:id"
+                element={<JournalPage />}
+              />
             </Route>
           </Routes>
         </div>
