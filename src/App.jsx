@@ -10,6 +10,7 @@ import StudentsPage from "./pages/admin/StudentsPage";
 import StudentLogin from "./pages/student/StudentsLoginPage";
 import { GroupContext } from "./context/GroupContext";
 import GroupsForStudents from "./pages/student/GroupsForStudents";
+import JournalWeeks from "./pages/admin/JournalWeeks";
 import JournalPage from "./pages/admin/JournalPage";
 
 function App() {
@@ -75,7 +76,11 @@ function App() {
               <Route path="/students/:groupId" element={<StudentsPage />} />
               <Route
                 path="/students/journals/:groupType/:id"
-                element={<JournalPage />}
+                element={<JournalWeeks />}
+              />
+              <Route
+                path="/students/journals/:groupType/:id/week/:weekId"
+                element={<JournalPage groups={state}/>}
               />
             </Route>
           </Routes>

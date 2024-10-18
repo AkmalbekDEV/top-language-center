@@ -22,7 +22,6 @@ import { StudentContext } from "../../context/StudentsContext";
 import { Link, useParams } from "react-router-dom";
 import { GroupContext } from "../../context/GroupContext";
 import PopoverComponent from "../../components/ui/Popover";
-import { JournalContext } from "../../context/journals/JournalContext";
 
 const StudentsPage = () => {
   const {
@@ -155,10 +154,10 @@ const StudentsPage = () => {
   const [studentIdToDelete, setStudentIdToDelete] = useState(null);
   const cancelRef = useRef();
 
-useEffect(() => {
-  fetchData(groupId);
-  getGroups();
-}, [fetchData, groupId, getGroups]);
+  useEffect(() => {
+    fetchData(groupId);
+    getGroups();
+  }, [fetchData, groupId, getGroups]);
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -284,6 +283,7 @@ useEffect(() => {
   const handleChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
+
   return (
     <div>
       <marquee className="bg-black text-white">
@@ -301,12 +301,16 @@ useEffect(() => {
               >
                 Back
               </Link>
-              <Link
-                className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
-                to={`/students/journals/${students[0]?.group?.type.toLowerCase()}/${groupId}`}
-              >
-                Journals
-              </Link>
+              {students[0]?.group?.type !== "Kids" ? (
+                <Link
+                  className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
+                  to={`/students/journals/${students[0]?.group?.type.toLowerCase()}/${groupId}`}
+                >
+                  Journals
+                </Link>
+              ) : (
+                ""
+              )}
               <PopoverComponent
                 trigger={
                   <Button

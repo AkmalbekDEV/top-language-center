@@ -31,13 +31,9 @@ export const journalsListUrl = [
   "/top_journals",
 ];
 
-export const journalRelationUrl = (course_type, groupId) =>
-  `${journalsListUrl[course_type]}?_relations=groups&group_id=${groupId}`;
+export const journalRelationUrl = (course_type, groupId, week) =>
+  `${journalsListUrl[course_type]}?_relations=groups&group_id=${groupId}&journal_week_id=${week}`;
 
 // Weeks
 
-export const weeksListUrl = [
-  "/standard_weeks",
-  "/advanced_weeks",
-  "/top_weeks",
-];
+export const weeksListUrl = "/journal_weeks";

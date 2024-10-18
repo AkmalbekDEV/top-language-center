@@ -11,18 +11,21 @@ const JournalProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const getJournals = useCallback(async (journalType, groupId) => {
+  const getJournals = useCallback(async (journalType, groupId, weekId) => {
     setLoading(true);
     setError(null);
     try {
       const response = await Axios.get(
-        journalRelationUrl(journalType, groupId)
+        journalRelationUrl(journalType, groupId, weekId)
       );
+      console.log(journalType)
       const data = response.data;
-
       const groupJournals = data.filter(
-        (journal) => journal.group.id.toString() === groupId
+        (journal) =>
+          journal.group.id.toString() === groupId &&
+          journal.journal_week_id.toString() === weekId
       );
+      
       if (groupJournals.length > 0) {
         setJournal({
           journals: groupJournals,
@@ -32,7 +35,7 @@ const JournalProvider = ({ children }) => {
       } else {
         setJournal({
           journals: [],
-          groups: groupJournals[0].group,
+          groups: [],
           groupName: "",
         });
       }
@@ -40,7 +43,7 @@ const JournalProvider = ({ children }) => {
       setError(err);
       setJournal({
         journals: [],
-        groups: groupJournals[0].group,
+        groups: [],
         groupName: "",
       });
     } finally {
@@ -48,11 +51,11 @@ const JournalProvider = ({ children }) => {
     }
   }, []);
 
-  const getWeeks = useCallback(async (weekType) => {
+  const getWeeks = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await Axios.get(weeksListUrl[weekType]);
+      const response = await Axios.get(weeksListUrl);
       setWeek(response.data);
     } catch (err) {
       setError(err);
