@@ -9,9 +9,9 @@ import AdminRoute from "./pages/admin/AdminPage";
 import StudentsPage from "./pages/admin/StudentsPage";
 import StudentLogin from "./pages/student/StudentsLoginPage";
 import { GroupContext } from "./context/GroupContext";
-import GroupsForStudents from "./pages/student/GroupsForStudents";
 import JournalWeeks from "./pages/admin/JournalWeeks";
 import JournalPage from "./pages/admin/JournalPage";
+import StudentJournalPage from "./pages/student/StudentJournalPage";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -69,8 +69,12 @@ function App() {
             />
             <Route element={<AdminRoute />}>
               <Route
-                path="/student-groups/:id"
-                element={<GroupsForStudents groups={state} />}
+                path="/student-groups/:groupType/:id"
+                element={<JournalWeeks />}
+              />
+              <Route
+                path="/student-groups/:groupType/:id/week/:weekId"
+                element={<StudentJournalPage />}
               />
               <Route path="/groups" element={<GroupPage />} />
               <Route path="/students/:groupId" element={<StudentsPage />} />
@@ -80,7 +84,7 @@ function App() {
               />
               <Route
                 path="/students/journals/:groupType/:id/week/:weekId"
-                element={<JournalPage groups={state}/>}
+                element={<JournalPage/>}
               />
             </Route>
           </Routes>
