@@ -1,6 +1,10 @@
 import { createContext, useCallback, useState } from "react";
 import Axios from "../../api";
-import { journalRelationUrl, weeksListUrl } from "../../utils/urls";
+import {
+  journalAddUrl,
+  journalRelationUrl,
+  weeksListUrl,
+} from "../../utils/urls";
 import PropTypes from "prop-types";
 
 export const JournalContext = createContext();
@@ -24,7 +28,7 @@ const JournalProvider = ({ children }) => {
           journal.group.id.toString() === groupId &&
           journal.journal_week_id.toString() === weekId
       );
-      
+
       if (groupJournals.length > 0) {
         setJournal({
           journals: groupJournals,
@@ -63,9 +67,32 @@ const JournalProvider = ({ children }) => {
     }
   }, []);
 
+  const postJournal = async (journalType, body) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await Axios.post(journalAddUrl(journalType), body);
+      setJournal((prevState) => ({
+        ...prevState,
+        journals: [...prevState.journals, response.data],
+      }));
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <JournalContext.Provider
-      value={{ journal, week, loading, error, getJournals, getWeeks }}
+      value={{
+        journal,
+        week,
+        loading,
+        error,
+        getJournals,
+        getWeeks,
+        postJournal,
+      }}
     >
       {children}
     </JournalContext.Provider>

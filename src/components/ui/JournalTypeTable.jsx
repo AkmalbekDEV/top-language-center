@@ -6,9 +6,7 @@ import {
 } from "../../data/journalTableJson";
 import JournalTableComponent from "./Table";
 
-function JournalTableTypeBody({ data, students, rows }) {
-  console.log(rows);
-
+function JournalTableTypeBody({ data, students }) {
   const groupType = students?.students[0]?.group?.type; // Check data structure
 
   let chosenType;
@@ -133,7 +131,6 @@ function JournalTableTypeBody({ data, students, rows }) {
 JournalTableTypeBody.propTypes = {
   data: PropTypes.any,
   students: PropTypes.any,
-  rows: PropTypes.any
 };
 
 export default JournalTableTypeBody;

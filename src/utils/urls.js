@@ -34,6 +34,8 @@ export const journalsListUrl = [
 export const journalRelationUrl = (course_type, groupId, week) =>
   `${journalsListUrl[course_type]}?_relations=groups&group_id=${groupId}&journal_week_id=${week}`;
 
+export const journalAddUrl = (course_type) => `${journalsListUrl[course_type]}`
+
 // Weeks
 
 export const weeksListUrl = "/journal_weeks";

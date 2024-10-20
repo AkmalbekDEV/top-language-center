@@ -9,9 +9,9 @@ import JournalForm from "../../components/ui/JournalForm";
 
 function JournalPage() {
   const { journal, loading, error, getJournals } = useContext(JournalContext);
-  const [journalType, setJournalType] = useState("");
   const { state, fetchData } = useContext(StudentContext);
   const { groupType, id, weekId } = useParams();
+  const [journalType, setJournalType] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +31,8 @@ function JournalPage() {
     }
   }, [setJournalType, navigate, groupType]);
 
-  const backPathname = "/" + location.pathname.split("/").splice(1, 4).join("/");
+  const backPathname =
+    "/" + location.pathname.split("/").splice(1, 4).join("/");
 
   return (
     <div className="max-w-100">
@@ -59,7 +60,7 @@ function JournalPage() {
               trigger={<Button>Add column</Button>}
               header="Adding Student"
             >
-              <JournalForm students={state}/>
+              <JournalForm students={state} />
             </PopoverComponent>
           </div>
           <div className="text-center">
