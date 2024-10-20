@@ -106,7 +106,7 @@ function JournalPage() {
         </div>
       </div>
       <div className="w-100">
-        <JournalTableTypeBody data={journal} />
+        <JournalTableTypeBody data={journal} students={state} />
       </div>
     </div>
   );

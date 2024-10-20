@@ -6,7 +6,7 @@ function TableComponent(props) {
   <table className="w-full text-center text-sm font-light mt-12 rounded-xl border-2 border-blue-500">
     <thead className="border-b bg-blue-500 font-medium text-white">
       <tr>
-        {header.map((element) => {
+        {header?.map((element) => {
           return (
             <th scope="col" className="px-6 py-4 text-wrap" key={element.id}>
               {element.title}
