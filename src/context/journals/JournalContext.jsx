@@ -18,7 +18,6 @@ const JournalProvider = ({ children }) => {
       const response = await Axios.get(
         journalRelationUrl(journalType, groupId, weekId)
       );
-      console.log(journalType)
       const data = response.data;
       const groupJournals = data.filter(
         (journal) =>
