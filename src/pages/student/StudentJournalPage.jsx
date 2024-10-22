@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { StudentContext } from "../../context/StudentsContext";
 import { JournalContext } from "../../context/journals/JournalContext";
-import JournalTableTypeBody from "../../components/ui/JournalTypeTable";
+import StudentJournalTableBody from "./StudentJournalTableBody";
 
 function StudentJournalPage() {
   const { journal, loading, error, getJournals } = useContext(JournalContext);
@@ -54,7 +54,7 @@ function StudentJournalPage() {
         </div>
       </div>
       <div className="w-100">
-        <JournalTableTypeBody data={journal} students={state} />
+        <StudentJournalTableBody data={journal} students={state} />
       </div>
     </div>
   );

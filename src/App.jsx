@@ -89,7 +89,6 @@ function App() {
               <Route
                 path="/students/journals/:groupType/:id/week/:weekId"
                 element={<JournalPage/>}
-                element={<JournalPage/>}
               />
             </Route>
           </Routes>

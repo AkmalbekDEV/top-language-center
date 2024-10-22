@@ -13,6 +13,7 @@ import PopoverComponent from "./Popover";
 import { Button } from "@chakra-ui/react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { TableSpan } from "./TableSpan";
+import { calculateAverage } from "../../utils/functions";
 
 function JournalTableTypeBody({ data, students }) {
   const groupTypeJson = students?.students[0]?.group?.type; // Check data structure
@@ -223,6 +224,12 @@ function JournalTableTypeBody({ data, students }) {
       {data.journals && data.journals.length > 0 ? (
         data?.journals?.map((journal, index) => {
           const uniqueId = `${index + 1}`;
+          const overallAverage = calculateAverage(
+            journal?.listening,
+            journal?.reading,
+            journal?.writing,
+            journal?.speaking
+          );
           return groupType === "standard" ? (
             <tr
               key={journal.id}
@@ -391,16 +398,16 @@ function JournalTableTypeBody({ data, students }) {
                 {journal?.vocabulary || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.listeningHW}/>
+                <TableSpan data={journal?.listeningHW} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.readingHW}/>
+                <TableSpan data={journal?.readingHW} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.grammar}/>
+                <TableSpan data={journal?.grammar} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.writing}/>
+                <TableSpan data={journal?.writing} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                 <div className="flex justify-center gap-2 max-sm:gap-0">
@@ -416,10 +423,7 @@ function JournalTableTypeBody({ data, students }) {
                     }
                     header="Edit Group"
                   >
-                    <form
-                      className="grid gap-2"
-                      onSubmit={advancedHandleEdit}
-                    >
+                    <form className="grid gap-2" onSubmit={advancedHandleEdit}>
                       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
                         Student&apos;s Name
                       </h3>
@@ -553,6 +557,89 @@ function JournalTableTypeBody({ data, students }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.speaking || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {overallAverage || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
+                <div className="flex justify-center gap-2 max-sm:gap-0">
+                  <PopoverComponent
+                    trigger={
+                      <Button
+                        size={{ base: "xs", sm: "sm" }}
+                        className="max-sm:mr-[5px]"
+                        onClick={() => topHandleEditClick(journal)}
+                      >
+                        <MdEdit />
+                      </Button>
+                    }
+                    header="Edit Group"
+                  >
+                    <form className="grid gap-2" onSubmit={topHandleEdit}>
+                      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+                        Student&apos;s Name
+                      </h3>
+                      <input
+                        name="name"
+                        type="text"
+                        value={topEditInputData.name}
+                        onChange={topHandleEditChange}
+                        placeholder="O'quvchining ismi..."
+                        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+                      />
+                      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+                        Listening
+                      </h3>
+                      <input
+                        name="listening"
+                        type="number"
+                        value={topEditInputData.listening}
+                        onChange={topHandleEditChange}
+                        placeholder="Listening..."
+                        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+                      />
+                      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+                        Reading
+                      </h3>
+                      <input
+                        name="reading"
+                        type="number"
+                        value={topEditInputData.reading}
+                        onChange={topHandleEditChange}
+                        placeholder="Reading..."
+                        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+                      />
+                      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+                        Writing
+                      </h3>
+                      <input
+                        name="writing"
+                        type="number"
+                        value={topEditInputData.writing}
+                        onChange={topHandleEditChange}
+                        placeholder="Writing..."
+                        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+                      />
+                      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+                        Speaking
+                      </h3>
+                      <input
+                        name="speaking"
+                        type="number"
+                        value={topEditInputData.speaking}
+                        onChange={topHandleEditChange}
+                        placeholder="Speaking..."
+                        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+                      />
+                      <button className="text-center text-lg rounded-xl hover:shadow-md hover:shadow-blue-500 transition-all active:bg-blue-700 font-medium text-white px-5 py-2 mt-5 bg-blue-600">
+                        Submit!
+                      </button>
+                    </form>
+                  </PopoverComponent>
+                  <Button size={{ base: "xs", sm: "sm" }}>
+                    <MdDelete />
+                  </Button>
+                </div>
               </td>
             </tr>
           ) : (
