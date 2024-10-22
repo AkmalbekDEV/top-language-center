@@ -11,7 +11,7 @@ import StudentLogin from "./pages/student/StudentsLoginPage";
 import { GroupContext } from "./context/GroupContext";
 import JournalWeeks from "./pages/admin/JournalWeeks";
 import JournalPage from "./pages/admin/JournalPage";
-import StudentJournalPage from "./pages/student/StudentJournalPage.jsx";
+import StudentJournalPage from "./pages/student/StudentJournalPage";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -76,6 +76,10 @@ function App() {
                 path="/student-groups/:groupType/:id/week/:weekId"
                 element={<StudentJournalPage />}
               />
+              <Route
+                path="/student-groups/:groupType/:id/week/:weekId"
+                element={<StudentJournalPage />}
+              />
               <Route path="/groups" element={<GroupPage />} />
               <Route path="/students/:groupId" element={<StudentsPage />} />
               <Route
@@ -84,6 +88,7 @@ function App() {
               />
               <Route
                 path="/students/journals/:groupType/:id/week/:weekId"
+                element={<JournalPage/>}
                 element={<JournalPage/>}
               />
             </Route>
