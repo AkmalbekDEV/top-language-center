@@ -2,6 +2,7 @@ import { createContext, useCallback, useState } from "react";
 import Axios from "../../api";
 import {
   journalAddUrl,
+  journalEditUrl,
   journalRelationUrl,
   weeksListUrl,
 } from "../../utils/urls";
@@ -82,6 +83,24 @@ const JournalProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  const editJournal = async (journalType, body, id) => {
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await Axios.patch(journalEditUrl(journalType, id), body);
+      const updatedJournal = response.data
+      setJournal((prevState) => ({
+        ...prevState,
+        journals: prevState.journals.map((journal) => 
+          journal.id === id ? updatedJournal : journal
+        )
+      }))
+    } catch (err) {
+      setError(err)
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <JournalContext.Provider
       value={{
@@ -92,6 +111,7 @@ const JournalProvider = ({ children }) => {
         getJournals,
         getWeeks,
         postJournal,
+        editJournal
       }}
     >
       {children}

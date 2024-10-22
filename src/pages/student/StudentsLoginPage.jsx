@@ -30,7 +30,7 @@ const StudentLogin = ({ groups }) => {
           const { payload } = await jwtVerify(token, secretKey);
 
           if (payload.role === "student") {
-            return navigate(`/student-groups/${checkingEveryGroupPassword.id}`);
+            return navigate(`/student-groups/${checkingEveryGroupPassword?.type.toLowerCase()}/${checkingEveryGroupPassword.id}`);
           }
         } catch (err) {
           return err;
@@ -39,7 +39,6 @@ const StudentLogin = ({ groups }) => {
     };
     checkToken();
   }, [navigate]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,7 +56,7 @@ const StudentLogin = ({ groups }) => {
 
       localStorage.setItem("token", token);
       localStorage.setItem("refreshToken", refreshToken);
-      window.location.href = `/student-groups/${checkingEveryGroupPassword.id}`;
+      window.location.href = `/student-groups/${checkingEveryGroupPassword?.type.toLowerCase()}/${checkingEveryGroupPassword.id}`;
     } else {
       toast({
         title: "Incorrect Password!",

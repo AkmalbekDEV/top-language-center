@@ -30,6 +30,10 @@ export const standardJournalTableJson = [
   {
     id: 8,
     title: "Vocabulary (HW)"
+  },
+  {
+    id: 9,
+    title: "Handle"
   }
 ]
 
@@ -67,8 +71,12 @@ export const advancedJournalTableJson = [
     title: "Grammar"
   },
   {
-    id: 9,
+    id: 8,
     title: "Writing"
+  },
+  {
+    id: 9,
+    title: "Handle"
   }
 ]
 
@@ -100,5 +108,9 @@ export const topJournalTableJson = [
   {
     id: 7,
     title: "Overall"
+  },
+  {
+    id: 8,
+    title: "Handle"
   }
 ]
