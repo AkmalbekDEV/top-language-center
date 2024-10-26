@@ -44,16 +44,22 @@ function StudentJournalTableBody({ data, students }) {
                 <TableSpan data={journal?.reading}/>
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <TableSpan data={journal?.listening2}/>
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <TableSpan data={journal?.reading2}/>
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.vocabulary || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.grammar || "N/A"}
+                <TableSpan data={journal?.grammar} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.writing || "N/A"}
+                <TableSpan data={journal?.writing}/>
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.vocabulary_homework || "N/A"}
+                <TableSpan data={journal?.vocabulary_homework}/>
               </td>
             </tr>
           ) : groupType === "Advanced" ? (

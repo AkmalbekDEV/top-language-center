@@ -17,22 +17,30 @@ export const standardJournalTableJson = [
   },
   {
     id: 5,
-    title: "Vocabulary"
+    title: "Listening (opt)"
   },
   {
     id: 6,
-    title: "Grammar"
+    title: "Reading (opt)"
   },
   {
     id: 7,
-    title: "Writing"
+    title: "Vocabulary"
   },
   {
     id: 8,
-    title: "Vocabulary (HW)"
+    title: "Grammar"
   },
   {
     id: 9,
+    title: "Writing"
+  },
+  {
+    id: 10,
+    title: "Vocabulary (HW)"
+  },
+  {
+    id: 11,
     title: "Handle"
   }
 ]
@@ -56,18 +64,26 @@ export const studentStandardJournalTableJson = [
   },
   {
     id: 5,
-    title: "Vocabulary"
+    title: "Listening (opt)"
   },
   {
     id: 6,
-    title: "Grammar"
+    title: "Reading (opt)"
   },
   {
     id: 7,
-    title: "Writing"
+    title: "Vocabulary"
   },
   {
     id: 8,
+    title: "Grammar"
+  },
+  {
+    id: 9,
+    title: "Writing"
+  },
+  {
+    id: 10,
     title: "Vocabulary (HW)"
   }
 ]

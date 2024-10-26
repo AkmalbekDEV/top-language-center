@@ -14,6 +14,7 @@ import { Button } from "@chakra-ui/react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { TableSpan } from "./TableSpan";
 import { calculateAverage } from "../../utils/functions";
+import PopoverForm from "./form/PopoverForm.jsx";
 
 function JournalTableTypeBody({ data, students }) {
   const groupTypeJson = students?.students[0]?.group?.type; // Check data structure
@@ -167,6 +168,8 @@ function JournalTableTypeBody({ data, students }) {
       journal_week_id: weekId,
       listening: student.listening,
       reading: student.reading,
+      listening2: student.listening2,
+      reading2: student.reading2,
       vocabulary: student.vocabulary,
       grammar: student.grammar,
       writing: student.writing,
@@ -248,6 +251,12 @@ function JournalTableTypeBody({ data, students }) {
                 <TableSpan data={journal?.reading} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <TableSpan data={journal?.listening2} />
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <TableSpan data={journal?.reading2} />
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.vocabulary || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
@@ -257,9 +266,10 @@ function JournalTableTypeBody({ data, students }) {
                 <TableSpan data={journal?.writing} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.vocabulary_homework} />
+              <TableSpan data={journal?.vocabulary_homework} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
+                <PopoverForm editJournal={editJournal} data={journal}/>
                 <div className="flex justify-center gap-2 max-sm:gap-0">
                   <PopoverComponent
                     trigger={
