@@ -111,10 +111,10 @@ const Form = ({ editJournal, firstFieldRef, onCancel, data }) => {
     });
   };
 
-  const lastNameOptions = [
-    { value: "smith", label: "Smith" },
-    { value: "johnson", label: "Johnson" },
-    { value: "williams", label: "Williams" },
+  const selectOptions = [
+    { value: "Yes", label: "Yes" },
+    { value: "No", label: "No" },
+    { value: "-", label: "-" },
   ];
 
 console.log(data);
@@ -139,13 +139,41 @@ console.log(data);
                 name="name"
                 value={standardEditInputData.name}
                 onChange={standardHandleEditChange}
-                placeholder="Student's name..."
                 ref={firstFieldRef}
               />
               <SelectInput
-                label="Last name"
-                id="last-name"
-                options={lastNameOptions}
+                label="Listening"
+                name="listening"
+                value={standardEditInputData.listening}
+                onChange={standardHandleEditChange}
+                options={selectOptions}
+              />
+              <SelectInput
+                label="Listening (opt)"
+                name="listening2"
+                value={standardEditInputData.listening2}
+                onChange={standardHandleEditChange}
+                options={selectOptions}
+              />
+              <SelectInput
+                label="Reading"
+                name="reading"
+                value={standardEditInputData.reading}
+                onChange={standardHandleEditChange}
+                options={selectOptions}
+              />
+              <SelectInput
+                label="Reading (opt)"
+                name="reading2"
+                value={standardEditInputData.reading2}
+                onChange={standardHandleEditChange}
+                options={selectOptions}
+              />
+              <TextInput
+                label="Vocabulary"
+                name="vocabulary"
+                value={standardEditInputData.vocabulary}
+                onChange={standardHandleEditChange}
               />
               <ButtonGroup
                 display="flex"

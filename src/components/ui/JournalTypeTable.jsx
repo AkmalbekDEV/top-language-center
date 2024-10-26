@@ -248,10 +248,10 @@ function JournalTableTypeBody({ data, students }) {
                 <TableSpan data={journal?.listening} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.reading} />
+                <TableSpan data={journal?.listening2} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.listening2} />
+                <TableSpan data={journal?.reading} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <TableSpan data={journal?.reading2} />

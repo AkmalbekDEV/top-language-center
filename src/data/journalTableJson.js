@@ -13,11 +13,11 @@ export const standardJournalTableJson = [
   },
   {
     id: 4,
-    title: "Reading"
+    title: "Listening (opt)"
   },
   {
     id: 5,
-    title: "Listening (opt)"
+    title: "Reading"
   },
   {
     id: 6,
@@ -60,11 +60,11 @@ export const studentStandardJournalTableJson = [
   },
   {
     id: 4,
-    title: "Reading"
+    title: "Listening (opt)"
   },
   {
     id: 5,
-    title: "Listening (opt)"
+    title: "Reading"
   },
   {
     id: 6,
