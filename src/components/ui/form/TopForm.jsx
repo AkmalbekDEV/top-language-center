@@ -10,14 +10,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import TextInput from "./TextInput";
-import SelectInput from "./SelectInput";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import FocusLock from "react-focus-lock";
 import { MdEdit } from "react-icons/md";
 
-const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
+const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
   const { groupType, id, weekId } = useParams();
   const [journalType, setJournalType] = useState("");
   const toast = useToast();
@@ -31,24 +30,20 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     }
   }, [groupType, setJournalType]);
 
-  const [standardEditInputData, setStandardEditInputData] = useState({
+  const [topEditInputData, setTopEditInputData] = useState({
     id: null,
     name: "",
     group_id: id,
     journal_week_id: weekId,
     listening: "",
     reading: "",
-    listening2: "",
-    reading2: "",
-    vocabulary: "",
-    grammar: "",
     writing: "",
-    vocabulary_homework: "",
+    speaking: "",
   });
 
-  const standardHandleEdit = async (e) => {
+  const topHandleEdit = async (e) => {
     e.preventDefault();
-    if (standardEditInputData.name.trim() === "") {
+    if (topEditInputData.name.trim() === "") {
       toast({
         position: "top",
         duration: 2000,
@@ -62,8 +57,8 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     try {
       await editJournal(
         journalType,
-        standardEditInputData,
-        standardEditInputData.id
+        topEditInputData,
+        topEditInputData.id
       );
       toast({
         position: "top",
@@ -87,26 +82,22 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     }
   };
 
-  const standardHandleEditClick = (student) => {
-    setStandardEditInputData({
+  const topHandleEditClick = (student) => {
+    setTopEditInputData({
       id: student.id,
       name: student.name,
       group_id: id,
       journal_week_id: weekId,
       listening: student.listening,
       reading: student.reading,
-      listening2: student.listening2,
-      reading2: student.reading2,
-      vocabulary: student.vocabulary,
-      grammar: student.grammar,
       writing: student.writing,
-      vocabulary_homework: student.vocabulary_homework,
+      speaking: student.speaking,
     });
   };
 
-  const standardHandleEditChange = (e) => {
-    setStandardEditInputData({
-      ...standardEditInputData,
+  const topHandleEditChange = (e) => {
+    setTopEditInputData({
+      ...topEditInputData,
       [e.target.name]: e.target.value,
     });
   };
@@ -123,7 +114,7 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
         <IconButton
           size="sm"
           icon={<MdEdit />}
-          onClick={() => standardHandleEditClick(data)}
+          onClick={() => topHandleEditClick(data)}
         />
       </PopoverTrigger>
       <PopoverContent p={5}>
@@ -131,68 +122,37 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
           <PopoverArrow />
           <PopoverCloseButton />
           <Box>
-            <form onSubmit={standardHandleEdit}>
+            <form onSubmit={topHandleEdit}>
               <TextInput
                 label="Student's name:"
                 name="name"
-                value={standardEditInputData.name}
-                onChange={standardHandleEditChange}
+                value={topEditInputData.name}
+                onChange={topHandleEditChange}
                 ref={firstFieldRef}
               />
-              <SelectInput
+              <TextInput
                 label="Listening:"
                 name="listening"
-                value={standardEditInputData.listening}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
-              />
-              <SelectInput
-                label="Listening (opt):"
-                name="listening2"
-                value={standardEditInputData.listening2}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
-              />
-              <SelectInput
-                label="Reading:"
-                name="reading"
-                value={standardEditInputData.reading}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
-              />
-              <SelectInput
-                label="Reading (opt):"
-                name="reading2"
-                value={standardEditInputData.reading2}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
+                value={topEditInputData.listening}
+                onChange={topHandleEditChange}
               />
               <TextInput
-                label="Vocabulary:"
-                name="vocabulary"
-                value={standardEditInputData.vocabulary}
-                onChange={standardHandleEditChange}
+                label="Reading:"
+                name="reading"
+                value={topEditInputData.reading}
+                onChange={topHandleEditChange}
               />
-              <SelectInput
-                label="Grammar:"
-                name="grammar"
-                value={standardEditInputData.grammar}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
-              />
-              <SelectInput
+              <TextInput
                 label="Writing:"
                 name="writing"
-                value={standardEditInputData.writing}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
+                value={topEditInputData.writing}
+                onChange={topHandleEditChange}
               />
-              <SelectInput
-                label="Vocabulary (HW):"
-                name="vocabulary_homework"
-                value={standardEditInputData.vocabulary_homework}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
+              <TextInput
+                label="Speaking:"
+                name="speaking"
+                value={topEditInputData.speaking}
+                onChange={topHandleEditChange}
               />
               <ButtonGroup
                 display="flex"
@@ -214,11 +174,11 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
   );
 };
 
-StandardForm.propTypes = {
+TopForm.propTypes = {
   editJournal: PropTypes.func,
   firstFieldRef: PropTypes.object,
   onCancel: PropTypes.func,
   data: PropTypes.any,
 };
 
-export default StandardForm;
+export default TopForm;

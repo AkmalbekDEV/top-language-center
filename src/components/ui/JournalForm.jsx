@@ -14,7 +14,9 @@ const JournalForm = ({ students }) => {
     group_id: id,
     journal_week_id: weekId,
     listening: "No",
+    listening2: "No",
     reading: "No",
+    reading2: "No",
     vocabulary: "",
     grammar: "No",
     writing: "No",
@@ -197,12 +199,40 @@ const JournalForm = ({ students }) => {
         <option value="-">-</option>
       </select>
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+        Listening (opt)
+      </h3>
+      <select
+        name="listening2"
+        required
+        value={standardInputData.listening2}
+        onChange={standardHandleChange}
+        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+      >
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+        <option value="-">-</option>
+      </select>
+      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
         Reading
       </h3>
       <select
         name="reading"
         required
         value={standardInputData.reading}
+        onChange={standardHandleChange}
+        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+      >
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+        <option value="-">-</option>
+      </select>
+      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+        Reading (opt)
+      </h3>
+      <select
+        name="reading2"
+        required
+        value={standardInputData.reading2}
         onChange={standardHandleChange}
         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
       >

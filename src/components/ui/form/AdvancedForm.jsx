@@ -17,7 +17,7 @@ import PropTypes from "prop-types";
 import FocusLock from "react-focus-lock";
 import { MdEdit } from "react-icons/md";
 
-const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
+const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
   const { groupType, id, weekId } = useParams();
   const [journalType, setJournalType] = useState("");
   const toast = useToast();
@@ -31,24 +31,23 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     }
   }, [groupType, setJournalType]);
 
-  const [standardEditInputData, setStandardEditInputData] = useState({
+  const [advancedEditInputData, setAdvancedEditInputData] = useState({
     id: null,
     name: "",
     group_id: id,
     journal_week_id: weekId,
     listening: "",
     reading: "",
-    listening2: "",
-    reading2: "",
     vocabulary: "",
+    listeningHW: "",
+    readingHW: "",
     grammar: "",
     writing: "",
-    vocabulary_homework: "",
   });
 
-  const standardHandleEdit = async (e) => {
+  const advancedHandleEdit = async (e) => {
     e.preventDefault();
-    if (standardEditInputData.name.trim() === "") {
+    if (advancedEditInputData.name.trim() === "") {
       toast({
         position: "top",
         duration: 2000,
@@ -62,8 +61,8 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     try {
       await editJournal(
         journalType,
-        standardEditInputData,
-        standardEditInputData.id
+        advancedEditInputData,
+        advancedEditInputData.id
       );
       toast({
         position: "top",
@@ -87,26 +86,25 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     }
   };
 
-  const standardHandleEditClick = (student) => {
-    setStandardEditInputData({
+  const advancedHandleEditClick = (student) => {
+    setAdvancedEditInputData({
       id: student.id,
       name: student.name,
       group_id: id,
       journal_week_id: weekId,
       listening: student.listening,
       reading: student.reading,
-      listening2: student.listening2,
-      reading2: student.reading2,
       vocabulary: student.vocabulary,
+      listeningHW: student.listeningHW,
+      readingHW: student.readingHW,
       grammar: student.grammar,
       writing: student.writing,
-      vocabulary_homework: student.vocabulary_homework,
     });
   };
 
-  const standardHandleEditChange = (e) => {
-    setStandardEditInputData({
-      ...standardEditInputData,
+  const advancedHandleEditChange = (e) => {
+    setAdvancedEditInputData({
+      ...advancedEditInputData,
       [e.target.name]: e.target.value,
     });
   };
@@ -123,7 +121,7 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
         <IconButton
           size="sm"
           icon={<MdEdit />}
-          onClick={() => standardHandleEditClick(data)}
+          onClick={() => advancedHandleEditClick(data)}
         />
       </PopoverTrigger>
       <PopoverContent p={5}>
@@ -131,67 +129,58 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
           <PopoverArrow />
           <PopoverCloseButton />
           <Box>
-            <form onSubmit={standardHandleEdit}>
+            <form onSubmit={advancedHandleEdit}>
               <TextInput
                 label="Student's name:"
                 name="name"
-                value={standardEditInputData.name}
-                onChange={standardHandleEditChange}
+                value={advancedEditInputData.name}
+                onChange={advancedHandleEditChange}
                 ref={firstFieldRef}
               />
-              <SelectInput
+              <TextInput
                 label="Listening:"
                 name="listening"
-                value={standardEditInputData.listening}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
+                value={advancedEditInputData.listening}
+                onChange={advancedHandleEditChange}
               />
-              <SelectInput
-                label="Listening (opt):"
-                name="listening2"
-                value={standardEditInputData.listening2}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
-              />
-              <SelectInput
+              <TextInput
                 label="Reading:"
                 name="reading"
-                value={standardEditInputData.reading}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
-              />
-              <SelectInput
-                label="Reading (opt):"
-                name="reading2"
-                value={standardEditInputData.reading2}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
+                value={advancedEditInputData.reading}
+                onChange={advancedHandleEditChange}
               />
               <TextInput
                 label="Vocabulary:"
                 name="vocabulary"
-                value={standardEditInputData.vocabulary}
-                onChange={standardHandleEditChange}
+                value={advancedEditInputData.vocabulary}
+                onChange={advancedHandleEditChange}
+              />
+              <SelectInput
+                label="Listening (HW):"
+                name="listeningHW"
+                value={advancedEditInputData.listeningHW}
+                onChange={advancedHandleEditChange}
+                options={selectOptions}
+              />
+              <SelectInput
+                label="Reading (HW):"
+                name="readingHW"
+                value={advancedEditInputData.readingHW}
+                onChange={advancedHandleEditChange}
+                options={selectOptions}
               />
               <SelectInput
                 label="Grammar:"
                 name="grammar"
-                value={standardEditInputData.grammar}
-                onChange={standardHandleEditChange}
+                value={advancedEditInputData.grammar}
+                onChange={advancedHandleEditChange}
                 options={selectOptions}
               />
               <SelectInput
                 label="Writing:"
                 name="writing"
-                value={standardEditInputData.writing}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
-              />
-              <SelectInput
-                label="Vocabulary (HW):"
-                name="vocabulary_homework"
-                value={standardEditInputData.vocabulary_homework}
-                onChange={standardHandleEditChange}
+                value={advancedEditInputData.writing}
+                onChange={advancedHandleEditChange}
                 options={selectOptions}
               />
               <ButtonGroup
@@ -214,11 +203,11 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
   );
 };
 
-StandardForm.propTypes = {
+AdvancedForm.propTypes = {
   editJournal: PropTypes.func,
   firstFieldRef: PropTypes.object,
   onCancel: PropTypes.func,
   data: PropTypes.any,
 };
 
-export default StandardForm;
+export default AdvancedForm;

@@ -6,7 +6,7 @@ const SelectInput = React.forwardRef((props, ref) => {
   const { id, label, options } = props;
 
   return (
-    <FormControl>
+    <FormControl marginTop={3}>
       <FormLabel htmlFor={id}>{label}</FormLabel>
       <Select ref={ref} id={id} {...props}>
         {options.map((option) => (

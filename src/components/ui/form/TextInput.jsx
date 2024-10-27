@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const TextInput = React.forwardRef((props, ref) => {
   return (
-    <FormControl>
+    <FormControl marginTop={3}>
       <FormLabel htmlFor={props.id}>{props.label}</FormLabel>
       <Input ref={ref} id={props.id} {...props} />
     </FormControl>
