@@ -8,7 +8,7 @@ function TableComponent(props) {
       <tr>
         {header?.map((element) => {
           return (
-            <th scope="col" className="px-6 py-4 text-wrap" key={element.id}>
+            <th scope="col" className="px-6 max-md:px-5.5 max-md:py-2 py-4 text-wrap" key={element.id}>
               {element.title}
             </th>
           );

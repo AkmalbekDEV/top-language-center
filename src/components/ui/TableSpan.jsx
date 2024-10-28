@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 export const TableSpan = ({data}) => {
   return (
     <span
-      className={`max-sm:text-xs  font-semibold rounded-full border py-1 px-3 max-sm:px-1.5 ${
+      className={`font-semibold rounded-full border py-1 px-3 ${
         data === "Yes"
           ? "bg-green-300 text-green-800 border-green-400"
           : data === "No"

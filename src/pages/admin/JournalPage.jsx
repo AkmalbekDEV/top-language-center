@@ -35,7 +35,7 @@ function JournalPage() {
     "/" + location.pathname.split("/").splice(1, 4).join("/");
 
   return (
-    <div className="max-w-100">
+    <div className="min-w-100 grid grid-rows-1">
       <marquee className="bg-black text-white">
         This page is in test mode. Sorry if there are any bugs
       </marquee>

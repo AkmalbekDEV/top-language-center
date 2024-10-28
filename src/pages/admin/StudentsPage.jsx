@@ -296,14 +296,14 @@ const StudentsPage = () => {
           <div className="grid w-full gap-10">
             <div className="w-full flex justify-between">
               <Link
-                className="px-6 py-1.5 rounded-md bg-gray-200 text-black text-xl font-medium"
+                className="px-5 py-1.5 max-sm:py-1 max-sm:px-3 max-sm:text-[1rem] rounded-md bg-gray-200 text-black text-xl font-medium"
                 to="/groups"
               >
                 Back
               </Link>
               {students[0]?.group?.type !== "Kids" ? (
                 <Link
-                  className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
+                  className="px-5 py-1.5 max-sm:py-1 max-sm:px-3 max-sm:text-[1rem] rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
                   to={`/students/journals/${students[0]?.group?.type.toLowerCase()}/${groupId}`}
                 >
                   Journals
@@ -313,12 +313,12 @@ const StudentsPage = () => {
               )}
               <PopoverComponent
                 trigger={
-                  <Button
+                  <button 
+                  className="px-5 py-1.5 max-sm:py-1 max-sm:px-3 max-sm:text-[1rem] rounded-md bg-gray-200 text-black text-xl font-medium"
                     onClick={onOpenPopover1}
-                    className="px-5 py-1 rounded-xl bg-gray-200 text-blue-600 text-xl font-medium"
                   >
                     Add student
-                  </Button>
+                  </button>
                 }
                 header="Adding Student"
                 isOpen={isOpenPopover1}
@@ -337,7 +337,7 @@ const StudentsPage = () => {
                     className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
                   />
                   <h1 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-                    1st month
+                    1-month
                   </h1>
                   <select
                     name="first_month"
@@ -350,7 +350,7 @@ const StudentsPage = () => {
                     <option value="false">Unpaid</option>
                   </select>
                   <h1 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-                    2nd month
+                    2-month
                   </h1>
                   <select
                     name="second_month"
@@ -435,10 +435,10 @@ const StudentsPage = () => {
                 Name
               </th>
               <th scope="col" className="px-6 max-sm:px-[1px] py-4 text-wrap">
-                1st month
+                1-month
               </th>
               <th scope="col" className="px-6 max-sm:px-[1px] py-4 text-wrap">
-                2nd month
+                2-month
               </th>
               <th scope="col" className="px-6 max-sm:px-[1px] py-4">
                 Handle
