@@ -52,45 +52,49 @@ export const standardJournalTableJson = [
 export const studentStandardJournalTableJson = [
   {
     id: 1,
-    title: "#"
+    title: "#",
   },
   {
     id: 2,
-    title: "Name"
+    title: "Name",
   },
   {
     id: 3,
-    title: "Listening"
+    title: "Attendance",
   },
   {
     id: 4,
-    title: "Listening (opt)"
+    title: "Listening",
   },
   {
     id: 5,
-    title: "Reading"
+    title: "Listening (opt)",
   },
   {
     id: 6,
-    title: "Reading (opt)"
+    title: "Reading",
   },
   {
     id: 7,
-    title: "Vocabulary"
+    title: "Reading (opt)",
   },
   {
     id: 8,
-    title: "Grammar"
+    title: "Vocabulary",
   },
   {
     id: 9,
-    title: "Writing"
+    title: "Grammar",
   },
   {
     id: 10,
-    title: "Vocabulary (HW)"
-  }
-]
+    title: "Writing",
+  },
+  {
+    id: 11,
+    title: "Vocabulary (HW)",
+  },
+];
 
 export const advancedJournalTableJson = [
   {
@@ -142,41 +146,45 @@ export const advancedJournalTableJson = [
 export const studentAdvancedJournalTableJson = [
   {
     id: 1,
-    title: "#"
+    title: "#",
   },
   {
     id: 2,
-    title: "Name"
+    title: "Name",
   },
   {
     id: 3,
-    title: "Listening"
+    title: "Attendance",
   },
   {
     id: 4,
-    title: "Reading"
+    title: "Listening",
   },
   {
     id: 5,
-    title: "Vocabulary"
+    title: "Reading",
   },
   {
     id: 6,
-    title: "Listening (HW)"
+    title: "Vocabulary",
   },
   {
     id: 7,
-    title: "Reading (HW)"
+    title: "Listening (HW)",
   },
   {
     id: 8,
-    title: "Grammar"
+    title: "Reading (HW)",
   },
   {
-    id: 8,
-    title: "Writing"
-  }
-]
+    id: 9,
+    title: "Grammar",
+  },
+  {
+    id: 10,
+    title: "Writing",
+  },
+];
 
 export const topJournalTableJson = [
   {
@@ -224,22 +232,26 @@ export const studentTopJournalTableJson = [
   },
   {
     id: 3,
-    title: "Listening"
+    title: "Attendance"
   },
   {
     id: 4,
-    title: "Reading"
+    title: "Listening"
   },
   {
     id: 5,
-    title: "Writing"
+    title: "Reading"
   },
   {
     id: 6,
-    title: "Speaking"
+    title: "Writing"
   },
   {
     id: 7,
+    title: "Speaking"
+  },
+  {
+    id: 8,
     title: "Overall"
   }
 ]

@@ -2,11 +2,12 @@ import PropTypes from "prop-types";
 import {
   studentAdvancedJournalTableJson,
   studentStandardJournalTableJson,
-  studentTopJournalTableJson
+  studentTopJournalTableJson,
 } from "../../data/journalTableJson";
-import JournalTableComponent from "../../components/ui/Table"
+import JournalTableComponent from "../../components/ui/Table";
 import { TableSpan } from "../../components/ui/TableSpan";
 import { calculateAverage } from "../../utils/functions";
+import { CheckboxInputForStudents } from "../../components/ui/CheckboxInputForStudents";
 
 function StudentJournalTableBody({ data, students }) {
   const groupType = students?.students[0]?.group?.type; // Check data structure
@@ -25,7 +26,12 @@ function StudentJournalTableBody({ data, students }) {
       {data.journals && data.journals.length > 0 ? (
         data?.journals?.map((journal, index) => {
           const uniqueId = `${index + 1}`;
-          const overallAverage = calculateAverage(journal?.listening, journal?.reading, journal?.writing, journal?.speaking);
+          const overallAverage = calculateAverage(
+            journal?.listening,
+            journal?.reading,
+            journal?.writing,
+            journal?.speaking
+          );
           return groupType === "Standard" ? (
             <tr
               key={journal.id}
@@ -38,16 +44,23 @@ function StudentJournalTableBody({ data, students }) {
                 {journal?.name || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.listening}/>
+                <CheckboxInputForStudents
+                  attendance1={journal?.attendance1}
+                  attendance2={journal?.attendance2}
+                  attendance3={journal?.attendance3}
+                />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.listening2}/>
+                <TableSpan data={journal?.listening} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.reading}/>
+                <TableSpan data={journal?.listening2} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.reading2}/>
+                <TableSpan data={journal?.reading} />
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <TableSpan data={journal?.reading2} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.vocabulary || "N/A"}
@@ -56,10 +69,10 @@ function StudentJournalTableBody({ data, students }) {
                 <TableSpan data={journal?.grammar} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.writing}/>
+                <TableSpan data={journal?.writing} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.vocabulary_homework}/>
+                <TableSpan data={journal?.vocabulary_homework} />
               </td>
             </tr>
           ) : groupType === "Advanced" ? (
@@ -72,6 +85,13 @@ function StudentJournalTableBody({ data, students }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.name || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <CheckboxInputForStudents
+                  attendance1={journal?.attendance1}
+                  attendance2={journal?.attendance2}
+                  attendance3={journal?.attendance3}
+                />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.listening || "N/A"}
@@ -105,6 +125,13 @@ function StudentJournalTableBody({ data, students }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.name || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <CheckboxInputForStudents
+                  attendance1={journal?.attendance1}
+                  attendance2={journal?.attendance2}
+                  attendance3={journal?.attendance3}
+                />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.listening || "N/A"}

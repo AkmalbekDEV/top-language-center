@@ -36,11 +36,6 @@ function JournalPage() {
 
   return (
     <div className="min-w-100 grid grid-rows-1">
-      <marquee className="bg-black text-white">
-        This page is in test mode. Sorry if there are any bugs
-      </marquee>
-      {loading && "Loading..."}
-      {error && "Error: " + error}
       <div className="flex items-center justify-center max-sm:justify-between max-sm:flex-col-reverse pt-5">
         <div className="grid w-full gap-10">
           <div className="w-full flex justify-between">
@@ -65,6 +60,12 @@ function JournalPage() {
           </div>
           <div className="text-center">
             <h1 className="text-4xl font-medium">Group in {state.groupName}</h1>
+          </div>
+          <div className="text-center">
+            {loading && (
+              <span className="bg-blue-500 text-white p-3 rounded-3xl">Loading...</span>
+            )}
+            {error && "Error: " + error}
           </div>
         </div>
       </div>

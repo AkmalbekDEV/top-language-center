@@ -191,9 +191,7 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 <Button variant="outline" onClick={onCancel}>
                   Cancel
                 </Button>
-                <button>
-                  <Button colorScheme="blue">Submit!</Button>
-                </button>
+                  <Button colorScheme="blue" type="submit">Submit!</Button>
               </ButtonGroup>
             </form>
           </Box>

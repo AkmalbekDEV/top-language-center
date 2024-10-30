@@ -286,9 +286,6 @@ const StudentsPage = () => {
 
   return (
     <div>
-      <marquee className="bg-black text-white">
-        This page is in test mode. Sorry if there are any bugs
-      </marquee>
       <div className="max-w-[1250px] mx-auto mt-14 max-sm:px-5">
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}

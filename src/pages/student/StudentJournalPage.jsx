@@ -5,7 +5,7 @@ import { JournalContext } from "../../context/journals/JournalContext";
 import StudentJournalTableBody from "./StudentJournalTableBody";
 
 function StudentJournalPage() {
-  const { journal, loading, error, getJournals } = useContext(JournalContext);
+  const { journal, getJournals } = useContext(JournalContext);
   const { state, fetchData } = useContext(StudentContext);
   const { groupType, id, weekId } = useParams();
   const [journalType, setJournalType] = useState("");
@@ -32,12 +32,7 @@ function StudentJournalPage() {
     "/" + location.pathname.split("/").splice(1, 3).join("/");
 
   return (
-    <div className="max-w-100">
-      <marquee className="bg-black text-white">
-        This page is in test mode. Sorry if there are any bugs
-      </marquee>
-      {loading && "Loading..."}
-      {error && "Error: " + error}
+    <div className="min-w-100 grid grid-rows-1">
       <div className="flex items-center justify-center max-sm:justify-between max-sm:flex-col-reverse pt-5">
         <div className="grid w-full gap-10">
           <div className="w-full flex justify-between">

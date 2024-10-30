@@ -162,9 +162,7 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 <Button variant="outline" onClick={onCancel}>
                   Cancel
                 </Button>
-                <button>
-                  <Button colorScheme="blue">Submit!</Button>
-                </button>
+                  <Button type="submit" colorScheme="blue">Submit!</Button>
               </ButtonGroup>
             </form>
           </Box>

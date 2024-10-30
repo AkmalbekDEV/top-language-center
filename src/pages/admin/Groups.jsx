@@ -270,9 +270,6 @@ const GroupPage = () => {
   );
   return (
     <div>
-      <marquee className="bg-black text-white">
-        This page is in test mode. Sorry if there are any bugs
-      </marquee>
       <div className="flex justify-center items-start w-full h-screen">
         <div className="grid content-center justify-evenly">
           <div className="flex items-center justify-center">

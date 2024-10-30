@@ -55,7 +55,13 @@ function JournalTableTypeBody({ data, students }) {
                 {journal?.name || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <CheckboxInput attendance1={journal?.attendance1} attendance2={journal?.attendance2} attendance3={journal?.attendance3} />
+                <CheckboxInput
+                  attendance1={journal?.attendance1}
+                  attendance2={journal?.attendance2}
+                  attendance3={journal?.attendance3}
+                  journalId={journal?.id}
+                  journalType="0"
+                />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <TableSpan data={journal?.listening} />
@@ -83,7 +89,7 @@ function JournalTableTypeBody({ data, students }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                 <div className="flex justify-center gap-2">
-                <PopoverForm editJournal={editJournal} data={journal} />
+                  <PopoverForm editJournal={editJournal} data={journal} />
                   <Button size="sm">
                     <MdDelete />
                   </Button>
@@ -102,7 +108,13 @@ function JournalTableTypeBody({ data, students }) {
                 {journal?.name || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <CheckboxInput attendance1={journal?.attendance1} attendance2={journal?.attendance2} attendance3={journal?.attendance3} />
+                <CheckboxInput
+                  attendance1={journal?.attendance1}
+                  attendance2={journal?.attendance2}
+                  attendance3={journal?.attendance3}
+                  journalId={journal?.id}
+                  journalType="1"
+                />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.listening || "N/A"}
@@ -127,7 +139,10 @@ function JournalTableTypeBody({ data, students }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                 <div className="flex justify-center gap-2">
-                  <AdvancedPopoverForm editJournal={editJournal} data={journal}/>
+                  <AdvancedPopoverForm
+                    editJournal={editJournal}
+                    data={journal}
+                  />
                   <Button size="sm">
                     <MdDelete />
                   </Button>
@@ -146,7 +161,13 @@ function JournalTableTypeBody({ data, students }) {
                 {journal?.name || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <CheckboxInput attendance1={journal?.attendance1} attendance2={journal?.attendance2} attendance3={journal?.attendance3} />
+                <CheckboxInput
+                  attendance1={journal?.attendance1}
+                  attendance2={journal?.attendance2}
+                  attendance3={journal?.attendance3}
+                  journalId={journal?.id}
+                  journalType="2"
+                />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.listening || "N/A"}
@@ -165,7 +186,7 @@ function JournalTableTypeBody({ data, students }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                 <div className="flex justify-center gap-2">
-                  <TopPopoverForm editJournal={editJournal} data={journal}/>
+                  <TopPopoverForm editJournal={editJournal} data={journal} />
                   <Button size="sm">
                     <MdDelete />
                   </Button>

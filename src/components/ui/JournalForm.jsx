@@ -21,6 +21,9 @@ const JournalForm = ({ students }) => {
     grammar: "No",
     writing: "No",
     vocabulary_homework: "No",
+    attendance1: "false",
+    attendance2: "false",
+    attendance3: "false",
   });
   const [advancedInputData, setAdvancedInputData] = useState({
     id: null,
@@ -34,6 +37,9 @@ const JournalForm = ({ students }) => {
     readingHW: "No",
     grammar: "No",
     writing: "No",
+    attendance1: "false",
+    attendance2: "false",
+    attendance3: "false",
   });
   const [topInputData, setTopInputData] = useState({
     id: null,
@@ -44,6 +50,9 @@ const JournalForm = ({ students }) => {
     reading: "",
     writing: "",
     speaking: "",
+    attendance1: "false",
+    attendance2: "false",
+    attendance3: "false",
   });
 
   useEffect(() => {
@@ -169,7 +178,7 @@ const JournalForm = ({ students }) => {
       [e.target.name]: e.target.value,
     });
   };
-
+  console.log(standardInputData);
   const journal_type = students?.students[0]?.group?.type;
   return journal_type === "Standard" ? (
     <form className="grid gap-2" onSubmit={standardHandleSubmit}>
