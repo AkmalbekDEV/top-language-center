@@ -178,7 +178,7 @@ const JournalForm = ({ students }) => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(standardInputData);
+
   const journal_type = students?.students[0]?.group?.type;
   return journal_type === "Standard" ? (
     <form className="grid gap-2" onSubmit={standardHandleSubmit}>
@@ -188,6 +188,7 @@ const JournalForm = ({ students }) => {
       <input
         name="name"
         type="text"
+        autoComplete="off"
         value={standardInputData.name}
         onChange={standardHandleChange}
         placeholder="O'quvchining ismi..."
@@ -255,6 +256,7 @@ const JournalForm = ({ students }) => {
       <input
         name="vocabulary"
         type="text"
+        autoComplete="off"
         value={standardInputData.vocabulary}
         onChange={standardHandleChange}
         placeholder="Vocabulary..."
@@ -314,6 +316,7 @@ const JournalForm = ({ students }) => {
       <input
         name="name"
         type="text"
+        autoComplete="off"
         value={advancedInputData.name}
         onChange={advancedHandleChange}
         placeholder="O'quvchining ismi..."
@@ -325,6 +328,7 @@ const JournalForm = ({ students }) => {
       <input
         name="listening"
         type="text"
+        autoComplete="off"
         value={advancedInputData.listening}
         onChange={advancedHandleChange}
         placeholder="Listening..."
@@ -336,6 +340,7 @@ const JournalForm = ({ students }) => {
       <input
         name="reading"
         type="text"
+        autoComplete="off"
         value={advancedInputData.reading}
         onChange={advancedHandleChange}
         placeholder="Reading..."
@@ -347,6 +352,7 @@ const JournalForm = ({ students }) => {
       <input
         name="vocabulary"
         type="text"
+        autoComplete="off"
         value={advancedInputData.vocabulary}
         onChange={advancedHandleChange}
         placeholder="Vocabulary..."
@@ -420,6 +426,7 @@ const JournalForm = ({ students }) => {
       <input
         name="name"
         type="text"
+        autoComplete="off"
         value={topInputData.name}
         onChange={topHandleChange}
         placeholder="O'quvchining ismi..."
@@ -431,6 +438,7 @@ const JournalForm = ({ students }) => {
       <input
         name="listening"
         type="number"
+        autoComplete="off"
         value={topInputData.listening}
         onChange={topHandleChange}
         placeholder="Listening..."
@@ -442,6 +450,7 @@ const JournalForm = ({ students }) => {
       <input
         name="reading"
         type="number"
+        autoComplete="off"
         value={topInputData.reading}
         onChange={topHandleChange}
         placeholder="Reading..."
@@ -453,6 +462,7 @@ const JournalForm = ({ students }) => {
       <input
         name="writing"
         type="number"
+        autoComplete="off"
         value={topInputData.writing}
         onChange={topHandleChange}
         placeholder="Writing..."
@@ -464,6 +474,7 @@ const JournalForm = ({ students }) => {
       <input
         name="speaking"
         type="number"
+        autoComplete="off"
         value={topInputData.speaking}
         onChange={topHandleChange}
         placeholder="Speaking..."

@@ -197,26 +197,30 @@ export const topJournalTableJson = [
   },
   {
     id: 3,
-    title: "Listening"
+    title: "Attendance"
   },
   {
     id: 4,
-    title: "Reading"
+    title: "Listening"
   },
   {
     id: 5,
-    title: "Writing"
+    title: "Reading"
   },
   {
     id: 6,
-    title: "Speaking"
+    title: "Writing"
   },
   {
     id: 7,
-    title: "Overall"
+    title: "Speaking"
   },
   {
     id: 8,
+    title: "Overall"
+  },
+  {
+    id: 9,
     title: "Handle"
   }
 ]

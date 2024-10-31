@@ -133,6 +133,7 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
               <TextInput
                 label="Student's name:"
                 name="name"
+                autoComplete="off"
                 value={advancedEditInputData.name}
                 onChange={advancedHandleEditChange}
                 ref={firstFieldRef}
@@ -140,18 +141,21 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
               <TextInput
                 label="Listening:"
                 name="listening"
+                autoComplete="off"
                 value={advancedEditInputData.listening}
                 onChange={advancedHandleEditChange}
               />
               <TextInput
                 label="Reading:"
                 name="reading"
+                autoComplete="off"
                 value={advancedEditInputData.reading}
                 onChange={advancedHandleEditChange}
               />
               <TextInput
                 label="Vocabulary:"
                 name="vocabulary"
+                autoComplete="off"
                 value={advancedEditInputData.vocabulary}
                 onChange={advancedHandleEditChange}
               />

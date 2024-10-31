@@ -39,8 +39,8 @@ const GroupProvider = ({ children }) => {
       await Axios.delete(groupDeleteUrl(id));
       setState((prevGroups) => prevGroups.filter((group) => group.id !== id));
 
-      const studentResponse = await Axios.get(studentsListRelationUrl(id))
-      const students = studentResponse.data
+      const studentResponse = await Axios.get(studentsListRelationUrl(id));
+      const students = studentResponse.data;
 
       // Delete each student associated with the deleted group
       for (const student of students) {
@@ -70,21 +70,21 @@ const GroupProvider = ({ children }) => {
         prevGroup.map((group) => (group.id === id ? updatedGroup : group))
       );
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
-  
+
   const editPassword = async (password, id) => {
     try {
-      const response = await Axios.patch(groupEditUrl(+id), password)
-      const updatedPassword = response.data
-      setState((prevGroup) => 
-        prevGroup.map((group) => group.id === id ? updatedPassword : group)
-      )
+      const response = await Axios.patch(groupEditUrl(+id), password);
+      const updatedPassword = response.data;
+      setState((prevGroup) =>
+        prevGroup.map((group) => (group.id === id ? updatedPassword : group))
+      );
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   return (
     <GroupContext.Provider
       value={{ state, getData, postData, deleteData, editGroup, editPassword }}

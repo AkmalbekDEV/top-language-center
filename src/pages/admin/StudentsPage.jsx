@@ -71,18 +71,6 @@ const StudentsPage = () => {
   });
   const [editPswrd, setEditPswrd] = useState({ id: null, password: "" });
   const toast = useToast();
-  // console.log(
-  //   "Without ! ",
-  //   groups.some((group) => group.password === editPswrd.password)
-  // );
-  // console.log(
-  //   "With ! ",
-  //   !groups.some((group) => group.password === editPswrd.password)
-  // );
-  // console.log(
-  //   "Mapped: ",
-  //   groups.map((group) => group.password)
-  // );
 
   const handleEditPassword = async (e) => {
     e.preventDefault();
@@ -101,9 +89,6 @@ const StudentsPage = () => {
       // Checking if the new password is unique
       const isUnique = !groups.some(
         (group) => group.password === editPswrd.password
-      );
-      console.log(
-        !groups.some((group) => group.password === editPswrd.password)
       );
       if (!isUnique) {
         toast({
@@ -242,13 +227,7 @@ const StudentsPage = () => {
   const handleEditChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
-  // const handleToggle = () => {
-  //   if (inputData.type === "Unpaid") {
-  //     setInputData({ type: "Paid" });
-  //   } else {
-  //     setInputData({ type: "Unpaid" });
-  //   }
-  // };
+
   const handleEditClick = (student) => {
     onOpenPopover2();
     setEditData({
@@ -328,6 +307,7 @@ const StudentsPage = () => {
                   <input
                     name="name"
                     type="text"
+                    autoComplete="off"
                     value={inputData.name}
                     onChange={handleChange}
                     placeholder="O'quvchining ismi..."
@@ -406,6 +386,7 @@ const StudentsPage = () => {
                         <input
                           name="password"
                           type="text"
+                          autoComplete="off"
                           value={editPswrd.password}
                           onChange={handleEditPasswordChange}
                           placeholder="Enter password..."
@@ -509,6 +490,7 @@ const StudentsPage = () => {
                               <input
                                 name="name"
                                 type="text"
+                                autoComplete="off"
                                 value={editData.name}
                                 onChange={handleEditChange}
                                 placeholder="O'quvchining ismi..."

@@ -14,7 +14,7 @@ const StandardPopoverForm = ({ editJournal, data }) => {
         initialFocusRef={firstFieldRef}
         onOpen={onOpen}
         onClose={onClose}
-        placement="right"
+        placement="bottom"
         closeOnBlur={true}
       >
         <StandardForm

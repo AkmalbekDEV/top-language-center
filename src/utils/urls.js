@@ -38,6 +38,8 @@ export const journalAddUrl = (course_type) => `${journalsListUrl[course_type]}`
 
 export const journalEditUrl = (course_type, id) => `${journalsListUrl[course_type]}/${id}`
 
+export const journalDeleteUrl = (course_type, id) => `${journalsListUrl[course_type]}/${id}`
+
 // Weeks
 
 export const weeksListUrl = "/journal_weeks";

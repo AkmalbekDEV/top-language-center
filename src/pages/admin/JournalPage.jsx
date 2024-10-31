@@ -1,18 +1,30 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { StudentContext } from "../../context/StudentsContext";
 import { JournalContext } from "../../context/journals/JournalContext";
-import { Button } from "@chakra-ui/react";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+} from "@chakra-ui/react";
 import JournalTableTypeBody from "../../components/ui/JournalTypeTable";
 import PopoverComponent from "../../components/ui/Popover";
 import JournalForm from "../../components/ui/JournalForm";
 
 function JournalPage() {
-  const { journal, loading, error, getJournals } = useContext(JournalContext);
+  const { journal, loading, error, getJournals, deleteJournal } =
+    useContext(JournalContext);
   const { state, fetchData } = useContext(StudentContext);
   const { groupType, id, weekId } = useParams();
   const [journalType, setJournalType] = useState("");
   const navigate = useNavigate();
+  const [isDelOpen, setIsDelOpen] = useState(false);
+  const [studentIdToDelete, setStudentIdToDelete] = useState(null);
+  const cancelRef = useRef();
 
   useEffect(() => {
     getJournals(Number(journalType), id, weekId);
@@ -33,6 +45,24 @@ function JournalPage() {
 
   const backPathname =
     "/" + location.pathname.split("/").splice(1, 4).join("/");
+
+  const handleDeleteClick = (id) => {
+    setStudentIdToDelete(id);
+    setIsDelOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (studentIdToDelete !== null) {
+      await deleteJournal(journalType, studentIdToDelete);
+      setIsDelOpen(false);
+      setStudentIdToDelete(null);
+    }
+  };
+
+  const handleDeleteClose = () => {
+    setIsDelOpen(false);
+    setStudentIdToDelete(null);
+  };
 
   return (
     <div className="min-w-100 grid grid-rows-1">
@@ -61,17 +91,50 @@ function JournalPage() {
           <div className="text-center">
             <h1 className="text-4xl font-medium">Group in {state.groupName}</h1>
           </div>
-          <div className="text-center">
+          <div className="text-center h-[50px]">
             {loading && (
-              <span className="bg-blue-500 text-white p-3 rounded-3xl">Loading...</span>
+              <span className="bg-blue-500 text-white p-3 rounded-3xl">
+                Loading...
+              </span>
             )}
             {error && "Error: " + error}
           </div>
         </div>
       </div>
       <div className="w-100">
-        <JournalTableTypeBody data={journal} students={state} />
+        <JournalTableTypeBody
+          data={journal}
+          students={state}
+          handleDeleteClick={handleDeleteClick}
+        />
       </div>
+      <AlertDialog
+        isOpen={isDelOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={handleDeleteClose}
+        closeOnEsc
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Delete Student
+            </AlertDialogHeader>
+            <AlertDialogBody>
+              Are you sure you want to delete this student? This action cannot
+              be undone.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={handleDeleteClose}>
+                Cancel
+              </Button>
+              <Button colorScheme="red" onClick={handleDeleteConfirm} ml={3}>
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </div>
   );
 }

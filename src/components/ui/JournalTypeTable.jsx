@@ -17,7 +17,7 @@ import TopPopoverForm from "./form/TopPopoverForm";
 import AdvancedPopoverForm from "./form/AdvancedPopoverForm";
 import { CheckboxInput } from "./CheckoxInput.jsx";
 
-function JournalTableTypeBody({ data, students }) {
+function JournalTableTypeBody({ data, students, handleDeleteClick }) {
   const groupTypeJson = students?.students[0]?.group?.type; // Check data structure
 
   let chosenType;
@@ -90,7 +90,7 @@ function JournalTableTypeBody({ data, students }) {
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                 <div className="flex justify-center gap-2">
                   <PopoverForm editJournal={editJournal} data={journal} />
-                  <Button size="sm">
+                  <Button size="sm" onClick={() => handleDeleteClick(journal?.id)}>
                     <MdDelete />
                   </Button>
                 </div>
@@ -143,7 +143,7 @@ function JournalTableTypeBody({ data, students }) {
                     editJournal={editJournal}
                     data={journal}
                   />
-                  <Button size="sm">
+                  <Button size="sm" onClick={() => handleDeleteClick(journal?.id)}>
                     <MdDelete />
                   </Button>
                 </div>
@@ -187,7 +187,7 @@ function JournalTableTypeBody({ data, students }) {
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                 <div className="flex justify-center gap-2">
                   <TopPopoverForm editJournal={editJournal} data={journal} />
-                  <Button size="sm">
+                  <Button size="sm" onClick={() => handleDeleteClick(journal?.id)}>
                     <MdDelete />
                   </Button>
                 </div>
@@ -211,6 +211,7 @@ function JournalTableTypeBody({ data, students }) {
 JournalTableTypeBody.propTypes = {
   data: PropTypes.any,
   students: PropTypes.any,
+  handleDeleteClick: PropTypes.func,
 };
 
 export default JournalTableTypeBody;

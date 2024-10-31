@@ -102,12 +102,6 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     });
   };
 
-  const selectOptions = [
-    { value: "Yes", label: "Yes" },
-    { value: "No", label: "No" },
-    { value: "-", label: "-" },
-  ];
-
   return (
     <>
       <PopoverTrigger>
@@ -126,6 +120,7 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
               <TextInput
                 label="Student's name:"
                 name="name"
+                autoComplete="off"
                 value={topEditInputData.name}
                 onChange={topHandleEditChange}
                 ref={firstFieldRef}
@@ -133,24 +128,28 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
               <TextInput
                 label="Listening:"
                 name="listening"
+                autoComplete="off"
                 value={topEditInputData.listening}
                 onChange={topHandleEditChange}
               />
               <TextInput
                 label="Reading:"
                 name="reading"
+                autoComplete="off"
                 value={topEditInputData.reading}
                 onChange={topHandleEditChange}
               />
               <TextInput
                 label="Writing:"
                 name="writing"
+                autoComplete="off"
                 value={topEditInputData.writing}
                 onChange={topHandleEditChange}
               />
               <TextInput
                 label="Speaking:"
                 name="speaking"
+                autoComplete="off"
                 value={topEditInputData.speaking}
                 onChange={topHandleEditChange}
               />

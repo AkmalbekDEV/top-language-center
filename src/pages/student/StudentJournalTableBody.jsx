@@ -103,16 +103,16 @@ function StudentJournalTableBody({ data, students }) {
                 {journal?.vocabulary || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.listeningHW || "N/A"}
+                <TableSpan data={journal?.listeningHW || "N/A"} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.readingHW || "N/A"}
+                <TableSpan data={journal?.readingHW || "N/A"}/>
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.grammar || "N/A"}
+                <TableSpan data={journal?.grammar || "N/A"}/>
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.writing || "N/A"}
+                <TableSpan data={journal?.writing || "N/A"}/>
               </td>
             </tr>
           ) : groupType === "Top" ? (
@@ -155,7 +155,7 @@ function StudentJournalTableBody({ data, students }) {
         })
       ) : (
         <tr>
-          <td colSpan="8" className="text-center py-4">
+          <td colSpan="11" className="text-center py-4">
             No journals available
           </td>
         </tr>

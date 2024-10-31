@@ -43,7 +43,7 @@ function StudentJournalPage() {
               Back
             </Link>
           </div>
-          <div className="text-center">
+          <div className="text-center mb-12">
             <h1 className="text-4xl font-medium">Group in {state.groupName}</h1>
           </div>
         </div>

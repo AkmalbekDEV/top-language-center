@@ -135,6 +135,7 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
               <TextInput
                 label="Student's name:"
                 name="name"
+                autoComplete="off"
                 value={standardEditInputData.name}
                 onChange={standardHandleEditChange}
                 ref={firstFieldRef}
@@ -170,6 +171,7 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
               <TextInput
                 label="Vocabulary:"
                 name="vocabulary"
+                autoComplete="off"
                 value={standardEditInputData.vocabulary}
                 onChange={standardHandleEditChange}
               />
@@ -202,7 +204,9 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 <Button variant="outline" onClick={onCancel}>
                   Cancel
                 </Button>
-                  <Button type="submit" colorScheme="blue">Submit!</Button>
+                <Button type="submit" colorScheme="blue">
+                  Submit!
+                </Button>
               </ButtonGroup>
             </form>
           </Box>

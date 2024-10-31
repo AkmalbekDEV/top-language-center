@@ -4,7 +4,7 @@ import {
   useRef,
   useState,
   useMemo,
-  useCallback
+  useCallback,
 } from "react";
 import { GroupContext } from "../../context/GroupContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import PopoverComponent from "../../components/ui/Popover";
@@ -30,7 +30,7 @@ const GroupPage = () => {
   const [inputData, setInputData] = useState({
     id: null,
     name: "",
-    type: "Standard"
+    type: "Standard",
   });
   const [groupIdToDelete, setGroupIdToDelete] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -39,13 +39,13 @@ const GroupPage = () => {
   const {
     isOpen: isOpenPopover1,
     onOpen: onOpenPopover1,
-    onClose: onClosePopover1
+    onClose: onClosePopover1,
   } = useDisclosure();
 
   const {
     isOpen: isOpenPopover2,
     onOpen: onOpenPopover2,
-    onClose: onClosePopover2
+    onClose: onClosePopover2,
   } = useDisclosure();
 
   const handleLogOut = useCallback(() => {
@@ -64,7 +64,7 @@ const GroupPage = () => {
           isClosable: true,
           status: "error",
           title: "Empty!",
-          description: "Input shouldn't be empty"
+          description: "Input shouldn't be empty",
         });
         return;
       }
@@ -77,7 +77,7 @@ const GroupPage = () => {
           isClosable: true,
           status: "success",
           title: "Edited!",
-          description: "The group was successfully edited"
+          description: "The group was successfully edited",
         });
       } catch (error) {
         console.error("Edit error: ", error);
@@ -87,7 +87,7 @@ const GroupPage = () => {
           isClosable: true,
           status: "error",
           title: "Edit Failed",
-          description: "There was an error editing the group"
+          description: "There was an error editing the group",
         });
       }
       onClosePopover2();
@@ -117,7 +117,7 @@ const GroupPage = () => {
           isClosable: true,
           status: "error",
           title: "Empty!",
-          description: "Input shouldn't be empty"
+          description: "Input shouldn't be empty",
         });
         return;
       }
@@ -131,7 +131,7 @@ const GroupPage = () => {
           isClosable: true,
           status: "success",
           title: "Added!",
-          description: "New group successfully added"
+          description: "New group successfully added",
         });
       } catch (err) {
         console.error("Add error: ", err);
@@ -141,7 +141,7 @@ const GroupPage = () => {
           isClosable: true,
           status: "error",
           title: "Add Failed",
-          description: "There was an error adding the group"
+          description: "There was an error adding the group",
         });
       }
       onClosePopover1();
@@ -175,7 +175,7 @@ const GroupPage = () => {
           isClosable: true,
           status: "success",
           title: "Deleted!",
-          description: "The group was successfully deleted"
+          description: "The group was successfully deleted",
         });
       } catch (err) {
         console.error("Delete error: ", err);
@@ -185,7 +185,7 @@ const GroupPage = () => {
           isClosable: true,
           status: "error",
           title: "Delete Failed",
-          description: "There was an error deleting the group"
+          description: "There was an error deleting the group",
         });
       }
     }
@@ -229,12 +229,16 @@ const GroupPage = () => {
                 <input
                   name="name"
                   type="text"
+                  autoComplete="off"
                   value={editData.name}
                   onChange={handleEditChange}
                   placeholder="Group name..."
                   className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
                 />
-                <label className="text-2xl mt-2 font-medium text-blue-600 text-center">
+                <label
+                  htmlFor="type"
+                  className="text-2xl mt-2 font-medium text-blue-600 text-center"
+                >
                   Type
                 </label>
                 <select
@@ -266,7 +270,18 @@ const GroupPage = () => {
           </div>
         </div>
       )),
-    [state, isOpenPopover2, editData.id, editData.name, editData.type, onClosePopover2, handleEdit, handleEditChange, handleEditClick, handleDeleteClick]
+    [
+      state,
+      isOpenPopover2,
+      editData.id,
+      editData.name,
+      editData.type,
+      onClosePopover2,
+      handleEdit,
+      handleEditChange,
+      handleEditClick,
+      handleDeleteClick,
+    ]
   );
   return (
     <div>
@@ -308,15 +323,20 @@ const GroupPage = () => {
                 <input
                   name="name"
                   type="text"
+                  autoComplete="off"
                   value={inputData.name}
                   onChange={handleChange}
                   placeholder="Group name..."
                   className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
                 />
-                <label className="text-2xl mt-2 font-medium text-blue-600 text-center">
+                <label
+                  htmlFor="type"
+                  className="text-2xl mt-2 font-medium text-blue-600 text-center"
+                >
                   Type
                 </label>
                 <select
+                  id="type"
                   name="type"
                   value={inputData.type}
                   onChange={handleChange}

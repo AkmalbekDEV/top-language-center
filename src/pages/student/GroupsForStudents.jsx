@@ -6,7 +6,7 @@ function GroupsForStudents({ groups }) {
   const { id } = useParams();
 
   const group = groups.find(group => group.id === parseInt(id));
-  console.log(group)
+
   if (!group) {
     return <h1>Group not found</h1>;
   }
