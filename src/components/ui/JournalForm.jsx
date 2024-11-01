@@ -14,10 +14,9 @@ const JournalForm = ({ students }) => {
     group_id: id,
     journal_week_id: weekId,
     listening: "No",
-    listening2: "No",
+    listening_reading: "No",
     reading: "No",
-    reading2: "No",
-    vocabulary: "",
+    vocabulary: "No",
     grammar: "No",
     writing: "No",
     vocabulary_homework: "No",
@@ -32,7 +31,7 @@ const JournalForm = ({ students }) => {
     journal_week_id: weekId,
     listening: "",
     reading: "",
-    vocabulary: "",
+    vocabulary: "No",
     listeningHW: "No",
     readingHW: "No",
     grammar: "No",
@@ -97,10 +96,7 @@ const JournalForm = ({ students }) => {
   const standardHandleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      standardInputData.name.trim() === "" ||
-      standardInputData.vocabulary.trim() === ""
-    ) {
+    if (standardInputData.name.trim() === "") {
       failedToast();
       return;
     } else {
@@ -118,10 +114,7 @@ const JournalForm = ({ students }) => {
     e.preventDefault();
 
     if (
-      advancedInputData.name.trim() === "" ||
-      advancedInputData.listening.trim() === "" ||
-      advancedInputData.reading.trim() === "" ||
-      advancedInputData.vocabulary.trim() === ""
+      advancedInputData.name.trim() === ""
     ) {
       failedToast();
       return;
@@ -140,11 +133,7 @@ const JournalForm = ({ students }) => {
     e.preventDefault();
 
     if (
-      topInputData.name.trim() === "" ||
-      topInputData.listening.trim() === "" ||
-      topInputData.reading.trim() === "" ||
-      topInputData.writing.trim() === "" ||
-      topInputData.speaking.trim() === ""
+      topInputData.name.trim() === ""
     ) {
       failedToast();
       return;
@@ -209,12 +198,12 @@ const JournalForm = ({ students }) => {
         <option value="-">-</option>
       </select>
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-        Listening (opt)
+        L / R
       </h3>
       <select
-        name="listening2"
+        name="listening_reading"
         required
-        value={standardInputData.listening2}
+        value={standardInputData.listening_reading}
         onChange={standardHandleChange}
         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
       >
@@ -237,31 +226,18 @@ const JournalForm = ({ students }) => {
         <option value="-">-</option>
       </select>
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-        Reading (opt)
+        Vocabulary
       </h3>
       <select
-        name="reading2"
+        name="vocabulary"
         required
-        value={standardInputData.reading2}
+        value={standardInputData.vocabulary}
         onChange={standardHandleChange}
         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
       >
-        <option value="No">No</option>
-        <option value="Yes">Yes</option>
-        <option value="-">-</option>
+        <option value="No">Failed</option>
+        <option value="Yes">Passed</option>
       </select>
-      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-        Vocabulary
-      </h3>
-      <input
-        name="vocabulary"
-        type="text"
-        autoComplete="off"
-        value={standardInputData.vocabulary}
-        onChange={standardHandleChange}
-        placeholder="Vocabulary..."
-        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
-      />
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
         Grammar
       </h3>
@@ -349,15 +325,16 @@ const JournalForm = ({ students }) => {
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
         Vocabulary
       </h3>
-      <input
+      <select
         name="vocabulary"
-        type="text"
-        autoComplete="off"
+        required
         value={advancedInputData.vocabulary}
-        onChange={advancedHandleChange}
-        placeholder="Vocabulary..."
+        onChange={standardHandleChange}
         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
-      />
+      >
+        <option value="No">Failed</option>
+        <option value="Yes">Passed</option>
+      </select>
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
         Listening (HW)
       </h3>

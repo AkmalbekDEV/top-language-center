@@ -5,7 +5,7 @@ import {
   studentTopJournalTableJson,
 } from "../../data/journalTableJson";
 import JournalTableComponent from "../../components/ui/Table";
-import { TableSpan } from "../../components/ui/TableSpan";
+import { TableSpan, TableVocabSpan } from "../../components/ui/custom";
 import { calculateAverage } from "../../utils/functions";
 import { CheckboxInputForStudents } from "../../components/ui/CheckboxInputForStudents";
 
@@ -54,16 +54,13 @@ function StudentJournalTableBody({ data, students }) {
                 <TableSpan data={journal?.listening} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.listening2} />
+                <TableSpan data={journal?.listening_reading} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <TableSpan data={journal?.reading} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.reading2} />
-              </td>
-              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.vocabulary || "N/A"}
+                <TableVocabSpan data={journal?.vocabulary} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <TableSpan data={journal?.grammar} />
@@ -100,19 +97,19 @@ function StudentJournalTableBody({ data, students }) {
                 {journal?.reading || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.vocabulary || "N/A"}
+                <TableVocabSpan data={journal?.vocabulary || "N/A"} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <TableSpan data={journal?.listeningHW || "N/A"} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.readingHW || "N/A"}/>
+                <TableSpan data={journal?.readingHW || "N/A"} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.grammar || "N/A"}/>
+                <TableSpan data={journal?.grammar || "N/A"} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.writing || "N/A"}/>
+                <TableSpan data={journal?.writing || "N/A"} />
               </td>
             </tr>
           ) : groupType === "Top" ? (

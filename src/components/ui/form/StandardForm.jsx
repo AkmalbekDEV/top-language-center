@@ -38,8 +38,7 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     journal_week_id: weekId,
     listening: "",
     reading: "",
-    listening2: "",
-    reading2: "",
+    listening_reading: "",
     vocabulary: "",
     grammar: "",
     writing: "",
@@ -95,8 +94,7 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
       journal_week_id: weekId,
       listening: student.listening,
       reading: student.reading,
-      listening2: student.listening2,
-      reading2: student.reading2,
+      listening_reading: student.listening_reading,
       vocabulary: student.vocabulary,
       grammar: student.grammar,
       writing: student.writing,
@@ -115,6 +113,11 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     { value: "Yes", label: "Yes" },
     { value: "No", label: "No" },
     { value: "-", label: "-" },
+  ];
+
+  const selectVocabOptions = [
+    { value: "No", label: "Failed" },
+    { value: "Yes", label: "Passed" },
   ];
 
   return (
@@ -148,9 +151,9 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 options={selectOptions}
               />
               <SelectInput
-                label="Listening (opt):"
-                name="listening2"
-                value={standardEditInputData.listening2}
+                label="L / R:"
+                name="listening_reading"
+                value={standardEditInputData.listening_reading}
                 onChange={standardHandleEditChange}
                 options={selectOptions}
               />
@@ -162,18 +165,11 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 options={selectOptions}
               />
               <SelectInput
-                label="Reading (opt):"
-                name="reading2"
-                value={standardEditInputData.reading2}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
-              />
-              <TextInput
                 label="Vocabulary:"
                 name="vocabulary"
-                autoComplete="off"
                 value={standardEditInputData.vocabulary}
                 onChange={standardHandleEditChange}
+                options={selectVocabOptions}
               />
               <SelectInput
                 label="Grammar:"

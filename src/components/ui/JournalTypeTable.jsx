@@ -4,18 +4,18 @@ import {
   standardJournalTableJson,
   topJournalTableJson,
 } from "../../data/journalTableJson";
-import JournalTableComponent from "./Table";
+import JournalTableComponent from "./Table.jsx";
 import { useContext } from "react";
 import { JournalContext } from "../../context/journals/JournalContext";
 import { useParams } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
-import { TableSpan } from "./TableSpan";
 import { calculateAverage } from "../../utils/functions";
 import PopoverForm from "./form/StandardPopoverForm.jsx";
 import TopPopoverForm from "./form/TopPopoverForm";
 import AdvancedPopoverForm from "./form/AdvancedPopoverForm";
 import { CheckboxInput } from "./CheckoxInput.jsx";
+import { TableSpan, TableVocabSpan } from "./custom";
 
 function JournalTableTypeBody({ data, students, handleDeleteClick }) {
   const groupTypeJson = students?.students[0]?.group?.type; // Check data structure
@@ -67,16 +67,13 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                 <TableSpan data={journal?.listening} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.listening2} />
+                <TableSpan data={journal?.listening_reading} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <TableSpan data={journal?.reading} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.reading2} />
-              </td>
-              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.vocabulary || "N/A"}
+                <TableVocabSpan data={journal?.vocabulary} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <TableSpan data={journal?.grammar} />
@@ -90,7 +87,10 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                 <div className="flex justify-center gap-2">
                   <PopoverForm editJournal={editJournal} data={journal} />
-                  <Button size="sm" onClick={() => handleDeleteClick(journal?.id)}>
+                  <Button
+                    size="sm"
+                    onClick={() => handleDeleteClick(journal?.id)}
+                  >
                     <MdDelete />
                   </Button>
                 </div>
@@ -123,7 +123,7 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                 {journal?.reading || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.vocabulary || "N/A"}
+                <TableVocabSpan data={journal?.vocabulary || "N/A"} />
               </td>
               <td className="whitespace-nowrap px-6 py-4 text-wrap">
                 <TableSpan data={journal?.listeningHW} />
@@ -143,7 +143,10 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                     editJournal={editJournal}
                     data={journal}
                   />
-                  <Button size="sm" onClick={() => handleDeleteClick(journal?.id)}>
+                  <Button
+                    size="sm"
+                    onClick={() => handleDeleteClick(journal?.id)}
+                  >
                     <MdDelete />
                   </Button>
                 </div>
@@ -187,7 +190,10 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                 <div className="flex justify-center gap-2">
                   <TopPopoverForm editJournal={editJournal} data={journal} />
-                  <Button size="sm" onClick={() => handleDeleteClick(journal?.id)}>
+                  <Button
+                    size="sm"
+                    onClick={() => handleDeleteClick(journal?.id)}
+                  >
                     <MdDelete />
                   </Button>
                 </div>

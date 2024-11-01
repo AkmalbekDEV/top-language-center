@@ -27,21 +27,30 @@ function JournalPage() {
   const cancelRef = useRef();
 
   useEffect(() => {
-    getJournals(Number(journalType), id, weekId);
-    fetchData(id);
+    if (journalType !== "") {
+      getJournals(journalType, id, weekId);
+      fetchData(id);
+    }
   }, [getJournals, id, fetchData, weekId, journalType]);
 
   useEffect(() => {
+    let newJournalType;
+
     if (groupType === "standard") {
-      setJournalType("0");
+      newJournalType = 0;
     } else if (groupType === "advanced") {
-      setJournalType("1");
+      newJournalType = 1;
     } else if (groupType === "top") {
-      setJournalType("2");
+      newJournalType = 2;
     } else {
       navigate("/404");
+      return;
     }
-  }, [setJournalType, navigate, groupType]);
+    // Only update state if journalType is changing
+    if (journalType !== newJournalType) {
+      setJournalType(newJournalType);
+    }
+  }, [setJournalType, navigate, groupType, journalType]);
 
   const backPathname =
     "/" + location.pathname.split("/").splice(1, 4).join("/");

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const TableSpan = ({data}) => {
+const TableVocabSpan = ({data}) => {
   return (
     <span
       className={`font-semibold rounded-full border py-1 px-3 ${
@@ -13,11 +13,13 @@ export const TableSpan = ({data}) => {
           : ""
       }`}
     >
-      {data || "N/A"}
+      {data === "Yes" ? "Passed" : "Failed" || "N/A"}
     </span>
   );
 };
 
-TableSpan.propTypes = {
+export default TableVocabSpan
+
+TableVocabSpan.propTypes = {
   data: PropTypes.any
 }

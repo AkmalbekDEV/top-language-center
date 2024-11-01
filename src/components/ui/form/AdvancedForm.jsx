@@ -115,6 +115,11 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     { value: "-", label: "-" },
   ];
 
+  const selectVocabOptions = [
+    { value: "No", label: "Failed" },
+    { value: "Yes", label: "Passed" },
+  ];
+
   return (
     <>
       <PopoverTrigger>
@@ -152,12 +157,12 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 value={advancedEditInputData.reading}
                 onChange={advancedHandleEditChange}
               />
-              <TextInput
+              <SelectInput
                 label="Vocabulary:"
                 name="vocabulary"
-                autoComplete="off"
                 value={advancedEditInputData.vocabulary}
                 onChange={advancedHandleEditChange}
+                options={selectVocabOptions}
               />
               <SelectInput
                 label="Listening (HW):"
@@ -195,7 +200,9 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 <Button variant="outline" onClick={onCancel}>
                   Cancel
                 </Button>
-                  <Button colorScheme="blue" type="submit">Submit!</Button>
+                <Button colorScheme="blue" type="submit">
+                  Submit!
+                </Button>
               </ButtonGroup>
             </form>
           </Box>
