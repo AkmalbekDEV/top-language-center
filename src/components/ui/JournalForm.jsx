@@ -45,6 +45,8 @@ const JournalForm = ({ students }) => {
     name: "",
     group_id: id,
     journal_week_id: weekId,
+    vocab_result: "No",
+    vocab_homework: "",
     listening: "",
     reading: "",
     writing: "",
@@ -407,6 +409,31 @@ const JournalForm = ({ students }) => {
         value={topInputData.name}
         onChange={topHandleChange}
         placeholder="O'quvchining ismi..."
+        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+      />
+      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+        Vocab Result
+      </h3>
+      <select
+        name="vocab_result"
+        required
+        value={topInputData.vocab_result}
+        onChange={topHandleChange}
+        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+      >
+        <option value="No">Failed</option>
+        <option value="Yes">Passed</option>
+      </select>
+      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+        Vocab (HW)
+      </h3>
+      <input
+        name="vocab_homework"
+        type="text"
+        autoComplete="off"
+        value={topInputData.vocab_homework}
+        onChange={topHandleChange}
+        placeholder="Vocabulary homework..."
         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
       />
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
