@@ -31,6 +31,7 @@ const GroupPage = () => {
     id: null,
     name: "",
     type: "Standard",
+    password: "default",
   });
   const [groupIdToDelete, setGroupIdToDelete] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -124,7 +125,6 @@ const GroupPage = () => {
 
       try {
         await postData(inputData);
-        setInputData({ id: null, name: "", type: "Standard" });
         toast({
           position: "top",
           duration: 5000,
@@ -133,6 +133,7 @@ const GroupPage = () => {
           title: "Added!",
           description: "New group successfully added",
         });
+        return;
       } catch (err) {
         console.error("Add error: ", err);
         toast({
@@ -190,7 +191,7 @@ const GroupPage = () => {
       }
     }
   }, [groupIdToDelete, deleteData, toast]);
-
+  console.log(inputData);
   useEffect(() => {
     getData();
   }, [getData]);
