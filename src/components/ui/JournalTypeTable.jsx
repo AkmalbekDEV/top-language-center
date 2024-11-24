@@ -14,7 +14,7 @@ import { calculateAverage } from "../../utils/functions";
 import PopoverForm from "./form/StandardPopoverForm.jsx";
 import TopPopoverForm from "./form/TopPopoverForm";
 import AdvancedPopoverForm from "./form/AdvancedPopoverForm";
-import { CheckboxInput } from "./CheckoxInput.jsx";
+import CheckboxInput from "./CheckoxInput.jsx";
 import { TableSpan, TableVocabSpan } from "./custom";
 
 function JournalTableTypeBody({ data, students, handleDeleteClick }) {
@@ -56,10 +56,10 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInput
+                  journalId={journal?.id}
                   attendance1={journal?.attendance1}
                   attendance2={journal?.attendance2}
                   attendance3={journal?.attendance3}
-                  journalId={journal?.id}
                   journalType="0"
                 />
               </td>
