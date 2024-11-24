@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import FocusLock from "react-focus-lock";
 import { MdEdit } from "react-icons/md";
+import SelectInput from "./SelectInput";
 
 const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
   const { groupType, id, weekId } = useParams();
@@ -35,6 +36,8 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     name: "",
     group_id: id,
     journal_week_id: weekId,
+    vocab_result: "",
+    vocab_homework: "",
     listening: "",
     reading: "",
     writing: "",
@@ -55,11 +58,7 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
       return;
     }
     try {
-      await editJournal(
-        journalType,
-        topEditInputData,
-        topEditInputData.id
-      );
+      await editJournal(journalType, topEditInputData, topEditInputData.id);
       toast({
         position: "top",
         duration: 5000,
@@ -88,6 +87,8 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
       name: student.name,
       group_id: id,
       journal_week_id: weekId,
+      vocab_result: student.vocab_result,
+      vocab_homework: student.vocab_homework,
       listening: student.listening,
       reading: student.reading,
       writing: student.writing,
@@ -101,6 +102,11 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const selectVocabOptions = [
+    { value: "No", label: "Failed" },
+    { value: "Yes", label: "Passed" },
+  ];
 
   return (
     <>
@@ -124,6 +130,20 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 value={topEditInputData.name}
                 onChange={topHandleEditChange}
                 ref={firstFieldRef}
+              />
+              <SelectInput
+                label="Vocabulary:"
+                name="vocab_result"
+                value={topEditInputData.vocab_result}
+                onChange={topHandleEditChange}
+                options={selectVocabOptions}
+              />
+              <TextInput
+                label="Vocab (HW):"
+                name="vocab_homework"
+                autoComplete="off"
+                value={topEditInputData.vocab_homework}
+                onChange={topHandleEditChange}
               />
               <TextInput
                 label="Listening:"
@@ -161,7 +181,9 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 <Button variant="outline" onClick={onCancel}>
                   Cancel
                 </Button>
-                  <Button type="submit" colorScheme="blue">Submit!</Button>
+                <Button type="submit" colorScheme="blue">
+                  Submit!
+                </Button>
               </ButtonGroup>
             </form>
           </Box>

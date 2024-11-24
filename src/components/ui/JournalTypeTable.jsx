@@ -11,9 +11,9 @@ import { useParams } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import { calculateAverage } from "../../utils/functions";
-import PopoverForm from "./form/StandardPopoverForm.jsx";
-import TopPopoverForm from "./form/TopPopoverForm";
-import AdvancedPopoverForm from "./form/AdvancedPopoverForm";
+import PopoverForm from "./form/journals/StandardPopoverForm.jsx";
+import TopPopoverForm from "./form/journals/TopPopoverForm.jsx";
+import AdvancedPopoverForm from "./form/journals/AdvancedPopoverForm.jsx";
 import { CheckboxInput } from "./CheckoxInput.jsx";
 import { TableSpan, TableVocabSpan } from "./custom";
 
@@ -171,6 +171,12 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                   journalId={journal?.id}
                   journalType="2"
                 />
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <TableVocabSpan data={journal?.vocab_result || "N/A"} />
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {journal?.vocab_homework || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.listening || "N/A"}

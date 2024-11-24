@@ -1,124 +1,186 @@
-import { createContext, useCallback, useState } from "react";
-import Axios from "../api";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { db } from "../api/firebase-config.js";
 import {
-  studentAddUrl,
-  studentDeleteUrl,
-  studentEditUrl,
-  studentsListRelationUrl,
-} from "../utils/urls";
-import PropTypes from "prop-types";
+  collection,
+  getDocs,
+  setDoc,
+  deleteDoc,
+  doc,
+  query,
+  orderBy,
+  where,
+  serverTimestamp,
+  updateDoc,
+  getDoc,
+} from "firebase/firestore";
 
-export const StudentContext = createContext();
+export const useStudentsManager = () => {
+  const queryClient = useQueryClient();
 
-const StudentProvider = ({ children }) => {
-  const [state, setState] = useState({ students: [], groupName: "", groupPassword: [] });
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const useStudents = (groupId) => {
+    return useQuery({
+      queryKey: ["students", groupId],
+      queryFn: async () => {
+        // First, get the group information
+        const groupRef = doc(db, "groups", groupId);
+        const groupSnap = await getDoc(groupRef);
+        const groupData = groupSnap.data();
 
-  const fetchData = useCallback(async (groupId) => {
-    setLoading(true);
-    setError(null);
+        // Then get the students
+        const studentsRef = collection(db, "students");
+        const q = query(
+          studentsRef,
+          where("groupRef", "==", `groups/${groupId}`),
+          orderBy("displayOrder", "asc")
+        );
+        const snapshot = await getDocs(q);
+        const students = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        return {
+          students,
+          groupName: groupData?.name || "",
+          groupPassword: {
+            id: groupId,
+            password: groupData?.password || ""
+          }
+        };
+      },
+      enabled: !!groupId, // Only run query if groupId is provided
+    });
+  };
+
+  const useAddStudent = () => {
+    return useMutation({
+      mutationFn: async ({ studentData, groupId }) => {
+        const studentsRef = collection(db, "students");
+
+        // Get current students to calculate next displayOrder
+        const q = query(
+          studentsRef,
+          where("groupRef", "==", `groups/${groupId}`),
+          orderBy("displayOrder", "desc")
+        );
+        const snapshot = await getDocs(q);
+        const students = snapshot.docs.map((doc) => doc.data());
+
+        // Calculate next displayOrder
+        const nextDisplayOrder =
+          students.length > 0
+            ? Math.max(...students.map((s) => s.displayOrder)) + 1
+            : 1;
+
+        const newStudentData = {
+          ...studentData,
+          groupRef: `groups/${groupId}`,
+          displayOrder: nextDisplayOrder,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        };
+
+        const newDocRef = doc(studentsRef);
+        await setDoc(newDocRef, newStudentData);
+
+        return { id: newDocRef.id, ...newStudentData };
+      },
+      onSuccess: (_, { groupId }) => {
+        queryClient.invalidateQueries(["students", groupId]);
+      },
+    });
+  };
+
+  const useDeleteStudent = () => {
+    return useMutation({
+      mutationFn: async ({ studentId, groupId }) => {
+        const studentRef = doc(db, "students", studentId);
+        await deleteDoc(studentRef);
+        return { studentId, groupId };
+      },
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["students", data.groupId]);
+      },
+    });
+  };
+
+  const useUpdateStudent = () => {
+    return useMutation({
+      mutationFn: async ({ studentId, updateData, groupId }) => {
+        const studentRef = doc(db, "students", studentId);
+
+        const updatedData = {
+          ...updateData,
+          updatedAt: serverTimestamp(),
+        };
+
+        await updateDoc(studentRef, updatedData);
+        return { studentId, groupId, ...updatedData };
+      },
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["students", data.groupId]);
+      },
+    });
+  };
+
+  return {
+    useStudents,
+    useAddStudent,
+    useDeleteStudent,
+    useUpdateStudent,
+  };
+};
+
+// Example usage in a component:
+/*
+const StudentsComponent = ({ groupId }) => {
+  const { 
+    useStudents, 
+    useAddStudent, 
+    useDeleteStudent, 
+    useUpdateStudent 
+  } = useStudentsManager();
+
+  const { data, isLoading } = useStudents(groupId);
+  const addStudent = useAddStudent();
+  const deleteStudent = useDeleteStudent();
+  const updateStudent = useUpdateStudent();
+
+  if (isLoading) return <div>Loading...</div>;
+
+  const handleAddStudent = async (studentData) => {
     try {
-      const response = await Axios.get(studentsListRelationUrl(groupId));
-      const data = response.data;
-      const groupStudents = data.filter(
-        (student) => student.group.id.toString() === groupId
-      );
-      if (groupStudents.length > 0) {
-        setState({
-          students: groupStudents,
-          groupName: groupStudents[0].group.name,
-          groupPassword: groupStudents.map(student => ({ id: student.group.id, password: student.group.password })),
-        });
-      } else {
-        setState({
-          students: [],
-          groupName: "",
-        });
-      }
-    } catch (err) {
-      setError(err);
-      setState({
-        students: [],
-        groupName: "",
-      });
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  const postData = async (body) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await Axios.post(studentAddUrl, body);
-      setState((prevState) => ({
-        ...prevState,
-        students: [...prevState.students, response.data],
-      }));
+      await addStudent.mutateAsync({ studentData, groupId });
     } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
+      console.error('Failed to add student:', error);
     }
   };
 
-  const deleteData = async (id) => {
-    setLoading(true);
-    setError(null);
+  const handleDeleteStudent = async (studentId) => {
     try {
-      await Axios.delete(studentDeleteUrl(id));
-      setState((prevState) => ({
-        ...prevState,
-        students: prevState.students.filter((student) => student.id !== id),
-      }));
-      console.log("Student deleted");
+      await deleteStudent.mutateAsync({ studentId, groupId });
     } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
+      console.error('Failed to delete student:', error);
     }
   };
 
-  const editStudent = async (body, id) => {
-    setLoading(true);
-    setError(null);
+  const handleUpdateStudent = async (studentId, updateData) => {
     try {
-      const response = await Axios.patch(studentEditUrl(id), body);
-      const updatedStudent = response.data;
-      setState((prevState) => ({
-        ...prevState,
-        students: prevState.students.map((student) =>
-          student.id === id ? updatedStudent : student
-        ),
-      }));
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
+      await updateStudent.mutateAsync({ studentId, updateData, groupId });
+    } catch (error) {
+      console.error('Failed to update student:', error);
     }
   };
 
   return (
-    <StudentContext.Provider
-      value={{
-        state,
-        setState, // For group deleting purpose
-        error,
-        loading,
-        postData,
-        fetchData,
-        deleteData,
-        editStudent,
-      }}
-    >
-      {children}
-    </StudentContext.Provider>
+    <div>
+      {data.students.map(student => (
+        <div key={student.id}>
+          {student.name}
+          // Add your UI elements here
+        </div>
+      ))}
+    </div>
   );
 };
-
-StudentProvider.propTypes = {
-  children: PropTypes.node.isRequired
-}
-
-export default StudentProvider;
+*/
