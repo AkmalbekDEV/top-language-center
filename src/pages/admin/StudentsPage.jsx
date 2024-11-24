@@ -1,35 +1,77 @@
 // import { useContext, useEffect, useRef, useState } from "react";
-import // Popover,
-// PopoverTrigger,
-// PopoverContent,
-// PopoverHeader,
-// PopoverBody,
-// PopoverArrow,
-// PopoverCloseButton,
-// Button,
-// useToast,
-// AlertDialog,
-// AlertDialogOverlay,
-// AlertDialogContent,
-// AlertDialogHeader,
-// AlertDialogBody,
-// AlertDialogFooter,
-// useDisclosure,
-// useQuery,
-"@chakra-ui/react";
+import {
+  Button,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
 // import { MdEdit, MdDelete } from "react-icons/md";
 // import { StudentContext } from "../../context/StudentsContext";
 import { Link, useParams } from "react-router-dom";
 import { useStudentsManager } from "../../context/StudentsContext";
+import PopoverComponent from "../../components/ui/Popover";
+import AddStudentForm from "../../components/ui/form/students/AddStudentForm";
+import React, { useState } from "react";
+import { MdDelete } from "react-icons/md";
 // import { GroupContext } from "../../context/GroupContext";
 // import PopoverComponent from "../../components/ui/Popover";
 
 const StudentsPage = () => {
-  const { useStudents, useAddStudent, useDeleteStudent, useUpdateStudent } =
-    useStudentsManager();
+  const { useStudents, useDeleteStudent } = useStudentsManager();
   const { groupId } = useParams();
-  console.log(groupId);
   const { data, isLoading } = useStudents(groupId);
+  const [studentToDelete, setStudentToDelete] = useState(null);
+
+  const cancelRef = React.useRef();
+  const deleteStudent = useDeleteStudent();
+  const toast = useToast();
+  const {
+    isOpen: isDeleteOpen,
+    onOpen: onDeleteOpen,
+    onClose: onDeleteClose,
+  } = useDisclosure();
+
+  console.log(groupId);
+  console.log(studentToDelete);
+
+  const handleDelete = async () => {
+    if (!studentToDelete) return;
+
+    try {
+      await deleteStudent.mutateAsync(studentToDelete.id);
+      onDeleteClose();
+      setStudentToDelete(null);
+      toast({
+        position: "top",
+        duration: 5000,
+        isClosable: true,
+        status: "success",
+        title: "Deleted!",
+        description: "The student successfully deleted",
+      });
+    } catch (error) {
+      toast({
+        position: "top",
+        duration: 5000,
+        isClosable: true,
+        status: "error",
+        title: "Delete Failed",
+        description: "There was an error deleting the student",
+      });
+      console.error("Delete group error:", error);
+    }
+  };
+
+  const handleDeleteClick = (student) => {
+    setStudentToDelete(student);
+    onDeleteOpen();
+  };
+
   // const {
   //   state,
   //   error,
@@ -293,21 +335,23 @@ const StudentsPage = () => {
                 </Link>
               ) : (
                 ""
-              )} */}
-              {/* <PopoverComponent
+                )} */}
+              <PopoverComponent
                 trigger={
-                  <button
+                  <Button
+                    size="xl"
                     className="px-5 py-1.5 max-sm:py-1 max-sm:px-3 max-sm:text-[1rem] rounded-md bg-gray-200 text-black text-xl font-medium"
-                    // onClick={onOpenPopover1}
                   >
-                    Add student
-                  </button>
+                    <h1 className="text-lg font-medium text-blue-600">
+                      Add Student
+                    </h1>
+                  </Button>
                 }
-                header="Adding Student"
-                // isOpen={isOpenPopover1}
-                // onClose={onClosePopover1}
+                header="Add Student"
               >
-                <form className="grid gap-2" onSubmit={handleSubmit}>
+                <AddStudentForm groupId={groupId} />
+              </PopoverComponent>
+              {/* <form className="grid gap-2" onSubmit={handleSubmit}>
                   <h1 className="text-2xl mt-2 font-medium text-blue-600 text-center">
                     Student&apos;s Name
                   </h1>
@@ -349,8 +393,8 @@ const StudentsPage = () => {
                   <button className="text-center text-lg rounded-xl hover:shadow-md hover:shadow-blue-500 transition-all active:bg-blue-700 font-medium text-white px-5 py-2 mt-5 bg-blue-600">
                     Submit!
                   </button>
-                </form>
-              </PopoverComponent> */}
+                </form> 
+              */}
             </div>
             <div className="text-center">
               <h1 className="text-4xl font-medium">
@@ -469,8 +513,8 @@ const StudentsPage = () => {
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
-                    {/* <div className="flex justify-center gap-2 max-sm:gap-0">
-                      <Popover
+                    <div className="flex justify-center gap-2 max-sm:gap-0">
+                      {/* <Popover
                         className="bg-gray-200"
                         isOpen={isOpenPopover2 && editData.id === student.id}
                         onClose={onClosePopover2}
@@ -540,52 +584,51 @@ const StudentsPage = () => {
                             </form>
                           </PopoverBody>
                         </PopoverContent>
-                      </Popover>
+                      </Popover> */}
                       <Button
                         size={{ base: "xs", sm: "sm" }}
                         colorScheme="red"
-                        onClick={() => handleDeleteClick(student.id)}
+                        onClick={() => handleDeleteClick(student)}
                       >
                         <MdDelete />
                       </Button>
-                    </div> */}
+                    </div>
                   </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-        {/* <AlertDialog
-          isOpen={isDelOpen}
+        <AlertDialog
+          isOpen={isDeleteOpen}
           leastDestructiveRef={cancelRef}
-          onClose={handleClose}
-          closeOnEsc
+          onClose={onDeleteClose}
         >
           <AlertDialogOverlay>
             <AlertDialogContent>
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                Delete Student
+                Delete Group
               </AlertDialogHeader>
 
-//               <AlertDialogBody>
-//                 Are you sure you want to delete this student? This action cannot
-//                 be undone.
-//               </AlertDialogBody>
+              <AlertDialogBody>
+                Are you sure you want to delete this {studentToDelete?.name}{" "}
+                student? This action cannot be undone.
+              </AlertDialogBody>
 
               <AlertDialogFooter>
-                <Button ref={cancelRef} onClick={handleClose}>
+                <Button ref={cancelRef} onClick={onDeleteClose}>
                   Cancel
                 </Button>
-                <Button colorScheme="red" onClick={handleDeleteConfirm} ml={3}>
+                <Button colorScheme="red" onClick={handleDelete} ml={3}>
                   Delete
                 </Button>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialogOverlay>
-        </AlertDialog> */}
+        </AlertDialog>
       </div>
     </div>
   );
 };
 
-// export default StudentsPage;
+export default StudentsPage;

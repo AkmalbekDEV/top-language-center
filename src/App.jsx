@@ -12,6 +12,7 @@ import StudentLogin from "./pages/student/StudentsLoginPage";
 // import JournalPage from "./pages/admin/JournalPage";
 // import StudentJournalPage from "./pages/student/StudentJournalPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import StudentsPage from "./pages/admin/StudentsPage";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
