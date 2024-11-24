@@ -17,7 +17,8 @@ import { useStudentsManager } from "../../context/StudentsContext";
 import PopoverComponent from "../../components/ui/Popover";
 import AddStudentForm from "../../components/ui/form/students/AddStudentForm";
 import React, { useState } from "react";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdEdit } from "react-icons/md";
+import EditStudentModal from "../../components/ui/form/students/EditStudentModal";
 // import { GroupContext } from "../../context/GroupContext";
 // import PopoverComponent from "../../components/ui/Popover";
 
@@ -26,6 +27,7 @@ const StudentsPage = () => {
   const { groupId } = useParams();
   const { data, isLoading } = useStudents(groupId);
   const [studentToDelete, setStudentToDelete] = useState(null);
+  const [editingStudent, setEditingStudent] = useState(null);
 
   const cancelRef = React.useRef();
   const deleteStudent = useDeleteStudent();
@@ -326,16 +328,16 @@ const StudentsPage = () => {
               >
                 Back
               </Link>
-              {/* {students[0]?.group?.type !== "Kids" ? (
+              {data.groupType !== "Kids" ? (
                 <Link
                   className="px-5 py-1.5 max-sm:py-1 max-sm:px-3 max-sm:text-[1rem] rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
-                  to={`/students/journals/${students[0]?.group?.type.toLowerCase()}/${groupId}`}
+                  to={`/group/${groupId}/students/journals`}
                 >
                   Journals
                 </Link>
               ) : (
                 ""
-                )} */}
+              )}
               <PopoverComponent
                 trigger={
                   <Button
@@ -514,20 +516,26 @@ const StudentsPage = () => {
                   </td>
                   <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                     <div className="flex justify-center gap-2 max-sm:gap-0">
+                      {editingStudent && (
+                        <EditStudentModal
+                          student={editingStudent}
+                          onClose={() => setEditingStudent(null)}
+                        />
+                      )}
+                      <Button
+                        size={{ base: "xs", sm: "sm" }}
+                        colorScheme="green"
+                        className="max-sm:mr-[5px]"
+                        onClick={() => setEditingStudent(student)}
+                      >
+                        <MdEdit />
+                      </Button>
                       {/* <Popover
                         className="bg-gray-200"
                         isOpen={isOpenPopover2 && editData.id === student.id}
                         onClose={onClosePopover2}
                       >
                         <PopoverTrigger>
-                          <Button
-                            size={{ base: "xs", sm: "sm" }}
-                            colorScheme="green"
-                            className="max-sm:mr-[5px]"
-                            onClick={() => handleEditPopoverButton(student)}
-                          >
-                            <MdEdit />
-                          </Button>
                         </PopoverTrigger>
                         <PopoverContent className="bg-gray-200 rounded-xl p-5 max-sm:mr-10">
                           <PopoverArrow />

@@ -7,9 +7,9 @@ import GroupPage from "./pages/admin/Groups";
 import LoginPage from "./pages/admin/LoginPage";
 import AdminRoute from "./pages/admin/AdminPage";
 // import StudentsPage from "./pages/admin/StudentsPage";
-import StudentLogin from "./pages/student/StudentsLoginPage";
-// import JournalWeeks from "./pages/admin/JournalWeeks";
-// import JournalPage from "./pages/admin/JournalPage";
+// import StudentLogin from "./pages/student/StudentsLoginPage";
+import JournalWeeks from "./pages/admin/JournalWeeks";
+import JournalPage from "./pages/admin/JournalPage";
 // import StudentJournalPage from "./pages/student/StudentJournalPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import StudentsPage from "./pages/admin/StudentsPage";
@@ -87,6 +87,14 @@ function App() {
                 <Route
                   path="/group/:groupId/students"
                   element={<StudentsPage />}
+                />
+                <Route
+                  path="/group/:groupId/students/journals"
+                  element={<JournalWeeks />}
+                />
+                <Route
+                  path="/group/:groupId/students/journals/:weekId"
+                  element={<JournalPage />}
                 />
                 <Route
                   path="/students/journals/:groupType/:id"

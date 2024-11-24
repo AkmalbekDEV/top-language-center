@@ -33,7 +33,7 @@ function PopoverComponent(props) {
 PopoverComponent.propTypes = {
   trigger: PropTypes.node.isRequired,
   header: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func
 }

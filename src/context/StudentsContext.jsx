@@ -68,6 +68,7 @@ export const useStudentsManager = () => {
         return {
           students,
           groupName: groupData?.name || "",
+          groupType: groupData?.type || "",
           groupPassword: {
             id: groupId,
             password: groupData?.password || "",
@@ -130,8 +131,12 @@ export const useStudentsManager = () => {
 
   const useUpdateStudent = () => {
     return useMutation({
-      mutationFn: async ({ studentId, updateData, groupId }) => {
-        const studentRef = doc(db, "students", studentId);
+      mutationFn: async (updateData) => {
+        if (!updateData.id) {
+          throw new Error("Studenr ID is require for update");
+        }
+
+        const studentRef = doc(db, "students", updateData.id);
 
         const updatedData = {
           ...updateData,
@@ -139,10 +144,10 @@ export const useStudentsManager = () => {
         };
 
         await updateDoc(studentRef, updatedData);
-        return { studentId, groupId, ...updatedData };
+        return updatedData;
       },
-      onSuccess: (data) => {
-        queryClient.invalidateQueries(["students", data.groupId]);
+      onSuccess: () => {
+        queryClient.invalidateQueries(["students"]);
       },
     });
   };
