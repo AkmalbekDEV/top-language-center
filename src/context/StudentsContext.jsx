@@ -17,16 +17,42 @@ import {
 export const useStudentsManager = () => {
   const queryClient = useQueryClient();
 
+  const getNextStudentId = async () => {
+    try {
+      const studentsRef = collection(db, "students");
+      const allStudentsSnapshot = await getDocs(studentsRef);
+
+      if (allStudentsSnapshot.empty) {
+        return "students-001";
+      }
+
+      const studentIds = allStudentsSnapshot.docs
+        .map((doc) => doc.id)
+        .filter((id) => id && id.startsWith("students-"))
+        .map((id) => parseInt(id.split("-")[1], 10))
+        .filter((num) => !isNaN(num));
+
+      if (studentIds.length === 0) {
+        return "students-001";
+      }
+
+      const highestNumber = Math.max(...studentIds);
+      const nextNumber = highestNumber + 1;
+      return `students-${String(nextNumber).padStart(3, "0")}`;
+    } catch (error) {
+      console.error("Error generating ID:", error);
+      throw error;
+    }
+  };
+
   const useStudents = (groupId) => {
     return useQuery({
       queryKey: ["students", groupId],
       queryFn: async () => {
-        // First, get the group information
         const groupRef = doc(db, "groups", groupId);
         const groupSnap = await getDoc(groupRef);
         const groupData = groupSnap.data();
 
-        // Then get the students
         const studentsRef = collection(db, "students");
         const q = query(
           studentsRef,
@@ -44,20 +70,20 @@ export const useStudentsManager = () => {
           groupName: groupData?.name || "",
           groupPassword: {
             id: groupId,
-            password: groupData?.password || ""
-          }
+            password: groupData?.password || "",
+          },
         };
       },
-      enabled: !!groupId, // Only run query if groupId is provided
+      enabled: !!groupId,
     });
   };
 
   const useAddStudent = () => {
     return useMutation({
       mutationFn: async ({ studentData, groupId }) => {
-        const studentsRef = collection(db, "students");
+        const newId = await getNextStudentId();
 
-        // Get current students to calculate next displayOrder
+        const studentsRef = collection(db, "students");
         const q = query(
           studentsRef,
           where("groupRef", "==", `groups/${groupId}`),
@@ -66,7 +92,6 @@ export const useStudentsManager = () => {
         const snapshot = await getDocs(q);
         const students = snapshot.docs.map((doc) => doc.data());
 
-        // Calculate next displayOrder
         const nextDisplayOrder =
           students.length > 0
             ? Math.max(...students.map((s) => s.displayOrder)) + 1
@@ -74,16 +99,15 @@ export const useStudentsManager = () => {
 
         const newStudentData = {
           ...studentData,
+          id: newId,
           groupRef: `groups/${groupId}`,
           displayOrder: nextDisplayOrder,
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
         };
 
-        const newDocRef = doc(studentsRef);
-        await setDoc(newDocRef, newStudentData);
-
-        return { id: newDocRef.id, ...newStudentData };
+        await setDoc(doc(db, "students", newId), newStudentData);
+        return newStudentData;
       },
       onSuccess: (_, { groupId }) => {
         queryClient.invalidateQueries(["students", groupId]);
@@ -93,13 +117,13 @@ export const useStudentsManager = () => {
 
   const useDeleteStudent = () => {
     return useMutation({
-      mutationFn: async ({ studentId, groupId }) => {
+      mutationFn: async (studentId) => {
         const studentRef = doc(db, "students", studentId);
         await deleteDoc(studentRef);
-        return { studentId, groupId };
+        return studentId;
       },
-      onSuccess: (data) => {
-        queryClient.invalidateQueries(["students", data.groupId]);
+      onSuccess: () => {
+        queryClient.invalidateQueries(["students"]);
       },
     });
   };
@@ -130,7 +154,6 @@ export const useStudentsManager = () => {
     useUpdateStudent,
   };
 };
-
 // Example usage in a component:
 /*
 const StudentsComponent = ({ groupId }) => {

@@ -10,7 +10,6 @@ import {
   orderBy,
   where,
   serverTimestamp,
-  updateDoc,
 } from "firebase/firestore";
 
 export const useGroupsManager = () => {
