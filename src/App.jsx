@@ -6,7 +6,7 @@ import MainLayoutRoutes from "./pages/MainLayoutRoutes";
 import GroupPage from "./pages/admin/Groups";
 import LoginPage from "./pages/admin/LoginPage";
 import AdminRoute from "./pages/admin/AdminPage";
-import StudentsPage from "./pages/admin/StudentsPage";
+// import StudentsPage from "./pages/admin/StudentsPage";
 import StudentLogin from "./pages/student/StudentsLoginPage";
 // import JournalWeeks from "./pages/admin/JournalWeeks";
 // import JournalPage from "./pages/admin/JournalPage";

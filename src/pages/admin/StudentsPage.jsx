@@ -567,10 +567,10 @@ const StudentsPage = () => {
                 Delete Student
               </AlertDialogHeader>
 
-              <AlertDialogBody>
-                Are you sure you want to delete this student? This action cannot
-                be undone.
-              </AlertDialogBody>
+//               <AlertDialogBody>
+//                 Are you sure you want to delete this student? This action cannot
+//                 be undone.
+//               </AlertDialogBody>
 
               <AlertDialogFooter>
                 <Button ref={cancelRef} onClick={handleClose}>
@@ -588,4 +588,4 @@ const StudentsPage = () => {
   );
 };
 
-export default StudentsPage;
+// export default StudentsPage;

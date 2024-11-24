@@ -129,6 +129,46 @@ const GroupPage = () => {
   //   },
   //   [editData, editGroup, onClosePopover2, toast]
   // );
+  // const handleEdit = useCallback(
+  //   async (e) => {
+  //     e.preventDefault();
+  //     if (editData.name.trim() === "") {
+  //       toast({
+  //         position: "top",
+  //         duration: 2000,
+  //         isClosable: true,
+  //         status: "error",
+  //         title: "Empty!",
+  //         description: "Input shouldn't be empty",
+  //       });
+  //       return;
+  //     }
+  //     try {
+  //       await editGroup(editData, editData.id);
+  //       setEditData({ id: null, name: "", type: "Standard" });
+  //       toast({
+  //         position: "top",
+  //         duration: 5000,
+  //         isClosable: true,
+  //         status: "success",
+  //         title: "Edited!",
+  //         description: "The group was successfully edited",
+  //       });
+  //     } catch (error) {
+  //       console.error("Edit error: ", error);
+  //       toast({
+  //         position: "top",
+  //         duration: 5000,
+  //         isClosable: true,
+  //         status: "error",
+  //         title: "Edit Failed",
+  //         description: "There was an error editing the group",
+  //       });
+  //     }
+  //     onClosePopover2();
+  //   },
+  //   [editData, editGroup, onClosePopover2, toast]
+  // );
 
   // const handleEditChange = useCallback((e) => {
   //   setEditData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
