@@ -45,7 +45,9 @@
 //     name: "",
 //     group_id: id,
 //     journal_week_id: weekId,
-//     vocab_result: "No",
+//     listening_homework: "No",
+    // reading_homework: "No",
+    // vocab_result: "No",
 //     vocab_homework: "",
 //     listening: "",
 //     reading: "",
@@ -412,8 +414,34 @@
 //         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
 //       />
 //       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-//         Vocab Result
+//         Listening
 //       </h3>
+//       <select
+//         name="listening_homework"
+//         required
+//         value={topInputData.listening_homework}
+//         onChange={topHandleChange}
+//         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+//       >
+//         <option value="No">No</option>
+//         <option value="Yes">Yes</option>
+//       </select>
+//       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+//         Reading
+//       </h3>
+//       <select
+//         name="readingHW"
+//         required
+//         value={topInputData.reading_homework}
+//         onChange={topHandleChange}
+//         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+//       >
+//         <option value="No">No</option>
+//         <option value="Yes">Yes</option>
+//       </select>
+//       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+// //         Vocab Result
+// //       </h3>
 //       <select
 //         name="vocab_result"
 //         required
