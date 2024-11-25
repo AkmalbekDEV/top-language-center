@@ -333,7 +333,7 @@ const StudentsPage = () => {
                   className="px-5 py-1.5 max-sm:py-1 max-sm:px-3 max-sm:text-[1rem] rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
                   to={`/group/${groupId}/students/journals`}
                 >
-                  Journals
+                  Journal
                 </Link>
               ) : (
                 ""

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { Check, X, Circle } from "lucide-react";
 import { JournalContext } from "../../context/journals/JournalContext";
 
@@ -6,9 +6,12 @@ const CustomCheckbox = ({ name, value, onValueChange }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleInitialClick = () => {
-    setIsOpen(true);
+    if (value === "true" || value === "not") {
+      onValueChange(false);
+    } else {
+      setIsOpen(true);
+    }
   };
-
   const handleOptionSelect = (selectedValue) => {
     onValueChange(selectedValue);
     setIsOpen(false);
