@@ -1,269 +1,285 @@
 export const standardJournalTableJson = [
   {
     id: 1,
-    title: "#"
+    title: '#',
   },
   {
     id: 2,
-    title: "Name"
+    title: 'Name',
   },
   {
     id: 3,
-    title: "Attendance"
+    title: 'Attendance',
   },
   {
     id: 4,
-    title: "Listening"
+    title: 'Listening',
   },
   {
     id: 5,
-    title: "L / R"
+    title: 'L / R',
   },
   {
     id: 6,
-    title: "Reading"
+    title: 'Reading',
   },
   {
     id: 7,
-    title: "Vocabulary"
+    title: 'Vocabulary',
   },
   {
     id: 8,
-    title: "Grammar"
+    title: 'Grammar',
   },
   {
     id: 9,
-    title: "Writing"
+    title: 'Writing',
   },
   {
     id: 10,
-    title: "Vocabulary (HW)"
+    title: 'Vocabulary (HW)',
   },
   {
     id: 11,
-    title: "Handle"
-  }
-]
+    title: 'Handle',
+  },
+];
 
 export const studentStandardJournalTableJson = [
   {
     id: 1,
-    title: "#",
+    title: '#',
   },
   {
     id: 2,
-    title: "Name",
+    title: 'Name',
   },
   {
     id: 3,
-    title: "Attendance",
+    title: 'Attendance',
   },
   {
     id: 4,
-    title: "Listening",
+    title: 'Listening',
   },
   {
     id: 5,
-    title: "L / R",
+    title: 'L / R',
   },
   {
     id: 6,
-    title: "Reading",
+    title: 'Reading',
   },
   {
     id: 7,
-    title: "Vocabulary",
+    title: 'Vocabulary',
   },
   {
     id: 8,
-    title: "Grammar",
+    title: 'Grammar',
   },
   {
     id: 9,
-    title: "Writing",
+    title: 'Writing',
   },
   {
     id: 10,
-    title: "Vocabulary (HW)",
+    title: 'Vocabulary (HW)',
   },
 ];
 
 export const advancedJournalTableJson = [
   {
     id: 1,
-    title: "#"
+    title: '#',
   },
   {
     id: 2,
-    title: "Name"
+    title: 'Name',
   },
   {
     id: 3,
-    title: "Attendance"
+    title: 'Attendance',
   },
   {
     id: 4,
-    title: "Listening"
+    title: 'Listening',
   },
   {
     id: 5,
-    title: "Reading"
+    title: 'Reading',
   },
   {
     id: 6,
-    title: "Vocabulary"
+    title: 'Vocabulary',
   },
   {
     id: 7,
-    title: "Listening (HW)"
+    title: 'Listening (HW)',
   },
   {
     id: 8,
-    title: "Reading (HW)"
+    title: 'Reading (HW)',
   },
   {
     id: 9,
-    title: "Grammar"
+    title: 'Grammar',
   },
   {
     id: 10,
-    title: "Writing"
+    title: 'Writing',
   },
   {
     id: 11,
-    title: "Handle"
-  }
-]
+    title: 'Handle',
+  },
+];
 
 export const studentAdvancedJournalTableJson = [
   {
     id: 1,
-    title: "#",
+    title: '#',
   },
   {
     id: 2,
-    title: "Name",
+    title: 'Name',
   },
   {
     id: 3,
-    title: "Attendance",
+    title: 'Attendance',
   },
   {
     id: 4,
-    title: "Listening",
+    title: 'Listening',
   },
   {
     id: 5,
-    title: "Reading",
+    title: 'Reading',
   },
   {
     id: 6,
-    title: "Vocabulary",
+    title: 'Vocabulary',
   },
   {
     id: 7,
-    title: "Listening (HW)",
+    title: 'Listening (HW)',
   },
   {
     id: 8,
-    title: "Reading (HW)",
+    title: 'Reading (HW)',
   },
   {
     id: 9,
-    title: "Grammar",
+    title: 'Grammar',
   },
   {
     id: 10,
-    title: "Writing",
+    title: 'Writing',
   },
 ];
 
 export const topJournalTableJson = [
   {
     id: 1,
-    title: "#"
+    title: '#',
   },
   {
     id: 2,
-    title: "Name"
+    title: 'Name',
   },
   {
     id: 3,
-    title: "Attendance"
+    title: 'Attendance',
   },
   {
     id: 4,
-    title: "Vocab Result"
+    title: 'Listening',
   },
   {
     id: 5,
-    title: "Vocab (HW)"
-  },
-  {
-    id: 4,
-    title: "Listening"
-  },
-  {
-    id: 5,
-    title: "Reading"
+    title: 'Reading',
   },
   {
     id: 6,
-    title: "Writing"
+    title: 'Vocab Result',
   },
   {
     id: 7,
-    title: "Speaking"
+    title: 'Vocab (HW)',
   },
   {
     id: 8,
-    title: "Overall"
+    title: 'Listening',
   },
   {
     id: 9,
-    title: "Handle"
-  }
-]
+    title: 'Reading',
+  },
+  {
+    id: 10,
+    title: 'Writing',
+  },
+  {
+    id: 11,
+    title: 'Speaking',
+  },
+  {
+    id: 12,
+    title: 'Overall',
+  },
+  {
+    id: 13,
+    title: 'Handle',
+  },
+];
 
 export const studentTopJournalTableJson = [
   {
     id: 1,
-    title: "#"
+    title: '#',
   },
   {
     id: 2,
-    title: "Name"
+    title: 'Name',
   },
   {
     id: 3,
-    title: "Attendance"
+    title: 'Attendance',
   },
   {
     id: 4,
-    title: "Vocab Result"
+    title: 'Listening',
   },
   {
     id: 5,
-    title: "Vocab (HW)"
-  },
-  {
-    id: 4,
-    title: "Listening"
-  },
-  {
-    id: 5,
-    title: "Reading"
+    title: 'Reading',
   },
   {
     id: 6,
-    title: "Writing"
+    title: 'Vocab Result',
   },
   {
     id: 7,
-    title: "Speaking"
+    title: 'Vocab (HW)',
   },
   {
     id: 8,
-    title: "Overall"
-  }
-]
+    title: 'Listening',
+  },
+  {
+    id: 9,
+    title: 'Reading',
+  },
+  {
+    id: 10,
+    title: 'Writing',
+  },
+  {
+    id: 11,
+    title: 'Speaking',
+  },
+  {
+    id: 12,
+    title: 'Overall',
+  },
+];

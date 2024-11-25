@@ -36,6 +36,8 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     name: "",
     group_id: id,
     journal_week_id: weekId,
+    listening_homework: "",
+    reading_homework: "",
     vocab_result: "",
     vocab_homework: "",
     listening: "",
@@ -87,6 +89,8 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
       name: student.name,
       group_id: id,
       journal_week_id: weekId,
+      listening_homework: student.listening_homework,
+      reading_homework: student.reading_homework,
       vocab_result: student.vocab_result,
       vocab_homework: student.vocab_homework,
       listening: student.listening,
@@ -130,6 +134,20 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 value={topEditInputData.name}
                 onChange={topHandleEditChange}
                 ref={firstFieldRef}
+              />
+              <SelectInput
+                label="Listening:"
+                name="listening_homework"
+                value={topEditInputData.listening_homework}
+                onChange={topHandleEditChange}
+                options={selectVocabOptions}
+              />
+              <SelectInput
+                label="Reading:"
+                name="reading_homework"
+                value={topEditInputData.reading_homework}
+                onChange={topHandleEditChange}
+                options={selectVocabOptions}
               />
               <SelectInput
                 label="Vocabulary:"
