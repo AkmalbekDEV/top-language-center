@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import refreshAuthToken from "../../utils/refreshAuthToken";
 
-const AdminRoute = () => {
+const ForStudentsRoute = () => {
   const [isAuthorized, setIsAuthorized] = useState(null);
 
   useEffect(() => {
@@ -19,7 +19,8 @@ const AdminRoute = () => {
       }
       try {
         const { payload } = await jwtVerify(token, secretKey);
-        if (payload.role !== "admin") {
+        console.log(payload.role)
+        if (payload.role !== "student") {
           setIsAuthorized(false);
           return;
         }
@@ -50,4 +51,4 @@ const AdminRoute = () => {
   return <Outlet />;
 };
 
-export default AdminRoute;
+export default ForStudentsRoute;

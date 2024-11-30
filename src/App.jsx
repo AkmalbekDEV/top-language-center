@@ -1,4 +1,4 @@
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Aos from "aos";
 import { useEffect, useState } from "react";
 // import global_uz from "./translations/uz/global.json";
@@ -13,6 +13,7 @@ import JournalPage from "./pages/admin/JournalPage";
 // import StudentJournalPage from "./pages/student/StudentJournalPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import StudentsPage from "./pages/admin/StudentsPage";
+import ForStudentsRoute from "./pages/admin/ForStudentsPage";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -71,39 +72,30 @@ function App() {
                 // element={<StudentLogin groups={state} />}
               />
               <Route element={<AdminRoute />}>
-                <Route
-                  path="/student-groups/:groupType/:id"
-                  // element={<JournalWeeks />}
-                />
-                <Route
-                  path="/student-groups/:groupType/:id/week/:weekId"
-                  // element={<StudentJournalPage />}
-                />
-                <Route
-                  path="/student-groups/:groupType/:id/week/:weekId"
-                  // element={<StudentJournalPage />}
-                />
-                <Route path="/groups" element={<GroupPage />} />
-                <Route
-                  path="/group/:groupId/students"
-                  element={<StudentsPage />}
-                />
-                <Route
-                  path="/group/:groupId/students/journals"
-                  element={<JournalWeeks />}
-                />
-                <Route
-                  path="/group/:groupId/students/journals/:weekId"
-                  element={<JournalPage />}
-                />
-                <Route
-                  path="/students/journals/:groupType/:id"
-                  // element={<JournalWeeks />}
-                />
-                <Route
-                  path="/students/journals/:groupType/:id/week/:weekId"
-                  // element={<JournalPage />}
-                />
+              <Route path="/groups" element={<GroupPage />} />
+              <Route
+                path="/group/:groupId/students"
+                element={<StudentsPage />}
+              />
+                  <Route
+                    path="/group/:groupId/students/journals"
+                    element={<JournalWeeks />}
+                  />
+                  <Route
+                    path="/group/:groupId/students/journals/:weekId"
+                    element={<JournalPage />}
+                  />
+                <Route element={<ForStudentsRoute />}>
+                  <Route
+                    path="/student-groups/:groupType/:id"
+                    // element={<JournalWeeks />}
+                  />
+                  <Route
+                    path="/student-groups/:groupType/:id/week/:weekId"
+                    // element={<StudentJournalPage />}
+                  />
+
+              </Route>
               </Route>
             </Routes>
           </QueryClientProvider>
