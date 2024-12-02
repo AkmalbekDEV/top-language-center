@@ -16,6 +16,8 @@ import TopPopoverForm from "./form/TopPopoverForm";
 import AdvancedPopoverForm from "./form/AdvancedPopoverForm";
 import CheckboxInput from "./CheckoxInput.jsx";
 import { TableSpan, TableVocabSpan } from "./custom";
+import CheckboxInputForListening from "./CheckboxInputForListening.jsx";
+import CheckboxInputForReading from "./CheckboxForReading.jsx";
 
 function JournalTableTypeBody({ data, students, handleDeleteClick }) {
   const groupTypeJson = students?.students[0]?.group?.type; // Check data structure
@@ -173,10 +175,22 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.listening_homework} />
+                <CheckboxInputForListening
+                  attendance1={journal?.listening_homework1}
+                  attendance2={journal?.listening_homework2}
+                  attendance3={journal?.listening_homework3}
+                  journalId={journal?.id}
+                  journalType="2"
+                />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.reading_homework} />
+                <CheckboxInputForReading
+                  attendance1={journal?.reading_homework1}
+                  attendance2={journal?.reading_homework2}
+                  attendance3={journal?.reading_homework3}
+                  journalId={journal?.id}
+                  journalType="2"
+                />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <TableVocabSpan data={journal?.vocab_result || "N/A"} />
@@ -217,7 +231,7 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
         })
       ) : (
         <tr>
-          <td colSpan="11" className="text-center py-4">
+          <td colSpan="13" className="text-center py-4">
             No journals available
           </td>
         </tr>
