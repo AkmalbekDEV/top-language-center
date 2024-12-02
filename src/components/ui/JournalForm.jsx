@@ -4,59 +4,57 @@
 // import { JournalContext } from "../../context/journals/JournalContext";
 // import { useToast } from "@chakra-ui/react";
 
-// const JournalForm = ({ students }) => {
-//   const { postJournal } = useContext(JournalContext);
-//   const { groupType, id, weekId } = useParams();
-//   const [journalType, setJournalType] = useState("");
-//   const [standardInputData, setStandardInputData] = useState({
-//     id: null,
-//     name: "",
-//     group_id: id,
-//     journal_week_id: weekId,
-//     listening: "No",
-//     listening_reading: "No",
-//     reading: "No",
-//     vocabulary: "No",
-//     grammar: "No",
-//     writing: "No",
-//     vocabulary_homework: "No",
-//     attendance1: "false",
-//     attendance2: "false",
-//     attendance3: "false",
-//   });
-//   const [advancedInputData, setAdvancedInputData] = useState({
-//     id: null,
-//     name: "",
-//     group_id: id,
-//     journal_week_id: weekId,
-//     listening: "",
-//     reading: "",
-//     vocabulary: "No",
-//     listeningHW: "No",
-//     readingHW: "No",
-//     grammar: "No",
-//     writing: "No",
-//     attendance1: "false",
-//     attendance2: "false",
-//     attendance3: "false",
-//   });
-//   const [topInputData, setTopInputData] = useState({
-//     id: null,
-//     name: "",
-//     group_id: id,
-//     journal_week_id: weekId,
-//     listening_homework: "No",
-    // reading_homework: "No",
-    // vocab_result: "No",
-//     vocab_homework: "",
-//     listening: "",
-//     reading: "",
-//     writing: "",
-//     speaking: "",
-//     attendance1: "false",
-//     attendance2: "false",
-//     attendance3: "false",
-//   });
+const JournalForm = ({ students }) => {
+  const { postJournal } = useContext(JournalContext);
+  const { groupType, id, weekId } = useParams();
+  const [journalType, setJournalType] = useState("");
+  const [standardInputData, setStandardInputData] = useState({
+    id: null,
+    name: "",
+    group_id: id,
+    journal_week_id: weekId,
+    listening: "No",
+    listening_reading: "No",
+    reading: "No",
+    vocabulary: "No",
+    grammar: "No",
+    writing: "No",
+    vocabulary_homework: "No",
+    attendance1: "false",
+    attendance2: "false",
+    attendance3: "false",
+  });
+  const [advancedInputData, setAdvancedInputData] = useState({
+    id: null,
+    name: "",
+    group_id: id,
+    journal_week_id: weekId,
+    listening: "",
+    reading: "",
+    vocabulary: "No",
+    listeningHW: "No",
+    readingHW: "No",
+    grammar: "No",
+    writing: "No",
+    attendance1: "false",
+    attendance2: "false",
+    attendance3: "false",
+  });
+  const [topInputData, setTopInputData] = useState({
+    id: null,
+    name: "",
+    group_id: id,
+    journal_week_id: weekId,
+    vocab_result: "No",
+    vocab_homework: "",
+    listening: "",
+    reading: "",
+    writing: "",
+    speaking: "",
+    attendance1: "false",
+    attendance2: "false",
+    attendance3: "false",
+  });
 
 //   useEffect(() => {
 //     if (groupType === "standard") {
@@ -414,34 +412,8 @@
 //         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
 //       />
 //       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-//         Listening
+//         Vocab Result
 //       </h3>
-//       <select
-//         name="listening_homework"
-//         required
-//         value={topInputData.listening_homework}
-//         onChange={topHandleChange}
-//         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
-//       >
-//         <option value="No">No</option>
-//         <option value="Yes">Yes</option>
-//       </select>
-//       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-//         Reading
-//       </h3>
-//       <select
-//         name="readingHW"
-//         required
-//         value={topInputData.reading_homework}
-//         onChange={topHandleChange}
-//         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
-//       >
-//         <option value="No">No</option>
-//         <option value="Yes">Yes</option>
-//       </select>
-//       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
-// //         Vocab Result
-// //       </h3>
 //       <select
 //         name="vocab_result"
 //         required
@@ -525,4 +497,4 @@
 //   students: PropTypes.any,
 // };
 
-// export default JournalForm;
+export default JournalForm;
