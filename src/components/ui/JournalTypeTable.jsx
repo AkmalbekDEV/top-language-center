@@ -176,18 +176,18 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInputForListening
-                  attendance1={journal?.listening_homework1}
-                  attendance2={journal?.listening_homework2}
-                  attendance3={journal?.listening_homework3}
+                  listening_homework1={journal?.listening_homework1}
+                  listening_homework2={journal?.listening_homework2}
+                  listening_homework3={journal?.listening_homework3}
                   journalId={journal?.id}
                   journalType="2"
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInputForReading
-                  attendance1={journal?.reading_homework1}
-                  attendance2={journal?.reading_homework2}
-                  attendance3={journal?.reading_homework3}
+                  reading_homework1={journal?.reading_homework1}
+                  reading_homework2={journal?.reading_homework2}
+                  reading_homework3={journal?.reading_homework3}
                   journalId={journal?.id}
                   journalType="2"
                 />

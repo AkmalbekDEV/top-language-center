@@ -54,6 +54,12 @@ const JournalForm = ({ students }) => {
     attendance1: "false",
     attendance2: "false",
     attendance3: "false",
+    listening_homework1: "false",
+    listening_homework2: "false",
+    listening_homework3: "false",
+    reading_homework1: "false",
+    reading_homework2: "false",
+    reading_homework3: "false",
   });
 
   useEffect(() => {

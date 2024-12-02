@@ -16,7 +16,7 @@ const AdminRoute = () => {
       if (!token) {
         setIsAuthorized(false);
         return;
-      }
+      } 
       try {
         const { payload } = await jwtVerify(token, secretKey);
         if (payload.role !== "admin") {
