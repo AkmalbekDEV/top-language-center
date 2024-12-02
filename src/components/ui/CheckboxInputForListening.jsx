@@ -16,7 +16,7 @@ const CustomCheckbox = ({ name, value, onValueChange }) => {
     onValueChange(selectedValue);
     setIsOpen(false);
   };
-
+console.log(value)
   if (!isOpen) {
     return (
       <button
