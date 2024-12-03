@@ -193,19 +193,19 @@ export const topJournalTableJson = [
   },
   {
     id: 4,
-    title: 'Listening',
-  },
-  {
-    id: 5,
-    title: 'Reading',
-  },
-  {
-    id: 6,
     title: 'Vocab Result',
   },
   {
-    id: 7,
+    id: 5,
     title: 'Vocab (HW)',
+  },
+  {
+    id: 6,
+    title: 'Listening (HW)',
+  },
+  {
+    id: 7,
+    title: 'Reading (HW)',
   },
   {
     id: 8,
@@ -248,19 +248,19 @@ export const studentTopJournalTableJson = [
   },
   {
     id: 4,
-    title: 'Listening',
-  },
-  {
-    id: 5,
-    title: 'Reading',
-  },
-  {
-    id: 6,
     title: 'Vocab Result',
   },
   {
-    id: 7,
+    id: 5,
     title: 'Vocab (HW)',
+  },
+  {
+    id: 6,
+    title: 'Listening (HW)',
+  },
+  {
+    id: 7,
+    title: 'Reading (HW)',
   },
   {
     id: 8,

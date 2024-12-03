@@ -7,7 +7,9 @@ import {
 import JournalTableComponent from "../../components/ui/Table";
 import { TableSpan, TableVocabSpan } from "../../components/ui/custom";
 import { calculateAverage } from "../../utils/functions";
-import { CheckboxInputForStudents } from "../../components/ui/CheckboxInputForStudents";
+import { CheckboxInputForStudents } from "../../components/ui/checkbox/CheckboxInputForStudents";
+import {CheckboxListeningForStudents} from "../../components/ui/checkbox/CheckboxListeningForStudents";
+import {CheckboxReadingForStudents} from "../../components/ui/checkbox/CheckboxReadingForStudents";
 
 function StudentJournalTableBody({ data, students }) {
   const groupType = students?.students[0]?.group?.type; // Check data structure
@@ -131,16 +133,28 @@ function StudentJournalTableBody({ data, students }) {
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.listening_homework} />
-              </td>
-              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableSpan data={journal?.reading_homework} />
-              </td>
-              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <TableVocabSpan data={journal?.vocab_result || "N/A"} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.vocab_homework || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <CheckboxListeningForStudents
+                  listening_homework1={journal?.listening_homework1}
+                  listening_homework2={journal?.listening_homework2}
+                  listening_homework3={journal?.listening_homework3}
+                  journalId={journal?.id}
+                  journalType="2"
+                />
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <CheckboxReadingForStudents
+                  reading_homework1={journal?.reading_homework1}
+                  reading_homework2={journal?.reading_homework2}
+                  reading_homework3={journal?.reading_homework3}
+                  journalId={journal?.id}
+                  journalType="2"
+                />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.listening || "N/A"}

@@ -14,10 +14,10 @@ import { calculateAverage } from "../../utils/functions";
 import PopoverForm from "./form/StandardPopoverForm.jsx";
 import TopPopoverForm from "./form/TopPopoverForm";
 import AdvancedPopoverForm from "./form/AdvancedPopoverForm";
-import CheckboxInput from "./CheckoxInput.jsx";
+import CheckboxInput from "./checkbox/CheckoxInput.jsx";
 import { TableSpan, TableVocabSpan } from "./custom";
-import CheckboxInputForListening from "./CheckboxInputForListening.jsx";
-import CheckboxInputForReading from "./CheckboxForReading.jsx";
+import CheckboxInputForListening from "./checkbox/CheckboxInputForListening.jsx";
+import CheckboxInputForReading from "./checkbox/CheckboxForReading.jsx";
 
 function JournalTableTypeBody({ data, students, handleDeleteClick }) {
   const groupTypeJson = students?.students[0]?.group?.type; // Check data structure
@@ -175,6 +175,12 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <TableVocabSpan data={journal?.vocab_result || "N/A"} />
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {journal?.vocab_homework || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInputForListening
                   listening_homework1={journal?.listening_homework1}
                   listening_homework2={journal?.listening_homework2}
@@ -191,12 +197,6 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                   journalId={journal?.id}
                   journalType="2"
                 />
-              </td>
-              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableVocabSpan data={journal?.vocab_result || "N/A"} />
-              </td>
-              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.vocab_homework || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.listening || "N/A"}

@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Check, X, Circle } from "lucide-react";
-import { JournalContext } from "../../context/journals/JournalContext";
+import { JournalContext } from "../../../context/journals/JournalContext";
 
 const CustomCheckbox = ({ name, value, onValueChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +33,7 @@ const CustomCheckbox = ({ name, value, onValueChange }) => {
             <X className="w-5 h-5 text-white" />
           </div>
         )}
-        {value === "false" && <Circle className="w-5 h-5 text-gray-300" />}
+        {value === false && <Circle className="w-5 h-5 text-gray-300" />}
       </button>
     );
   }
@@ -60,19 +60,19 @@ const CustomCheckbox = ({ name, value, onValueChange }) => {
   );
 };
 
-const CheckboxInputForReading = ({
+const CheckboxInput = ({
   journalId,
-  reading_homework1,
-  reading_homework2,
-  reading_homework3,
+  attendance1,
+  attendance2,
+  attendance3,
   journalType,
 }) => {
   const { editJournal } = useContext(JournalContext);
 
   const attendanceFields = [
-    { name: "reading_homework1", value: reading_homework1 },
-    { name: "reading_homework2", value: reading_homework2 },
-    { name: "reading_homework3", value: reading_homework3 },
+    { name: "attendance1", value: attendance1 },
+    { name: "attendance2", value: attendance2 },
+    { name: "attendance3", value: attendance3 },
   ];
 
   const handleCheckboxChange = async (field, value) => {
@@ -98,4 +98,4 @@ const CheckboxInputForReading = ({
   );
 };
 
-export default CheckboxInputForReading;
+export default CheckboxInput;
