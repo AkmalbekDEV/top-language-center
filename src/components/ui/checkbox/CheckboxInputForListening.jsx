@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Check, X, Circle } from "lucide-react";
-import { JournalContext } from "../../context/journals/JournalContext";
+import { JournalContext } from "../../../context/journals/JournalContext";
 
 const CustomCheckbox = ({ name, value, onValueChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +16,7 @@ const CustomCheckbox = ({ name, value, onValueChange }) => {
     onValueChange(selectedValue);
     setIsOpen(false);
   };
-
+console.log(value)
   if (!isOpen) {
     return (
       <button
@@ -33,7 +33,7 @@ const CustomCheckbox = ({ name, value, onValueChange }) => {
             <X className="w-5 h-5 text-white" />
           </div>
         )}
-        {value === "false" && <Circle className="w-5 h-5 text-gray-300" />}
+        {value === false && <Circle className="w-5 h-5 text-gray-300" />}
       </button>
     );
   }
@@ -60,19 +60,19 @@ const CustomCheckbox = ({ name, value, onValueChange }) => {
   );
 };
 
-const CheckboxInput = ({
+const CheckboxInputForListening = ({
   journalId,
-  attendance1,
-  attendance2,
-  attendance3,
+  listening_homework1,
+  listening_homework2,
+  listening_homework3,
   journalType,
 }) => {
   const { editJournal } = useContext(JournalContext);
 
   const attendanceFields = [
-    { name: "attendance1", value: attendance1 },
-    { name: "attendance2", value: attendance2 },
-    { name: "attendance3", value: attendance3 },
+    { name: "listening_homework1", value: listening_homework1 },
+    { name: "listening_homework2", value: listening_homework2 },
+    { name: "listening_homework3", value: listening_homework3 },
   ];
 
   const handleCheckboxChange = async (field, value) => {
@@ -98,4 +98,4 @@ const CheckboxInput = ({
   );
 };
 
-export default CheckboxInput;
+export default CheckboxInputForListening;

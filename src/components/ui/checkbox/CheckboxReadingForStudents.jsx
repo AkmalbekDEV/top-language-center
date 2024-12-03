@@ -33,21 +33,21 @@ const CustomCheckbox = ({ value }) => {
             <X className="w-5 h-5 text-white" />
           </div>
         )}
-        {value === "false" && <Circle className="w-5 h-5 text-gray-300" />}
+        {value === false && <Circle className="w-5 h-5 text-gray-300" />}
       </button>
     </div>
   );
 };
 
-export const CheckboxInputForStudents = ({
-  attendance1,
-  attendance2,
-  attendance3,
+export const CheckboxReadingForStudents = ({
+  reading_homework1,
+  reading_homework2,
+  reading_homework3,
 }) => {
   const attendanceFields = [
-    { name: "attendance1", value: attendance1 },
-    { name: "attendance2", value: attendance2 },
-    { name: "attendance3", value: attendance3 },
+    { name: "reading_homework1", value: reading_homework1 },
+    { name: "reading_homework2", value: reading_homework2 },
+    { name: "reading_homework3", value: reading_homework3 },
   ];
   return (
     <div className="flex gap-4 justify-center">

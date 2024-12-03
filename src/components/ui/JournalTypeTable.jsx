@@ -13,10 +13,10 @@ import { calculateAverage } from "../../utils/functions";
 import PopoverForm from "./form/journals/StandardPopoverForm.jsx";
 import TopPopoverForm from "./form/journals/TopPopoverForm.jsx";
 import AdvancedPopoverForm from "./form/journals/AdvancedPopoverForm.jsx";
-import { CheckboxInput } from "./CheckoxInput.jsx";
+import CheckboxInput from "./checkbox/CheckboxInput.jsx";
 import { TableSpan, TableVocabSpan } from "./custom";
-import CheckboxInputForListening from "./CheckboxInputForListening.jsx";
-import CheckboxInputForReading from "./CheckboxForReading.jsx";
+import CheckboxInputForListening from "./checkbox/CheckboxInputForListening.jsx";
+import CheckboxInputForReading from "./checkbox/CheckboxForReading.jsx";
 
 function JournalTableTypeBody({ data, handleDeleteClick }) {
   const searchParams = new URLSearchParams(location.search);
@@ -176,6 +176,18 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
                 /> */}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <TableVocabSpan data={journal?.vocab_result || "N/A"} />
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {journal?.vocab_homework || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                <TableVocabSpan data={journal?.vocab_result || "N/A"} />
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {journal?.vocab_homework || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInputForListening
                   listening_homework1={journal?.listening_homework1}
                   listening_homework2={journal?.listening_homework2}
@@ -192,12 +204,6 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
                   journalId={journal?.id}
                   journalType="2"
                 />
-              </td>
-              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                <TableVocabSpan data={journal?.vocab_result || "N/A"} />
-              </td>
-              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
-                {journal?.vocab_homework || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.listening || "N/A"}
