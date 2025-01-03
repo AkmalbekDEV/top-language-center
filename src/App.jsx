@@ -72,20 +72,20 @@ function App() {
                 // element={<StudentLogin groups={state} />}
               />
               <Route element={<AdminRoute />}>
-              <Route path="/groups" element={<GroupPage />} />
-              <Route
-                path="/group/:groupId/students"
-                element={<StudentsPage />}
-              />
-                  <Route
-                    path="/group/:groupId/students/journals"
-                    element={<JournalWeeks />}
-                  />
-                  <Route
-                    path="/group/:groupId/students/journals/:weekId"
-                    element={<JournalPage />}
-                  />
-                <Route element={<ForStudentsRoute />}>
+                <Route path="/groups" element={<GroupPage />} />
+                <Route
+                  path="/group/:groupId/students"
+                  element={<StudentsPage />}
+                />
+                    <Route
+                      path="/group/:groupId/students/journals"
+                      element={<JournalWeeks />}
+                    />
+                    <Route
+                      path="/group/:groupId/students/journals/:weekId"
+                      element={<JournalPage />}
+                    />
+              <Route element={<ForStudentsRoute />}>
                   <Route
                     path="/student-groups/:groupType/:id"
                     // element={<JournalWeeks />}
