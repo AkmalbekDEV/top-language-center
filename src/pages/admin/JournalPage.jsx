@@ -9,7 +9,7 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
-import JournalTableTypeBody from "../../components/ui/JournalTypeTable";
+// import JournalTableTypeBody from "../../components/ui/JournalTypeTable";
 import PopoverComponent from "../../components/ui/Popover";
 // import JournalForm from "../../components/ui/JournalForm";
 import { useJournalManager } from "../../context/JournalContext";
