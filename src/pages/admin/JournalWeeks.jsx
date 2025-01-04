@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useJournalManager } from "../../context/JournalContext";
-import { useStudentsManager } from "../../context/StudentsContext";
+import { useJournalManager } from "../../queries/JournalManager";
+import { useStudentsManager } from "../../queries/StudentsManager";
 import { useEffect, useState } from "react";
 
 const JournalWeeks = () => {

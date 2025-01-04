@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { GROUP_TYPES } from "../../../../constants/groupTypes";
-import { useGroupsManager } from "../../../../context/GroupContext";
+import { useGroupsManager } from "../../../../queries/GroupManager";
 import PropTypes from "prop-types";
 import { useToast } from "@chakra-ui/react";
 

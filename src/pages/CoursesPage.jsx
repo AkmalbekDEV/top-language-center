@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { ProductContext } from '../context/ProductContext'
+import { ProductContext } from '../queries/ProductContext'
 import { GiPriceTag, GiTeacher } from 'react-icons/gi'
 import { BsWatch } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'

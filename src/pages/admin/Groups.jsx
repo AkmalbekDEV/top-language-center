@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useGroupsManager } from "../../context/GroupContext";
+import { useGroupsManager } from "../../queries/GroupManager";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Button,

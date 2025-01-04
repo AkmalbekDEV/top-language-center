@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useGroupsManager } from "../../../../context/GroupContext";
+import { useGroupsManager } from "../../../../queries/GroupManager";
 import { motion } from "framer-motion";
 import { useToast } from "@chakra-ui/react";
 
