@@ -138,10 +138,11 @@ export const useJournalManager = () => {
       mutationFn: async ({
         journalType,
         journalId,
-        updateData,
-        groupId,
-        weekId,
+        updateData
       }) => {
+        if (!journalId) {
+          throw new Error("Journal ID is required for update");
+        }
         const collectionName = getCollectionName(journalType);
         const journalRef = doc(db, collectionName, journalId);
         const updatedData = {
@@ -164,7 +165,7 @@ export const useJournalManager = () => {
 
   const useDeleteJournal = () => {
     return useMutation({
-      mutationFn: async ({ journalType, journalId, groupId, weekId }) => {
+      mutationFn: async ({ journalType, journalId }) => {
         const collectionName = getCollectionName(journalType);
         const journalRef = doc(db, collectionName, journalId);
         await deleteDoc(journalRef);

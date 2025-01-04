@@ -12,8 +12,8 @@ import {
 // import JournalTableTypeBody from "../../components/ui/JournalTypeTable";
 import PopoverComponent from "../../components/ui/Popover";
 // import JournalForm from "../../components/ui/JournalForm";
-import { useJournalManager } from "../../context/JournalContext";
-import { useStudentsManager } from "../../context/StudentsContext";
+import { useJournalManager } from "../../queries/JournalManager";
+import { useStudentsManager } from "../../queries/StudentsManager";
 
 function JournalPage() {
   const { groupId, weekId } = useParams();

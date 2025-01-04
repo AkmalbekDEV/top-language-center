@@ -13,7 +13,7 @@ import {
 // import { MdEdit, MdDelete } from "react-icons/md";
 // import { StudentContext } from "../../context/StudentsContext";
 import { Link, useParams } from "react-router-dom";
-import { useStudentsManager } from "../../context/StudentsContext";
+import { useStudentsManager } from "../../queries/StudentsManager";
 import PopoverComponent from "../../components/ui/Popover";
 import AddStudentForm from "../../components/ui/form/students/AddStudentForm";
 import React, { useState } from "react";

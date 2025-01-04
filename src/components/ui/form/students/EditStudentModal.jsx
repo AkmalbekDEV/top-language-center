@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useToast } from "@chakra-ui/react";
-import { useStudentsManager } from "../../../../context/StudentsContext";
+import { useStudentsManager } from "../../../../queries/StudentsManager";
 
 const EditStudentModal = ({ student, onClose }) => {
   const { useUpdateStudent } = useStudentsManager();

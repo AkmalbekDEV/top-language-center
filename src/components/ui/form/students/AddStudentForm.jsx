@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useToast } from "@chakra-ui/react";
-import { useStudentsManager } from "../../../../context/StudentsContext";
+import { useStudentsManager } from "../../../../queries/StudentsManager";
 
 const AddStudentForm = ({ groupId }) => {
   const { useAddStudent } = useStudentsManager();
