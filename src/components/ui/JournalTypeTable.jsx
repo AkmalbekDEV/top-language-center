@@ -5,7 +5,6 @@ import {
   topJournalTableJson,
 } from "../../data/journalTableJson";
 import JournalTableComponent from "./Table.jsx";
-import { useParams } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import { calculateAverage } from "../../utils/functions";
@@ -21,8 +20,6 @@ import CheckboxInputForReading from "./checkbox/CheckboxForReading.jsx";
 function JournalTableTypeBody({ data, handleDeleteClick }) {
   const searchParams = new URLSearchParams(location.search);
   const typeValue = searchParams.get("type");
-  // const { data, isLoading } = useJournals(typeValue, groupId, weekId);
-  // Get the value of the specific query parameter
 
   console.log(data);
   
