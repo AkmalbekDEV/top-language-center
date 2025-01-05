@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 function PopoverComponent(props) {
   const {header, trigger, children, isOpen, onClose} = props
   return (
-    <Popover isOpen={isOpen} onClose={onClose} className="bg-gray-200">
+    <Popover isOpen={isOpen} onClose={onClose} className="z-60 bg-gray-200">
       <PopoverTrigger>
         {trigger}
       </PopoverTrigger>

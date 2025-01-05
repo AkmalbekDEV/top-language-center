@@ -114,7 +114,7 @@ export const useJournalManager = () => {
           ...journalData,
           id: newId,
           groupRef: `groups/${groupId}`,
-          weekRef: `journal_weeks/${weekId}`,
+          weekRef: `journal_weeks/journal_weeks-00${weekId}`,
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
         };

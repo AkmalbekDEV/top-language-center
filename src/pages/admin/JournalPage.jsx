@@ -13,6 +13,7 @@ import JournalTableTypeBody from "../../components/ui/JournalTypeTable";
 import PopoverComponent from "../../components/ui/Popover";
 import { useJournalManager } from "../../queries/JournalManager";
 import { useStudentsManager } from "../../queries/StudentsManager";
+import JournalForm from "../../components/ui/JournalForm";
 
 function JournalPage() {
   const { groupId, weekId } = useParams();
@@ -79,7 +80,7 @@ function JournalPage() {
               trigger={<Button>Add column</Button>}
               header="Adding Student"
             >
-              {/* <JournalForm students={state} /> */}
+              <JournalForm />
             </PopoverComponent>
           </div>
           <div className="text-center">
