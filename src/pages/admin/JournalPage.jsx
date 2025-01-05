@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useRef, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -11,15 +11,14 @@ import {
 } from "@chakra-ui/react";
 import JournalTableTypeBody from "../../components/ui/JournalTypeTable";
 import PopoverComponent from "../../components/ui/Popover";
-// import JournalForm from "../../components/ui/JournalForm";
 import { useJournalManager } from "../../queries/JournalManager";
 import { useStudentsManager } from "../../queries/StudentsManager";
 
 function JournalPage() {
   const { groupId, weekId } = useParams();
-  const { useJournals } = useJournalManager();
+  const { useJournals, useDeleteJournal } = useJournalManager();
   const { useStudents } = useStudentsManager();
-
+  const deleteJournal = useDeleteJournal();
   const location = useLocation();
   const { data: students } = useStudents(groupId);
   // Parse the query string using URLSearchParams
@@ -31,64 +30,33 @@ function JournalPage() {
   const { data, isLoading } = useJournals(typeValue, groupId, weekId);
   console.log(data);
 
+  const [isDelOpen, setIsDelOpen] = useState(false);
+  const [studentIdToDelete, setStudentIdToDelete] = useState(null);
+  const cancelRef = useRef();
+
   if (isLoading) return <div>Loading journals...</div>;
-
-  //   const { journal, loading, error, getJournals, deleteJournal } =
-  //     useContext(JournalContext);
-  //   const { state, fetchData } = useContext(StudentContext);
-  //   const { groupType, id, weekId } = useParams();
-  //   const [journalType, setJournalType] = useState("");
   //   const navigate = useNavigate();
-  //   const [isDelOpen, setIsDelOpen] = useState(false);
-  //   const [studentIdToDelete, setStudentIdToDelete] = useState(null);
-  //   const cancelRef = useRef();
-
-  //   useEffect(() => {
-  //     if (journalType !== "") {
-  //       getJournals(journalType, id, weekId);
-  //       fetchData(id);
-  //     }
-  //   }, [getJournals, id, fetchData, weekId, journalType]);
-
-  //   useEffect(() => {
-  //     let newJournalType;
-
-  //     if (groupType === "standard") {
-  //       newJournalType = 0;
-  //     } else if (groupType === "advanced") {
-  //       newJournalType = 1;
-  //     } else if (groupType === "top") {
-  //       newJournalType = 2;
-  //     } else {
-  //       navigate("/404");
-  //       return;
-  //     }
-  //     // Only update state if journalType is changing
-  //     if (journalType !== newJournalType) {
-  //       setJournalType(newJournalType);
-  //     }
-  //   }, [setJournalType, navigate, groupType, journalType]);
-
+  console.log(studentIdToDelete)
   const backPathname =
     "/" + location.pathname.split("/").splice(1, 4).join("/");
 
-  //   const handleDeleteClick = (id) => {
-  //     setStudentIdToDelete(id);
-  //     setIsDelOpen(true);
-  //   };
+    const handleDeleteClick = (id) => {
+      setStudentIdToDelete(id);
+      setIsDelOpen(true);
+    };
 
-  //   const handleDeleteConfirm = async () => {
-  //     if (studentIdToDelete !== null) {
-  //       await deleteJournal(journalType, studentIdToDelete);
-  //       setIsDelOpen(false);
-  //       setStudentIdToDelete(null);
-  //     }
-  //   };
+    const handleDeleteConfirm = async () => {
+      if (studentIdToDelete !== null) {
+        await deleteJournal.mutateAsync({journalType: typeValue, journalId: studentIdToDelete});
+        setIsDelOpen(false);
+        setStudentIdToDelete(null);
+      }
+    };
 
-  //   const handleDeleteClose = () => {
-  //     setIsDelOpen(false);
-  //     setStudentIdToDelete(null);
-  //   };
+    const handleDeleteClose = () => {
+      setIsDelOpen(false);
+      setStudentIdToDelete(null);
+    };
 
   return (
     <div className="min-w-100 grid grid-rows-1">
@@ -131,10 +99,10 @@ function JournalPage() {
       <div className="w-100">
         <JournalTableTypeBody
           data={data.journals}
-          // handleDeleteClick={handleDeleteClick}
+          handleDeleteClick={handleDeleteClick}
         />
       </div>
-      {/*
+      
       <AlertDialog
         isOpen={isDelOpen}
         leastDestructiveRef={cancelRef}
@@ -161,7 +129,7 @@ function JournalPage() {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>
-      </AlertDialog> */}
+      </AlertDialog>
     </div>
   );
 }

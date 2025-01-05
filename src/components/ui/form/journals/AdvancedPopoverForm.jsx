@@ -29,7 +29,7 @@ const AdvancedPopoverForm = ({ editJournal, data }) => {
 };
 
 AdvancedPopoverForm.propTypes = {
-  editJournal: PropTypes.func,
+  editJournal: PropTypes.object,
   data: PropTypes.any
 };
 

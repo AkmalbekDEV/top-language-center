@@ -8,89 +8,82 @@ import {
   PopoverContent,
   PopoverTrigger,
   useToast,
-} from "@chakra-ui/react";
-import TextInput from "./TextInput";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
-import FocusLock from "react-focus-lock";
-import { MdEdit } from "react-icons/md";
-import SelectInput from "./SelectInput";
+} from '@chakra-ui/react';
+import TextInput from './TextInput';
+import {useState} from 'react';
+import {useParams} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import FocusLock from 'react-focus-lock';
+import {MdEdit} from 'react-icons/md';
+import SelectInput from './SelectInput';
 
-const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
-  const { groupType, id, weekId } = useParams();
-  const [journalType, setJournalType] = useState("");
-  const toast = useToast();
-  useEffect(() => {
-    if (groupType === "standard") {
-      setJournalType("0");
-    } else if (groupType === "advanced") {
-      setJournalType("1");
-    } else if (groupType === "top") {
-      setJournalType("2");
-    }
-  }, [groupType, setJournalType]);
+const TopForm = ({editJournal, firstFieldRef, onCancel, data}) => {
+  const searchParams = new URLSearchParams (location.search);
+  const typeValue = searchParams.get ('type');
+  const {weekId, groupId} = useParams ();
+  const toast = useToast ();
+  console.log (typeValue);
 
-  const [topEditInputData, setTopEditInputData] = useState({
+  const [topEditInputData, setTopEditInputData] = useState ({
     id: null,
-    name: "",
-    group_id: id,
+    name: '',
+    group_id: groupId,
     journal_week_id: weekId,
-    listening_homework: "",
-    reading_homework: "",
-    vocab_result: "",
-    vocab_homework: "",
-    listening: "",
-    reading: "",
-    writing: "",
-    speaking: "",
+    vocab_result: '',
+    vocab_homework: '',
+    listening: '',
+    reading: '',
+    writing: '',
+    speaking: '',
   });
 
-  const topHandleEdit = async (e) => {
-    e.preventDefault();
-    if (topEditInputData.name.trim() === "") {
-      toast({
-        position: "top",
+  const topHandleEdit = async e => {
+    e.preventDefault ();
+    if (topEditInputData.name.trim () === '') {
+      toast ({
+        position: 'top',
         duration: 2000,
         isClosable: true,
-        status: "error",
-        title: "Empty!",
+        status: 'error',
+        title: 'Empty!',
         description: "Input shouldn't be empty",
       });
       return;
     }
     try {
-      await editJournal(journalType, topEditInputData, topEditInputData.id);
-      toast({
-        position: "top",
+      await editJournal.mutateAsync ({
+        journalType: typeValue,
+        journalId: topEditInputData.id,
+        updateData: topEditInputData,
+      });
+      toast ({
+        position: 'top',
         duration: 5000,
         isClosable: true,
-        status: "success",
-        title: "Edited!",
-        description: "The student successfully edited",
+        status: 'success',
+        title: 'Edited!',
+        description: 'The student successfully edited',
       });
       return;
     } catch (err) {
-      console.log("Edit error: ", err);
-      toast({
-        position: "top",
+      console.log ('Edit error: ', err);
+      toast ({
+        position: 'top',
         duration: 2000,
         isClosable: true,
-        status: "error",
-        title: "Error!",
-        description: "There was an error while editing the student",
+        status: 'error',
+        title: 'Error!',
+        description: 'There was an error while editing the student',
       });
     }
   };
 
-  const topHandleEditClick = (student) => {
-    setTopEditInputData({
+  const topHandleEditClick = student => {
+    setTopEditInputData ({
       id: student.id,
       name: student.name,
-      group_id: id,
+      group_id: groupId,
       journal_week_id: weekId,
-      listening_homework: student.listening_homework,
-      reading_homework: student.reading_homework,
       vocab_result: student.vocab_result,
       vocab_homework: student.vocab_homework,
       listening: student.listening,
@@ -100,25 +93,25 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     });
   };
 
-  const topHandleEditChange = (e) => {
-    setTopEditInputData({
+  const topHandleEditChange = e => {
+    setTopEditInputData ({
       ...topEditInputData,
       [e.target.name]: e.target.value,
     });
   };
 
   const selectVocabOptions = [
-    { value: "No", label: "Failed" },
-    { value: "Yes", label: "Passed" },
+    {value: 'No', label: 'Failed'},
+    {value: 'Yes', label: 'Passed'},
   ];
 
   return (
-    <>
+    <div>
       <PopoverTrigger>
         <IconButton
           size="sm"
           icon={<MdEdit />}
-          onClick={() => topHandleEditClick(data)}
+          onClick={() => topHandleEditClick (data)}
         />
       </PopoverTrigger>
       <PopoverContent p={5}>
@@ -136,28 +129,14 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 ref={firstFieldRef}
               />
               <SelectInput
-                label="Listening:"
-                name="listening_homework"
-                value={topEditInputData.listening_homework}
-                onChange={topHandleEditChange}
-                options={selectVocabOptions}
-              />
-              <SelectInput
-                label="Reading:"
-                name="reading_homework"
-                value={topEditInputData.reading_homework}
-                onChange={topHandleEditChange}
-                options={selectVocabOptions}
-              />
-              <SelectInput
-                label="Vocabulary:"
+                label="Vocab Result:"
                 name="vocab_result"
                 value={topEditInputData.vocab_result}
                 onChange={topHandleEditChange}
                 options={selectVocabOptions}
               />
               <TextInput
-                label="Vocab (HW):"
+                label="Vocab Homework:"
                 name="vocab_homework"
                 autoComplete="off"
                 value={topEditInputData.vocab_homework}
@@ -207,12 +186,12 @@ const TopForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
           </Box>
         </FocusLock>
       </PopoverContent>
-    </>
+    </div>
   );
 };
 
 TopForm.propTypes = {
-  editJournal: PropTypes.func,
+  editJournal: PropTypes.object,
   firstFieldRef: PropTypes.object,
   onCancel: PropTypes.func,
   data: PropTypes.any,

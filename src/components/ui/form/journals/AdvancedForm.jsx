@@ -11,30 +11,22 @@ import {
 } from "@chakra-ui/react";
 import TextInput from "./TextInput";
 import SelectInput from "./SelectInput";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import FocusLock from "react-focus-lock";
 import { MdEdit } from "react-icons/md";
 
 const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
-  const { groupType, id, weekId } = useParams();
-  const [journalType, setJournalType] = useState("");
+  const searchParams = new URLSearchParams(location.search);
+  const typeValue = searchParams.get("type");
+  const {weekId, groupId} = useParams();
   const toast = useToast();
-  useEffect(() => {
-    if (groupType === "standard") {
-      setJournalType("0");
-    } else if (groupType === "advanced") {
-      setJournalType("1");
-    } else if (groupType === "top") {
-      setJournalType("2");
-    }
-  }, [groupType, setJournalType]);
 
   const [advancedEditInputData, setAdvancedEditInputData] = useState({
     id: null,
     name: "",
-    group_id: id,
+    group_id: groupId,
     journal_week_id: weekId,
     listening: "",
     reading: "",
@@ -59,11 +51,11 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
       return;
     }
     try {
-      await editJournal(
-        journalType,
-        advancedEditInputData,
-        advancedEditInputData.id
-      );
+      await editJournal.mutateAsync({
+        journalType: typeValue,
+        journalId: advancedEditInputData.id,
+        updateData: advancedEditInputData,
+      });
       toast({
         position: "top",
         duration: 5000,
@@ -90,7 +82,7 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     setAdvancedEditInputData({
       id: student.id,
       name: student.name,
-      group_id: id,
+      group_id: groupId,
       journal_week_id: weekId,
       listening: student.listening,
       reading: student.reading,
@@ -213,7 +205,7 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
 };
 
 AdvancedForm.propTypes = {
-  editJournal: PropTypes.func,
+  editJournal: PropTypes.object,
   firstFieldRef: PropTypes.object,
   onCancel: PropTypes.func,
   data: PropTypes.any,

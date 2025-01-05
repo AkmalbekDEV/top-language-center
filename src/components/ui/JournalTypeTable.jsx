@@ -35,7 +35,8 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
     chosenType = topJournalTableJson;
   }
 
-  // const { editJournal } = useContext(JournalContext);
+  const {useUpdateJournal} = useJournalManager();
+  const editJournal = useUpdateJournal();
   return (
     <JournalTableComponent header={chosenType}>
       {data && data.length > 0 ? (
@@ -89,7 +90,7 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
                 <TableSpan data={journal?.vocabulary_homework} />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
-                {/* <div className="flex justify-center gap-2">
+                <div className="flex justify-center gap-2">
                   <PopoverForm editJournal={editJournal} data={journal} />
                   <Button
                     size="sm"
@@ -97,7 +98,7 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
                   >
                     <MdDelete />
                   </Button>
-                </div> */}
+                </div>
               </td>
             </tr>
           ) : typeValue === "advanced" ? (
@@ -143,7 +144,7 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
                 <div className="flex justify-center gap-2">
-                  {/* <AdvancedPopoverForm
+                  <AdvancedPopoverForm
                     editJournal={editJournal}
                     data={journal}
                   />
@@ -152,7 +153,7 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
                     onClick={() => handleDeleteClick(journal?.id)}
                   >
                     <MdDelete />
-                  </Button> */}
+                  </Button>
                 </div>
               </td>
             </tr>
@@ -216,7 +217,7 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
                 {overallAverage || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] py-4">
-                {/* <div className="flex justify-center gap-2">
+                <div className="flex justify-center gap-2">
                   <TopPopoverForm editJournal={editJournal} data={journal} />
                   <Button
                     size="sm"
@@ -224,7 +225,7 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
                   >
                     <MdDelete />
                   </Button>
-                </div> */}
+                </div>
               </td>
             </tr>
           ) : (
