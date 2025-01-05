@@ -9,7 +9,7 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
-// import JournalTableTypeBody from "../../components/ui/JournalTypeTable";
+import JournalTableTypeBody from "../../components/ui/JournalTypeTable";
 import PopoverComponent from "../../components/ui/Popover";
 // import JournalForm from "../../components/ui/JournalForm";
 import { useJournalManager } from "../../queries/JournalManager";
@@ -29,6 +29,7 @@ function JournalPage() {
   const typeValue = searchParams.get("type");
 
   const { data, isLoading } = useJournals(typeValue, groupId, weekId);
+  console.log(data);
 
   if (isLoading) return <div>Loading journals...</div>;
 
@@ -88,7 +89,7 @@ function JournalPage() {
   //     setIsDelOpen(false);
   //     setStudentIdToDelete(null);
   //   };
-  console.log(typeValue)
+
   return (
     <div className="min-w-100 grid grid-rows-1">
       <div className="flex items-center justify-center max-sm:justify-between max-sm:flex-col-reverse pt-5">
@@ -102,7 +103,7 @@ function JournalPage() {
             </Link>
             <Link
               className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
-              to={`/group/${groupId}/students}`}
+              to={`/group/${groupId}/students`}
             >
               Students
             </Link>
@@ -129,7 +130,7 @@ function JournalPage() {
       </div>
       <div className="w-100">
         <JournalTableTypeBody
-          data={data}
+          data={data.journals}
           // handleDeleteClick={handleDeleteClick}
         />
       </div>

@@ -86,7 +86,7 @@ export const useJournalManager = () => {
         const q = query(
           journalsRef,
           where("groupRef", "==", `groups/${groupId}`),
-          where("weekRef", "==", `journal_weeks/${weekId}`)
+          where("weekRef", "==", `journal_weeks/journal_weeks-00${weekId}`)
         );
 
         const snapshot = await getDocs(q);
