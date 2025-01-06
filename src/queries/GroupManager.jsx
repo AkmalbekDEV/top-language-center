@@ -103,15 +103,32 @@ export const useGroupsManager = () => {
         );
         const studentSnapshot = await getDocs(q);
 
-        const deletePromises = studentSnapshot.docs.map((studentDoc) =>
+        const studentDeletePromises = studentSnapshot.docs.map((studentDoc) =>
           deleteDoc(doc(db, "students", studentDoc.id))
         );
+        // Delete associated journals from all journal collections
+        const journalCollections = [
+          "standard_journals",
+          "advanced_journals",
+          "top_journals",
+        ]
 
-        await Promise.all(deletePromises);
+        const journalDeletePromises = journalCollections.map(async (collectionName) => {
+          const journalsRef = collection(db, collectionName)
+          const journalsQuery = query(journalsRef, where("groupRef", "==", `groups/${groupId}`))
+          const journalSnapshot = await getDocs(journalsQuery)
+          return Promise.all(
+            journalSnapshot.docs.map((journalDoc) =>
+              deleteDoc(doc(db, collectionName, journalDoc.id))
+            )
+          )
+        })
+        await Promise.all([...studentDeletePromises, ...journalDeletePromises]);
       },
       onSuccess: () => {
         queryClient.invalidateQueries(["groups"]);
         queryClient.invalidateQueries(["students"]);
+        queryClient.invalidateQueries(["journals"]);
       },
     });
   };
