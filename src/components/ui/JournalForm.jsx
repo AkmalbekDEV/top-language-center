@@ -91,7 +91,7 @@ const JournalForm = () => {
       title: "Error!",
       description: "There was an error adding the student",
     });
-    console.log(topInputData)
+
   const standardHandleSubmit = async (e) => {
     e.preventDefault();
 
@@ -170,7 +170,7 @@ const JournalForm = () => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(typeValue)
+
   return typeValue === "standard" ? (
     <form className="grid gap-2" onSubmit={standardHandleSubmit}>
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">

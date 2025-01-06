@@ -22,7 +22,6 @@ const TopForm = ({editJournal, firstFieldRef, onCancel, data}) => {
   const typeValue = searchParams.get ('type');
   const {weekId, groupId} = useParams ();
   const toast = useToast ();
-  console.log (typeValue);
 
   const [topEditInputData, setTopEditInputData] = useState ({
     id: null,

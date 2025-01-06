@@ -1,22 +1,22 @@
-import {useState} from 'react';
-import {Check, X, Circle} from 'lucide-react';
-import {useJournalManager} from '../../../queries/JournalManager';
+import { useState } from 'react';
+import { Check, X } from 'lucide-react';
+import { useJournalManager } from '../../../queries/JournalManager';
 import PropTypes from 'prop-types';
 
-const CustomCheckbox = ({value = false, onValueChange}) => {
-  const [isOpen, setIsOpen] = useState (false);
+const CustomCheckbox = ({ value = false, onValueChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleInitialClick = () => {
     if (value === 'true' || value === 'not') {
-      onValueChange (false);
+      onValueChange("false");
     } else {
-      setIsOpen (true);
+      setIsOpen(true);
     }
   };
 
   const handleOptionSelect = selectedValue => {
-    onValueChange (selectedValue);
-    setIsOpen (false);
+    onValueChange(selectedValue);
+    setIsOpen(false);
   };
 
   if (!isOpen) {
@@ -33,7 +33,6 @@ const CustomCheckbox = ({value = false, onValueChange}) => {
           <div className="w-full h-full rounded-full bg-red-500 flex items-center justify-center">
             <X className="w-5 h-5 text-white" />
           </div>}
-        {value === false && <Circle className="w-5 h-5 text-gray-300" />}
       </button>
     );
   }
@@ -41,7 +40,7 @@ const CustomCheckbox = ({value = false, onValueChange}) => {
   return (
     <div className="flex gap-2">
       <button
-        onClick={() => handleOptionSelect ('true')}
+        onClick={() => handleOptionSelect('true')}
         className="w-8 h-8 rounded-full border-2 border-green-500 hover:bg-green-50 transition-colors flex items-center justify-center bg-white"
       >
         <div className="w-full h-full rounded-full bg-green-500 flex items-center justify-center">
@@ -49,7 +48,7 @@ const CustomCheckbox = ({value = false, onValueChange}) => {
         </div>
       </button>
       <button
-        onClick={() => handleOptionSelect ('not')}
+        onClick={() => handleOptionSelect('not')}
         className="w-8 h-8 rounded-full border-2 border-red-500 hover:bg-red-50 transition-colors flex items-center justify-center bg-white"
       >
         <div className="w-full h-full rounded-full bg-red-500 flex items-center justify-center">
@@ -61,7 +60,7 @@ const CustomCheckbox = ({value = false, onValueChange}) => {
 };
 
 CustomCheckbox.propTypes = {
-  value: PropTypes.oneOfType ([PropTypes.string, PropTypes.bool]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   onValueChange: PropTypes.func.isRequired,
 };
 
@@ -72,40 +71,40 @@ const CheckboxInput = ({
   attendance3,
   journalType,
 }) => {
-  const {useUpdateJournal} = useJournalManager ();
-  const editJournal = useUpdateJournal ();
+  const { useUpdateJournal } = useJournalManager();
+  const editJournal = useUpdateJournal();
 
   const attendanceFields = [
-    {name: 'attendance1', value: attendance1},
-    {name: 'attendance2', value: attendance2},
-    {name: 'attendance3', value: attendance3},
+    { name: 'attendance1', value: attendance1 },
+    { name: 'attendance2', value: attendance2 },
+    { name: 'attendance3', value: attendance3 },
   ];
 
   const handleCheckboxChange = async (field, value) => {
     if (!journalId) {
-      console.error ('Journal ID is missing');
+      console.error('Journal ID is missing');
       return;
     }
     try {
-      await editJournal.mutateAsync ({
+      await editJournal.mutateAsync({
         journalType,
         journalId,
-        updateData: {[field]: value},
+        updateData: { [field]: value },
       });
-      console.log (`Updated ${field} to ${value}`);
+      console.log(`Updated ${field} to ${value}`);
     } catch (error) {
-      console.error (`Failed to update ${field}:`, error);
+      console.error(`Failed to update ${field}:`, error);
     }
   };
 
   return (
     <div className="flex gap-4 justify-center">
-      {attendanceFields.map (({name, value}) => (
+      {attendanceFields.map(({ name, value }) => (
         <CustomCheckbox
           key={name}
           name={name}
           value={value}
-          onValueChange={newValue => handleCheckboxChange (name, newValue)}
+          onValueChange={newValue => handleCheckboxChange(name, newValue)}
         />
       ))}
     </div>
@@ -114,9 +113,9 @@ const CheckboxInput = ({
 
 CheckboxInput.propTypes = {
   journalId: PropTypes.string.isRequired,
-  attendance1: PropTypes.oneOfType ([PropTypes.string, PropTypes.bool]),
-  attendance2: PropTypes.oneOfType ([PropTypes.string, PropTypes.bool]),
-  attendance3: PropTypes.oneOfType ([PropTypes.string, PropTypes.bool]),
+  attendance1: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  attendance2: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  attendance3: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   journalType: PropTypes.string.isRequired,
 };
 

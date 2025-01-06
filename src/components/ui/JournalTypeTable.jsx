@@ -20,8 +20,6 @@ import CheckboxInputForReading from "./checkbox/CheckboxForReading.jsx";
 function JournalTableTypeBody({ data, handleDeleteClick }) {
   const searchParams = new URLSearchParams(location.search);
   const typeValue = searchParams.get("type");
-
-  console.log(data);
   
   let chosenType;
   if (typeValue === "standard") {

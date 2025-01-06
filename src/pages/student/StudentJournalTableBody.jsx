@@ -26,7 +26,7 @@ function StudentJournalTableBody({ data }) {
   } else if (typeValue === "top") {
     chosenType = studentTopJournalTableJson;
   }
-console.log(data)
+
   return (
     <JournalTableComponent header={chosenType}>
       {data && data.length > 0 ? (

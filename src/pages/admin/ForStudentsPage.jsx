@@ -19,7 +19,6 @@ const ForStudentsRoute = () => {
       }
       try {
         const { payload } = await jwtVerify(token, secretKey);
-        console.log(payload.role)
         if (payload.role !== "student") {
           setIsAuthorized(false);
           return;

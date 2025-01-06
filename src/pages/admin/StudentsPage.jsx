@@ -33,9 +33,6 @@ const StudentsPage = () => {
     onClose: onDeleteClose,
   } = useDisclosure();
 
-  console.log(groupId);
-  console.log(studentToDelete);
-
   const handleDelete = async () => {
     if (!studentToDelete) return;
 
@@ -70,7 +67,6 @@ const StudentsPage = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  console.log(data);
 
   return (
     <div>

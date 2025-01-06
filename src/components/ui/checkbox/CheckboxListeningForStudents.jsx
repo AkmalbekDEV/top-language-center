@@ -1,23 +1,4 @@
-import { Checkbox } from "@chakra-ui/react";
-import { Check, Circle, X } from "lucide-react";
-
-const checkboxStyle = {
-  "& .chakra-checkbox__control": {
-    borderRadius: "50%",
-    width: "30px",
-    height: "30px",
-    border: "2px solid lightgray",
-    backgroundColor: "white",
-    transition: "border-color 0.2s",
-  },
-  "&.chakra-checkbox__control:hover": {
-    borderColor: "blue",
-  },
-  '& .chakra-checkbox__control[aria-checked="true"]': {
-    backgroundColor: "blue",
-    borderColor: "blue",
-  },
-};
+import { Check, X } from "lucide-react";
 
 const CustomCheckbox = ({ value }) => {
   return (
@@ -33,7 +14,6 @@ const CustomCheckbox = ({ value }) => {
             <X className="w-5 h-5 text-white" />
           </div>
         )}
-        {value === false && <Circle className="w-5 h-5 text-gray-300" />}
       </button>
     </div>
   );

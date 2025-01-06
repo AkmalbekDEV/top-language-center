@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 const StudentLogin = () => {
   const { useGroups } = useGroupsManager();
   const { data: groups } = useGroups();
-  console.log(groups);
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
   const [text, setText] = useState("show");

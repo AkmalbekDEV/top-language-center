@@ -29,15 +29,13 @@ function JournalPage() {
   const typeValue = searchParams.get("type");
 
   const { data, isLoading } = useJournals(typeValue, groupId, weekId);
-  console.log(data);
 
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [studentIdToDelete, setStudentIdToDelete] = useState(null);
   const cancelRef = useRef();
 
   if (isLoading) return <div>Loading journals...</div>;
-  //   const navigate = useNavigate();
-  console.log(studentIdToDelete)
+
   const backPathname =
     "/" + location.pathname.split("/").splice(1, 4).join("/");
 

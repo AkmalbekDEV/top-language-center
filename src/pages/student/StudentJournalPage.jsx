@@ -16,7 +16,6 @@ function StudentJournalPage() {
   const typeValue = searchParams.get("type");
 
   const { data, isLoading } = useJournals(typeValue, groupId, weekId);
-  console.log(data);
 
   if (isLoading) return <div>Loading journals...</div>;
 
