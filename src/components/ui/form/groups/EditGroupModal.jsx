@@ -8,7 +8,6 @@ const EditGroupModal = ({ group, onClose }) => {
   const editGroup = useUpdateGroup();
   const [formData, setFormData] = useState({
     name: group.name,
-    type: group.type,
     password: group.password,
   });
   const toast = useToast();
@@ -94,27 +93,6 @@ const EditGroupModal = ({ group, onClose }) => {
               className="w-full px-3 py-2 border rounded-md"
               required
             />
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="type"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Group Type
-            </label>
-            <select
-              name="type"
-              id="type"
-              value={formData.type}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md"
-            >
-              <option value="Standard">Standard</option>
-              <option value="Advanced">Advanced</option>
-              <option value="Top">Top</option>
-              <option value="Kids">Kids</option>
-            </select>
           </div>
 
           <div className="mb-4">

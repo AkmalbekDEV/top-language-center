@@ -16,7 +16,7 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import PopoverComponent from "../../components/ui/Popover";
 import AddGroupForm from "../../components/ui/form/groups/AddGroupForm";
 import EditGroupModal from "../../components/ui/form/groups/EditGroupModal";
-
+ 
 const GroupPage = () => {
   const navigate = useNavigate();
   const { useGroups, useDeleteGroup } = useGroupsManager();
