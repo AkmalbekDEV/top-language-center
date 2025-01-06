@@ -1,67 +1,58 @@
-// import { useContext, useEffect, useState } from "react";
-// import { Link, useNavigate, useParams } from "react-router-dom";
-// import { StudentContext } from "../../context/StudentsContext";
-// import { JournalContext } from "../../context/journals/JournalContext";
-// import StudentJournalTableBody from "./StudentJournalTableBody";
+import { Link, useLocation, useParams } from "react-router-dom";
+import StudentJournalTableBody from "./StudentJournalTableBody";
+import { useJournalManager } from "../../queries/JournalManager";
+import { useStudentsManager } from "../../queries/StudentsManager";
 
-// function StudentJournalPage() {
-//   const { journal, getJournals } = useContext(JournalContext);
-//   const { state, fetchData } = useContext(StudentContext);
-//   const { groupType, id, weekId } = useParams();
-//   const [journalType, setJournalType] = useState("");
-//   const navigate = useNavigate();
+function StudentJournalPage() {
+  const { groupId, weekId } = useParams();
+  const { useJournals } = useJournalManager();
+  const { useStudents } = useStudentsManager();
+  const location = useLocation();
+  const { data: students } = useStudents(groupId);
+  // Parse the query string using URLSearchParams
+  const searchParams = new URLSearchParams(location.search);
 
-//   useEffect(() => {
-//     if (journalType !== "") {
-//       getJournals(journalType, id, weekId);
-//       fetchData(id);
-//     }
-//   }, [getJournals, id, fetchData, weekId, journalType]);
+  // Get the value of the specific query parameter
+  const typeValue = searchParams.get("type");
 
-//   useEffect(() => {
-//     let newJournalType;
+  const { data, isLoading } = useJournals(typeValue, groupId, weekId);
+  console.log(data);
 
-//     if (groupType === "standard") {
-//       newJournalType = 0;
-//     } else if (groupType === "advanced") {
-//       newJournalType = 1;
-//     } else if (groupType === "top") {
-//       newJournalType = 2;
-//     } else {
-//       navigate("/404");
-//       return;
-//     }
-//     // Only update state if journalType is changing
-//     if (journalType !== newJournalType) {
-//       setJournalType(newJournalType);
-//     }
-//   }, [setJournalType, navigate, groupType, journalType]);
+  if (isLoading) return <div>Loading journals...</div>;
 
-//   const backPathname =
-//     "/" + location.pathname.split("/").splice(1, 3).join("/");
+  return (
+    <div className="min-w-100 grid grid-rows-1">
+      <div className="flex items-center justify-center max-sm:justify-between max-sm:flex-col-reverse pt-5">
+        <div className="grid w-full gap-10">
+          <div className="w-full flex justify-between">
+            <Link
+              className="px-6 py-1.5 rounded-md bg-[#EDF2F7] text-[#1A202C] text-xl font-semibold"
+              to={`/student-groups/${groupId}?type=${students?.groupType}`}
+            >
+              Back
+            </Link>
+          </div>
+          <div className="text-center">
+            <h1 className="text-4xl font-medium">
+              Group in {students?.groupName}
+            </h1>
+          </div>
+          <div className="text-center h-[50px]">
+            {isLoading && (
+              <span className="bg-blue-500 text-white p-3 rounded-3xl">
+                Loading...
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="w-100">
+        <StudentJournalTableBody
+          data={data.journals}
+        />
+      </div>
+    </div>
+  );
+}
 
-//   return (
-//     <div className="min-w-100 grid grid-rows-1">
-//       <div className="flex items-center justify-center max-sm:justify-between max-sm:flex-col-reverse pt-5">
-//         <div className="grid w-full gap-10">
-//           <div className="w-full flex justify-between">
-//             <Link
-//               className="px-6 py-1.5 rounded-md bg-[#EDF2F7] text-[#1A202C] text-xl font-semibold"
-//               to={backPathname}
-//             >
-//               Back
-//             </Link>
-//           </div>
-//           <div className="text-center mb-12">
-//             <h1 className="text-4xl font-medium">Group in {state.groupName}</h1>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="w-100">
-//         <StudentJournalTableBody data={journal} students={state} />
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default StudentJournalPage;
+export default StudentJournalPage;

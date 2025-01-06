@@ -8,25 +8,29 @@ import JournalTableComponent from "../../components/ui/Table";
 import { TableSpan, TableVocabSpan } from "../../components/ui/custom";
 import { calculateAverage } from "../../utils/functions";
 import { CheckboxInputForStudents } from "../../components/ui/checkbox/CheckboxInputForStudents";
-import {CheckboxListeningForStudents} from "../../components/ui/checkbox/CheckboxListeningForStudents";
-import {CheckboxReadingForStudents} from "../../components/ui/checkbox/CheckboxReadingForStudents";
+import { CheckboxListeningForStudents } from "../../components/ui/checkbox/CheckboxListeningForStudents";
+import { CheckboxReadingForStudents } from "../../components/ui/checkbox/CheckboxReadingForStudents";
 
-function StudentJournalTableBody({ data, students }) {
-  const groupType = students?.students[0]?.group?.type; // Check data structure
+function StudentJournalTableBody({ data }) {
+  // Parse the query string using URLSearchParams
+  const searchParams = new URLSearchParams(location.search);
+
+  // Get the value of the specific query parameter
+  const typeValue = searchParams.get("type");
 
   let chosenType;
-  if (groupType === "Standard") {
+  if (typeValue === "standard") {
     chosenType = studentStandardJournalTableJson;
-  } else if (groupType === "Advanced") {
+  } else if (typeValue === "advanced") {
     chosenType = studentAdvancedJournalTableJson;
-  } else if (groupType === "Top") {
+  } else if (typeValue === "top") {
     chosenType = studentTopJournalTableJson;
   }
-
+console.log(data)
   return (
     <JournalTableComponent header={chosenType}>
-      {data.journals && data.journals.length > 0 ? (
-        data?.journals?.map((journal, index) => {
+      {data && data.length > 0 ? (
+        data?.map((journal, index) => {
           const uniqueId = `${index + 1}`;
           const overallAverage = calculateAverage(
             journal?.listening,
@@ -34,7 +38,7 @@ function StudentJournalTableBody({ data, students }) {
             journal?.writing,
             journal?.speaking
           );
-          return groupType === "Standard" ? (
+          return typeValue === "standard" ? (
             <tr
               key={journal.id}
               className="border-b-2 border-blue-500 text-lg font-medium max-sm:text-base"
@@ -74,7 +78,7 @@ function StudentJournalTableBody({ data, students }) {
                 <TableSpan data={journal?.vocabulary_homework} />
               </td>
             </tr>
-          ) : groupType === "Advanced" ? (
+          ) : typeValue === "advanced" ? (
             <tr
               key={journal.id}
               className="border-b-2 border-blue-500 text-lg font-medium max-sm:text-base"
@@ -114,7 +118,7 @@ function StudentJournalTableBody({ data, students }) {
                 <TableSpan data={journal?.writing || "N/A"} />
               </td>
             </tr>
-          ) : groupType === "Top" ? (
+          ) : typeValue === "top" ? (
             <tr
               key={journal.id}
               className="border-b-2 border-blue-500 text-lg font-medium max-sm:text-base"
@@ -144,7 +148,7 @@ function StudentJournalTableBody({ data, students }) {
                   listening_homework2={journal?.listening_homework2}
                   listening_homework3={journal?.listening_homework3}
                   journalId={journal?.id}
-                  journalType="2"
+                  journalType="top"
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
@@ -153,7 +157,7 @@ function StudentJournalTableBody({ data, students }) {
                   reading_homework2={journal?.reading_homework2}
                   reading_homework3={journal?.reading_homework3}
                   journalId={journal?.id}
-                  journalType="2"
+                  journalType="top"
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
