@@ -5,39 +5,37 @@ import {
   topJournalTableJson,
 } from "../../data/journalTableJson";
 import JournalTableComponent from "./Table.jsx";
-import { useContext } from "react";
-import { JournalContext } from "../../context/journals/JournalContext";
-import { useParams } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import { calculateAverage } from "../../utils/functions";
-import PopoverForm from "./form/StandardPopoverForm.jsx";
-import TopPopoverForm from "./form/TopPopoverForm";
-import AdvancedPopoverForm from "./form/AdvancedPopoverForm";
+import PopoverForm from "./form/journals/StandardPopoverForm.jsx";
+import TopPopoverForm from "./form/journals/TopPopoverForm.jsx";
+import AdvancedPopoverForm from "./form/journals/AdvancedPopoverForm.jsx";
 import CheckboxInput from "./checkbox/CheckoxInput.jsx";
 import { TableSpan, TableVocabSpan } from "./custom";
+import { useJournalManager } from "../../queries/JournalManager.jsx";
 import CheckboxInputForListening from "./checkbox/CheckboxInputForListening.jsx";
 import CheckboxInputForReading from "./checkbox/CheckboxForReading.jsx";
 
-function JournalTableTypeBody({ data, students, handleDeleteClick }) {
-  const groupTypeJson = students?.students[0]?.group?.type; // Check data structure
-
+function JournalTableTypeBody({ data, handleDeleteClick }) {
+  const searchParams = new URLSearchParams(location.search);
+  const typeValue = searchParams.get("type");
+  
   let chosenType;
-  if (groupTypeJson === "Standard") {
+  if (typeValue === "standard") {
     chosenType = standardJournalTableJson;
-  } else if (groupTypeJson === "Advanced") {
+  } else if (typeValue === "advanced") {
     chosenType = advancedJournalTableJson;
-  } else if (groupTypeJson === "Top") {
+  } else if (typeValue === "top") {
     chosenType = topJournalTableJson;
   }
 
-  const { editJournal } = useContext(JournalContext);
-  const { groupType } = useParams();
-
+  const {useUpdateJournal} = useJournalManager();
+  const editJournal = useUpdateJournal();
   return (
     <JournalTableComponent header={chosenType}>
-      {data.journals && data.journals.length > 0 ? (
-        data?.journals?.map((journal, index) => {
+      {data && data.length > 0 ? (
+        data.map((journal, index) => {
           const uniqueId = `${index + 1}`;
           const overallAverage = calculateAverage(
             journal?.listening,
@@ -45,7 +43,7 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
             journal?.writing,
             journal?.speaking
           );
-          return groupType === "standard" ? (
+          return typeValue === "standard" ? (
             <tr
               key={journal.id}
               className="border-b-2 border-blue-500 text-lg font-medium max-sm:text-base"
@@ -62,7 +60,7 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                   attendance1={journal?.attendance1}
                   attendance2={journal?.attendance2}
                   attendance3={journal?.attendance3}
-                  journalType="0"
+                  journalType="standard"
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
@@ -98,7 +96,7 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                 </div>
               </td>
             </tr>
-          ) : groupType === "advanced" ? (
+          ) : typeValue === "advanced" ? (
             <tr
               key={journal.id}
               className="border-b-2 border-blue-500 text-lg font-medium max-sm:text-base"
@@ -115,7 +113,7 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                   attendance2={journal?.attendance2}
                   attendance3={journal?.attendance3}
                   journalId={journal?.id}
-                  journalType="1"
+                  journalType="advanced"
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
@@ -154,7 +152,7 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                 </div>
               </td>
             </tr>
-          ) : groupType === "top" ? (
+          ) : typeValue === "top" ? (
             <tr
               key={journal.id}
               className="border-b-2 border-blue-500 text-lg font-medium max-sm:text-base"
@@ -171,7 +169,7 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                   attendance2={journal?.attendance2}
                   attendance3={journal?.attendance3}
                   journalId={journal?.id}
-                  journalType="2"
+                  journalType="top"
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
@@ -186,7 +184,7 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                   listening_homework2={journal?.listening_homework2}
                   listening_homework3={journal?.listening_homework3}
                   journalId={journal?.id}
-                  journalType="2"
+                  journalType="top"
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
@@ -195,7 +193,7 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
                   reading_homework2={journal?.reading_homework2}
                   reading_homework3={journal?.reading_homework3}
                   journalId={journal?.id}
-                  journalType="2"
+                  journalType="top"
                 />
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
@@ -242,7 +240,6 @@ function JournalTableTypeBody({ data, students, handleDeleteClick }) {
 
 JournalTableTypeBody.propTypes = {
   data: PropTypes.any,
-  students: PropTypes.any,
   handleDeleteClick: PropTypes.func,
 };
 

@@ -11,43 +11,35 @@ import {
 } from "@chakra-ui/react";
 import TextInput from "./TextInput";
 import SelectInput from "./SelectInput";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import FocusLock from "react-focus-lock";
 import { MdEdit } from "react-icons/md";
 
-const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
-  const { groupType, id, weekId } = useParams();
-  const [journalType, setJournalType] = useState("");
+const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
+  const searchParams = new URLSearchParams(location.search);
+  const typeValue = searchParams.get("type");
+  const {weekId, groupId} = useParams();
   const toast = useToast();
-  useEffect(() => {
-    if (groupType === "standard") {
-      setJournalType("0");
-    } else if (groupType === "advanced") {
-      setJournalType("1");
-    } else if (groupType === "top") {
-      setJournalType("2");
-    }
-  }, [groupType, setJournalType]);
 
-  const [standardEditInputData, setStandardEditInputData] = useState({
+  const [advancedEditInputData, setAdvancedEditInputData] = useState({
     id: null,
     name: "",
-    group_id: id,
+    group_id: groupId,
     journal_week_id: weekId,
     listening: "",
     reading: "",
-    listening_reading: "",
     vocabulary: "",
+    listeningHW: "",
+    readingHW: "",
     grammar: "",
     writing: "",
-    vocabulary_homework: "",
   });
 
-  const standardHandleEdit = async (e) => {
+  const advancedHandleEdit = async (e) => {
     e.preventDefault();
-    if (standardEditInputData.name.trim() === "") {
+    if (advancedEditInputData.name.trim() === "") {
       toast({
         position: "top",
         duration: 2000,
@@ -59,11 +51,11 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
       return;
     }
     try {
-      await editJournal(
-        journalType,
-        standardEditInputData,
-        standardEditInputData.id
-      );
+      await editJournal.mutateAsync({
+        journalType: typeValue,
+        journalId: advancedEditInputData.id,
+        updateData: advancedEditInputData,
+      });
       toast({
         position: "top",
         duration: 5000,
@@ -86,25 +78,25 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     }
   };
 
-  const standardHandleEditClick = (student) => {
-    setStandardEditInputData({
+  const advancedHandleEditClick = (student) => {
+    setAdvancedEditInputData({
       id: student.id,
       name: student.name,
-      group_id: id,
+      group_id: groupId,
       journal_week_id: weekId,
       listening: student.listening,
       reading: student.reading,
-      listening_reading: student.listening_reading,
       vocabulary: student.vocabulary,
+      listeningHW: student.listeningHW,
+      readingHW: student.readingHW,
       grammar: student.grammar,
       writing: student.writing,
-      vocabulary_homework: student.vocabulary_homework,
     });
   };
 
-  const standardHandleEditChange = (e) => {
-    setStandardEditInputData({
-      ...standardEditInputData,
+  const advancedHandleEditChange = (e) => {
+    setAdvancedEditInputData({
+      ...advancedEditInputData,
       [e.target.name]: e.target.value,
     });
   };
@@ -126,7 +118,7 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
         <IconButton
           size="sm"
           icon={<MdEdit />}
-          onClick={() => standardHandleEditClick(data)}
+          onClick={() => advancedHandleEditClick(data)}
         />
       </PopoverTrigger>
       <PopoverContent p={5}>
@@ -134,62 +126,62 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
           <PopoverArrow />
           <PopoverCloseButton />
           <Box>
-            <form onSubmit={standardHandleEdit}>
+            <form onSubmit={advancedHandleEdit}>
               <TextInput
                 label="Student's name:"
                 name="name"
                 autoComplete="off"
-                value={standardEditInputData.name}
-                onChange={standardHandleEditChange}
+                value={advancedEditInputData.name}
+                onChange={advancedHandleEditChange}
                 ref={firstFieldRef}
               />
-              <SelectInput
+              <TextInput
                 label="Listening:"
                 name="listening"
-                value={standardEditInputData.listening}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
+                autoComplete="off"
+                value={advancedEditInputData.listening}
+                onChange={advancedHandleEditChange}
               />
-              <SelectInput
-                label="L / R:"
-                name="listening_reading"
-                value={standardEditInputData.listening_reading}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
-              />
-              <SelectInput
+              <TextInput
                 label="Reading:"
                 name="reading"
-                value={standardEditInputData.reading}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
+                autoComplete="off"
+                value={advancedEditInputData.reading}
+                onChange={advancedHandleEditChange}
               />
               <SelectInput
                 label="Vocabulary:"
                 name="vocabulary"
-                value={standardEditInputData.vocabulary}
-                onChange={standardHandleEditChange}
+                value={advancedEditInputData.vocabulary}
+                onChange={advancedHandleEditChange}
                 options={selectVocabOptions}
+              />
+              <SelectInput
+                label="Listening (HW):"
+                name="listeningHW"
+                value={advancedEditInputData.listeningHW}
+                onChange={advancedHandleEditChange}
+                options={selectOptions}
+              />
+              <SelectInput
+                label="Reading (HW):"
+                name="readingHW"
+                value={advancedEditInputData.readingHW}
+                onChange={advancedHandleEditChange}
+                options={selectOptions}
               />
               <SelectInput
                 label="Grammar:"
                 name="grammar"
-                value={standardEditInputData.grammar}
-                onChange={standardHandleEditChange}
+                value={advancedEditInputData.grammar}
+                onChange={advancedHandleEditChange}
                 options={selectOptions}
               />
               <SelectInput
                 label="Writing:"
                 name="writing"
-                value={standardEditInputData.writing}
-                onChange={standardHandleEditChange}
-                options={selectOptions}
-              />
-              <SelectInput
-                label="Vocabulary (HW):"
-                name="vocabulary_homework"
-                value={standardEditInputData.vocabulary_homework}
-                onChange={standardHandleEditChange}
+                value={advancedEditInputData.writing}
+                onChange={advancedHandleEditChange}
                 options={selectOptions}
               />
               <ButtonGroup
@@ -200,7 +192,7 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 <Button variant="outline" onClick={onCancel}>
                   Cancel
                 </Button>
-                <Button type="submit" colorScheme="blue">
+                <Button colorScheme="blue" type="submit">
                   Submit!
                 </Button>
               </ButtonGroup>
@@ -212,11 +204,11 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
   );
 };
 
-StandardForm.propTypes = {
-  editJournal: PropTypes.func,
+AdvancedForm.propTypes = {
+  editJournal: PropTypes.object,
   firstFieldRef: PropTypes.object,
   onCancel: PropTypes.func,
   data: PropTypes.any,
 };
 
-export default StandardForm;
+export default AdvancedForm;

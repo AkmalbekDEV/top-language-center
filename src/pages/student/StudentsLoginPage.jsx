@@ -6,18 +6,21 @@ import {
   InputRightElement,
   useToast,
 } from "@chakra-ui/react";
-import { SignJWT, jwtVerify } from "jose";
-import { useNavigate } from "react-router-dom";
+import { jwtVerify, SignJWT } from "jose";
 import PropTypes from "prop-types";
+import { useGroupsManager } from "../../queries/GroupManager";
+import { useNavigate } from "react-router-dom";
 
-const StudentLogin = ({ groups }) => {
+const StudentLogin = () => {
+  const { useGroups } = useGroupsManager();
+  const { data: groups } = useGroups();
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
   const [text, setText] = useState("show");
   const toast = useToast();
-  const navigate = useNavigate();
 
-  const checkingEveryGroupPassword = groups.find(group => group.password === password)
+  const checkingEveryGroupPassword = groups?.find(group => group.password === password)
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkToken = async () => {
@@ -30,7 +33,7 @@ const StudentLogin = ({ groups }) => {
           const { payload } = await jwtVerify(token, secretKey);
 
           if (payload.role === "student") {
-            return navigate(`/student-groups/${checkingEveryGroupPassword?.type.toLowerCase()}/${checkingEveryGroupPassword.id}`);
+            return navigate(`/student-groups/${checkingEveryGroupPassword.id}?type=${checkingEveryGroupPassword?.type.toLowerCase()}`);
           }
         } catch (err) {
           return err;
@@ -42,7 +45,6 @@ const StudentLogin = ({ groups }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const correctPassword = import.meta.env.VITE_APP_ADMIN_PASSWORD;
     const hashedSecretKey = import.meta.env.VITE_APP_SECRET_KEY;
     const secretKey = new TextEncoder().encode(hashedSecretKey);
     if (checkingEveryGroupPassword) {
@@ -56,7 +58,7 @@ const StudentLogin = ({ groups }) => {
 
       localStorage.setItem("token", token);
       localStorage.setItem("refreshToken", refreshToken);
-      window.location.href = `/student-groups/${checkingEveryGroupPassword?.type.toLowerCase()}/${checkingEveryGroupPassword.id}`;
+      window.location.href = `/student-groups/${checkingEveryGroupPassword.id}?type=${checkingEveryGroupPassword?.type.toLowerCase()}`;
     } else {
       toast({
         title: "Incorrect Password!",

@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 function TableComponent(props) {
   const { header, children } = props;
   return (
-    <table className="w-full text-center text-sm font-light rounded-xl border-2 border-blue-500">
-      <thead className="border-b bg-blue-500 font-medium text-white">
+    <table className="w-full text-center text-sm font-light rounded-xl border-2 border-blue-500 relative">
+      <thead className="border-b bg-blue-500 font-medium text-white z-[5] sticky -top-[1px]">
         <tr>
           {header?.map((element) => {
             return (

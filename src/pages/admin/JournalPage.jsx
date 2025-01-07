@@ -1,7 +1,5 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { StudentContext } from "../../context/StudentsContext";
-import { JournalContext } from "../../context/journals/JournalContext";
+import { useRef, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -13,65 +11,51 @@ import {
 } from "@chakra-ui/react";
 import JournalTableTypeBody from "../../components/ui/JournalTypeTable";
 import PopoverComponent from "../../components/ui/Popover";
+import { useJournalManager } from "../../queries/JournalManager";
+import { useStudentsManager } from "../../queries/StudentsManager";
 import JournalForm from "../../components/ui/JournalForm";
 
 function JournalPage() {
-  const { journal, loading, error, getJournals, deleteJournal } =
-    useContext(JournalContext);
-  const { state, fetchData } = useContext(StudentContext);
-  const { groupType, id, weekId } = useParams();
-  const [journalType, setJournalType] = useState("");
-  const navigate = useNavigate();
+  const { groupId, weekId } = useParams();
+  const { useJournals, useDeleteJournal } = useJournalManager();
+  const { useStudents } = useStudentsManager();
+  const deleteJournal = useDeleteJournal();
+  const location = useLocation();
+  const { data: students } = useStudents(groupId);
+  // Parse the query string using URLSearchParams
+  const searchParams = new URLSearchParams(location.search);
+
+  // Get the value of the specific query parameter
+  const typeValue = searchParams.get("type");
+
+  const { data, isLoading } = useJournals(typeValue, groupId, weekId);
+
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [studentIdToDelete, setStudentIdToDelete] = useState(null);
   const cancelRef = useRef();
 
-  useEffect(() => {
-    if (journalType !== "") {
-      getJournals(journalType, id, weekId);
-      fetchData(id);
-    }
-  }, [getJournals, id, fetchData, weekId, journalType]);
-
-  useEffect(() => {
-    let newJournalType;
-
-    if (groupType === "standard") {
-      newJournalType = 0;
-    } else if (groupType === "advanced") {
-      newJournalType = 1;
-    } else if (groupType === "top") {
-      newJournalType = 2;
-    } else {
-      navigate("/404");
-      return;
-    }
-    // Only update state if journalType is changing
-    if (journalType !== newJournalType) {
-      setJournalType(newJournalType);
-    }
-  }, [setJournalType, navigate, groupType, journalType]);
+  if (isLoading) return <div>Loading journals...</div>;
 
   const backPathname =
     "/" + location.pathname.split("/").splice(1, 4).join("/");
 
-  const handleDeleteClick = (id) => {
-    setStudentIdToDelete(id);
-    setIsDelOpen(true);
-  };
+    const handleDeleteClick = (id) => {
+      setStudentIdToDelete(id);
+      setIsDelOpen(true);
+    };
 
-  const handleDeleteConfirm = async () => {
-    if (studentIdToDelete !== null) {
-      await deleteJournal(journalType, studentIdToDelete);
+    const handleDeleteConfirm = async () => {
+      if (studentIdToDelete !== null) {
+        await deleteJournal.mutateAsync({journalType: typeValue, journalId: studentIdToDelete});
+        setIsDelOpen(false);
+        setStudentIdToDelete(null);
+      }
+    };
+
+    const handleDeleteClose = () => {
       setIsDelOpen(false);
       setStudentIdToDelete(null);
-    }
-  };
-
-  const handleDeleteClose = () => {
-    setIsDelOpen(false);
-    setStudentIdToDelete(null);
-  };
+    };
 
   return (
     <div className="min-w-100 grid grid-rows-1">
@@ -86,7 +70,7 @@ function JournalPage() {
             </Link>
             <Link
               className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
-              to={`/students/${id}`}
+              to={`/group/${groupId}/students`}
             >
               Students
             </Link>
@@ -94,29 +78,30 @@ function JournalPage() {
               trigger={<Button>Add column</Button>}
               header="Adding Student"
             >
-              <JournalForm students={state} />
+              <JournalForm />
             </PopoverComponent>
           </div>
           <div className="text-center">
-            <h1 className="text-4xl font-medium">Group in {state.groupName}</h1>
+            <h1 className="text-4xl font-medium">
+              Group in {students?.groupName}
+            </h1>
           </div>
           <div className="text-center h-[50px]">
-            {loading && (
+            {isLoading && (
               <span className="bg-blue-500 text-white p-3 rounded-3xl">
                 Loading...
               </span>
             )}
-            {error && "Error: " + error}
           </div>
         </div>
       </div>
       <div className="w-100">
         <JournalTableTypeBody
-          data={journal}
-          students={state}
+          data={data.journals}
           handleDeleteClick={handleDeleteClick}
         />
       </div>
+      
       <AlertDialog
         isOpen={isDelOpen}
         leastDestructiveRef={cancelRef}

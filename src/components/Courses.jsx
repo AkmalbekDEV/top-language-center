@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { ProductContext } from '../context/ProductContext';
+import { ProductContext } from '../queries/ProductContext';
 import { Link } from 'react-router-dom';
 
 const Courses = () => {

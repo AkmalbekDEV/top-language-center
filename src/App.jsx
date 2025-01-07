@@ -1,22 +1,22 @@
 import { Route, Routes } from "react-router-dom";
 import Aos from "aos";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import global_uz from "./translations/uz/global.json";
 import MainLayoutRoutes from "./pages/MainLayoutRoutes";
 import GroupPage from "./pages/admin/Groups";
 import LoginPage from "./pages/admin/LoginPage";
 import AdminRoute from "./pages/admin/AdminPage";
-import StudentsPage from "./pages/admin/StudentsPage";
+// import StudentsPage from "./pages/admin/StudentsPage";
 import StudentLogin from "./pages/student/StudentsLoginPage";
-import { GroupContext } from "./context/GroupContext";
 import JournalWeeks from "./pages/admin/JournalWeeks";
 import JournalPage from "./pages/admin/JournalPage";
 import StudentJournalPage from "./pages/student/StudentJournalPage";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import StudentsPage from "./pages/admin/StudentsPage";
 import ForStudentsRoute from "./pages/admin/ForStudentsPage";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-  const { state, getData } = useContext(GroupContext);
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
@@ -43,9 +43,9 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    getData();
-  }, [getData]);
+  // useEffect(() => {
+  //   getData();
+  // }, [getData]);
 
   // i18next.init({
   //   interpolation: { escapeValue: false },
@@ -56,45 +56,47 @@ function App() {
   //     },
   //   },
   // });
+  const queryClient = new QueryClient();
 
   return (
     <>
       {isOnline ? (
         <div className="scroll-smooth text-blue-800">
-          <Routes>
-            <Route path="*" element={<MainLayoutRoutes />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route
-              path="/student-login"
-              element={<StudentLogin groups={state} />}
-            />
-            <Route element={<AdminRoute />}>
-              <Route path="/groups" element={<GroupPage />} />
-              <Route path="/students/:groupId" element={<StudentsPage />} />
+          <QueryClientProvider client={queryClient}>
+            <Routes>
+              <Route path="*" element={<MainLayoutRoutes />} />
+              <Route path="/login" element={<LoginPage />} />
               <Route
-                path="/students/journals/:groupType/:id"
-                element={<JournalWeeks />}
+                path="/student-login"
+                element={<StudentLogin />}
               />
-              <Route
-                path="/students/journals/:groupType/:id/week/:weekId"
-                element={<JournalPage />}
-              />
-            </Route>
-            <Route element={<ForStudentsRoute />}>
-              <Route
-                path="/student-groups/:groupType/:id"
-                element={<JournalWeeks />}
-              />
-              <Route
-                path="/student-groups/:groupType/:id/week/:weekId"
-                element={<StudentJournalPage />}
-              />
-              <Route
-                path="/student-groups/:groupType/:id/week/:weekId"
-                element={<StudentJournalPage />}
-              />
-            </Route>
-          </Routes>
+              <Route element={<AdminRoute />}>
+                <Route path="/groups" element={<GroupPage />} />
+                <Route
+                  path="/group/:groupId/students"
+                  element={<StudentsPage />}
+                />
+                <Route
+                  path="/group/:groupId/students/journals"
+                  element={<JournalWeeks />}
+                />
+                <Route
+                  path="/group/:groupId/students/journals/:weekId"
+                  element={<JournalPage />}
+                />
+              </Route>
+              <Route element={<ForStudentsRoute />}>
+                <Route
+                  path="/student-groups/:groupId"
+                  element={<JournalWeeks />}
+                />
+                <Route
+                  path="/student-groups/:groupId/week/:weekId"
+                  element={<StudentJournalPage />}
+                />
+              </Route>
+            </Routes>
+          </QueryClientProvider>
         </div>
       ) : (
         <div className="flex items-center justify-center h-screen w-full">

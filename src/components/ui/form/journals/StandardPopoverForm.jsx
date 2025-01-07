@@ -1,9 +1,9 @@
 import { Popover, useDisclosure } from "@chakra-ui/react";
 import React from "react";
+import StandardForm from "./StandardForm";
 import PropTypes from "prop-types";
-import TopForm from "./TopForm";
 
-const TopPopoverForm = ({ editJournal, data }) => {
+const StandardPopoverForm = ({ editJournal, data }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = React.useRef(null);
 
@@ -17,7 +17,7 @@ const TopPopoverForm = ({ editJournal, data }) => {
         placement="bottom"
         closeOnBlur={true}
       >
-        <TopForm
+        <StandardForm
           editJournal={editJournal}
           firstFieldRef={firstFieldRef}
           onCancel={onClose}
@@ -28,9 +28,9 @@ const TopPopoverForm = ({ editJournal, data }) => {
   );
 };
 
-TopPopoverForm.propTypes = {
-  editJournal: PropTypes.func,
+StandardPopoverForm.propTypes = {
+  editJournal: PropTypes.object,
   data: PropTypes.any
 };
 
-export default TopPopoverForm;
+export default StandardPopoverForm;

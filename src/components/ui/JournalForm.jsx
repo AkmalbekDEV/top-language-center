@@ -1,18 +1,19 @@
-import PropTypes from "prop-types";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { JournalContext } from "../../context/journals/JournalContext";
 import { useToast } from "@chakra-ui/react";
+import { useJournalManager } from "../../queries/JournalManager";
 
-const JournalForm = ({ students }) => {
-  const { postJournal } = useContext(JournalContext);
-  const { groupType, id, weekId } = useParams();
-  const [journalType, setJournalType] = useState("");
+const JournalForm = () => {
+  const { useAddJournal } = useJournalManager();
+  const postJournal = useAddJournal();
+  const { weekId, groupId } = useParams();
+  const searchParams = new URLSearchParams(location.search);
+  const typeValue = searchParams.get("type");
   const [standardInputData, setStandardInputData] = useState({
     id: null,
     name: "",
-    group_id: id,
-    journal_week_id: weekId,
+    groupRef: groupId,
+    weekRef: weekId,
     listening: "No",
     listening_reading: "No",
     reading: "No",
@@ -27,8 +28,8 @@ const JournalForm = ({ students }) => {
   const [advancedInputData, setAdvancedInputData] = useState({
     id: null,
     name: "",
-    group_id: id,
-    journal_week_id: weekId,
+    groupRef: groupId,
+    weekRef: weekId,
     listening: "",
     reading: "",
     vocabulary: "No",
@@ -43,8 +44,8 @@ const JournalForm = ({ students }) => {
   const [topInputData, setTopInputData] = useState({
     id: null,
     name: "",
-    group_id: id,
-    journal_week_id: weekId,
+    groupRef: groupId,
+    weekRef: weekId,
     vocab_result: "No",
     vocab_homework: "",
     listening: "",
@@ -61,16 +62,6 @@ const JournalForm = ({ students }) => {
     reading_homework2: "false",
     reading_homework3: "false",
   });
-
-  useEffect(() => {
-    if (groupType === "standard") {
-      setJournalType("0");
-    } else if (groupType === "advanced") {
-      setJournalType("1");
-    } else if (groupType === "top") {
-      setJournalType("2");
-    }
-  }, [groupType, setJournalType]);
 
   const toast = useToast();
   const failedToast = () =>
@@ -109,7 +100,11 @@ const JournalForm = ({ students }) => {
       return;
     } else {
       try {
-        await postJournal(journalType, standardInputData);
+        await postJournal.mutateAsync({ 
+          journalType: typeValue,
+          journalData: standardInputData,
+          groupId,
+          weekId });
         successToast();
         return;
       } catch (error) {
@@ -121,12 +116,14 @@ const JournalForm = ({ students }) => {
   const advancedHandleSubmit = async (e) => {
     e.preventDefault();
 
-    if (advancedInputData.name.trim() === "") {
+    if (
+      advancedInputData.name.trim() === ""
+    ) {
       failedToast();
       return;
     } else {
       try {
-        await postJournal(journalType, advancedInputData);
+        await postJournal.mutateAsync({ journalType: typeValue, journalData: advancedInputData, groupId, weekId });
         successToast();
         return;
       } catch (error) {
@@ -138,12 +135,14 @@ const JournalForm = ({ students }) => {
   const topHandleSubmit = async (e) => {
     e.preventDefault();
 
-    if (topInputData.name.trim() === "") {
+    if (
+      topInputData.name.trim() === ""
+    ) {
       failedToast();
       return;
     } else {
       try {
-        await postJournal(journalType, topInputData);
+        await postJournal.mutateAsync({ journalType: typeValue, journalData: topInputData, groupId, weekId });
         successToast();
         return;
       } catch (error) {
@@ -172,8 +171,7 @@ const JournalForm = ({ students }) => {
     });
   };
 
-  const journal_type = students?.students[0]?.group?.type;
-  return journal_type === "Standard" ? (
+  return typeValue === "standard" ? (
     <form className="grid gap-2" onSubmit={standardHandleSubmit}>
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
         Student&apos;s Name
@@ -288,7 +286,7 @@ const JournalForm = ({ students }) => {
         Submit!
       </button>
     </form>
-  ) : journal_type === "Advanced" ? (
+  ) : typeValue === "advanced" ? (
     <form className="grid gap-2" onSubmit={advancedHandleSubmit}>
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
         Student&apos;s Name
@@ -399,7 +397,7 @@ const JournalForm = ({ students }) => {
         Submit!
       </button>
     </form>
-  ) : journal_type === "Top" ? (
+  ) : typeValue === "top" ? (
     <form className="grid gap-2" onSubmit={topHandleSubmit}>
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
         Student&apos;s Name
@@ -493,10 +491,6 @@ const JournalForm = ({ students }) => {
   ) : (
     "Something went wrong"
   );
-};
-
-JournalForm.propTypes = {
-  students: PropTypes.any,
 };
 
 export default JournalForm;
