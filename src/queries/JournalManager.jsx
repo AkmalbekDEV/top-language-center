@@ -84,7 +84,7 @@ export const useJournalManager = () => {
         queryClient.invalidateQueries(["journal_weeks"], weekId);
       },
     });
-  }
+  };
 
   // Query for journals by type, week and group
   const useJournals = (journalType, groupId, weekId) => {

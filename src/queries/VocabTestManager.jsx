@@ -108,7 +108,7 @@ export const useVocabManager = () => {
 
   const useDeleteVocabTest = () => {
     return useMutation({
-      mutationFn: async ({ testId, groupId, journalRef, weekId }) => {
+      mutationFn: async ({ testId }) => {
         const testRef = doc(db, "vocabulary_tests", testId);
         await deleteDoc(testRef);
         return testId;
