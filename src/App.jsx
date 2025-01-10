@@ -14,6 +14,7 @@ import StudentJournalPage from "./pages/student/StudentJournalPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import StudentsPage from "./pages/admin/StudentsPage";
 import ForStudentsRoute from "./pages/admin/ForStudentsPage";
+import VocabularyTest from "./pages/admin/VocabularyTest";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -83,6 +84,10 @@ function App() {
                 <Route
                   path="/group/:groupId/students/journals/:weekId"
                   element={<JournalPage />}
+                />
+                <Route
+                  path="/group/:groupId/students/journals/:weekId/vocabulary"
+                  element={<VocabularyTest />}
                 />
               </Route>
               <Route element={<ForStudentsRoute />}>

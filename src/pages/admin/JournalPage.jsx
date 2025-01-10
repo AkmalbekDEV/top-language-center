@@ -39,23 +39,23 @@ function JournalPage() {
   const backPathname =
     "/" + location.pathname.split("/").splice(1, 4).join("/");
 
-    const handleDeleteClick = (id) => {
-      setStudentIdToDelete(id);
-      setIsDelOpen(true);
-    };
+  const handleDeleteClick = (id) => {
+    setStudentIdToDelete(id);
+    setIsDelOpen(true);
+  };
 
-    const handleDeleteConfirm = async () => {
-      if (studentIdToDelete !== null) {
-        await deleteJournal.mutateAsync({journalType: typeValue, journalId: studentIdToDelete});
-        setIsDelOpen(false);
-        setStudentIdToDelete(null);
-      }
-    };
-
-    const handleDeleteClose = () => {
+  const handleDeleteConfirm = async () => {
+    if (studentIdToDelete !== null) {
+      await deleteJournal.mutateAsync({ journalType: typeValue, journalId: studentIdToDelete });
       setIsDelOpen(false);
       setStudentIdToDelete(null);
-    };
+    }
+  };
+
+  const handleDeleteClose = () => {
+    setIsDelOpen(false);
+    setStudentIdToDelete(null);
+  };
 
   return (
     <div className="min-w-100 grid grid-rows-1">
@@ -68,12 +68,21 @@ function JournalPage() {
             >
               Back
             </Link>
-            <Link
-              className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
-              to={`/group/${groupId}/students`}
-            >
-              Students
-            </Link>
+            <div className="flex gap-10">
+              <Link
+                className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
+                to={`/group/${groupId}/students`}
+              >
+                Students
+              </Link>
+              <Link
+                className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
+                to={`/group/${groupId}/students/journals/${weekId}/vocabulary?type=${typeValue}`}
+              >
+                Vocabulary
+              </Link>
+            </div>
+
             <PopoverComponent
               trigger={<Button>Add column</Button>}
               header="Adding Student"
@@ -101,7 +110,7 @@ function JournalPage() {
           handleDeleteClick={handleDeleteClick}
         />
       </div>
-      
+
       <AlertDialog
         isOpen={isDelOpen}
         leastDestructiveRef={cancelRef}

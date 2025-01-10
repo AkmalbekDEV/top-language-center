@@ -69,6 +69,23 @@ export const useJournalManager = () => {
     });
   };
 
+  const useUpdateJournalWeekTimer = () => {
+    return useMutation({
+      mutationFn: async ({ weekId, updateData }) => {
+        const weekRef = doc(db, "journal_weeks", weekId);
+        const updatedData = {
+          ...updateData,
+          updatedAt: serverTimestamp(),
+        };
+        await updateDoc(weekRef, updatedData);
+        return updatedData;
+      },
+      onSuccess: (_, { weekId }) => {
+        queryClient.invalidateQueries(["journal_weeks"], weekId);
+      },
+    });
+  }
+
   // Query for journals by type, week and group
   const useJournals = (journalType, groupId, weekId) => {
     return useQuery({
@@ -224,6 +241,7 @@ export const useJournalManager = () => {
 
   return {
     useJournalWeeks,
+    useUpdateJournalWeekTimer,
     useJournals,
     useAddJournal,
     useUpdateJournal,
