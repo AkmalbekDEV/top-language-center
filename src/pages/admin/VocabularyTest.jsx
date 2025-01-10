@@ -17,7 +17,7 @@ const VocabularyTest = () => {
   const addTest = useAddVocabTest();
   const updateTest = useUpdateVocabTest();
   const deleteTest = useDeleteVocabTest();
-  const { data: weeks, isLoading: weeksLoading } = useJournalWeeks();
+  const { data: weeks } = useJournalWeeks();
   const [testToDelete, setTestToDelete] = useState(null);
 
   const {
@@ -286,8 +286,8 @@ const VocabularyTest = () => {
   return (
     <div className="min-w-100 grid grid-rows-1">
       <div className="flex items-center justify-center max-sm:justify-between max-sm:flex-col-reverse pt-5">
-        <div className="grid w-full gap-10">
-          <div className="w-full flex justify-between">
+        <div className="grid w-full gap-5">
+          <div className="w-full flex justify-between px-10">
             <Link
               className="px-6 py-1.5 rounded-md bg-[#EDF2F7] text-[#1A202C] text-xl font-semibold"
               to={`/group/${groupId}/students/journals/${weekId}?type=${typeValue}`}
@@ -306,7 +306,7 @@ const VocabularyTest = () => {
                   size="xl"
                   className="px-5 py-1.5 max-sm:py-1 max-sm:px-3 max-sm:text-[1rem] rounded-md bg-gray-200 text-black text-xl font-medium"
                 >
-                  <h1 className="text-lg font-medium text-blue-600">
+                  <h1 className="text-lg font-medium">
                     Add Test
                   </h1>
                 </Button>
@@ -367,7 +367,7 @@ const VocabularyTest = () => {
               Group in {students?.groupName} | Week {students?.weekNumber} | Vocabulary Test
             </h1>
           </div> */}
-          <div className="text-center h-[50px]">
+          <div className="text-center h-[30px] mt-5">
             {isLoading && (
               <span className="bg-blue-500 text-white p-3 rounded-3xl">
                 Loading...
@@ -375,9 +375,26 @@ const VocabularyTest = () => {
             )}
           </div>
           {tests?.length !== 0 && (
-            <div>
-              <div className="text-center">
-                <span>Timer</span>
+            <div className="flex justify-between px-10">
+              <div className="flex justify-center gap-4">
+                <span className="text-xl font-semibold">Access:</span>
+                <Switch
+                  size="lg"
+                  isChecked={
+                    typeValue === "standard"
+                      ? weeks?.[weekId - 1]?.standardAccess
+                      : typeValue === "advanced"
+                        ? weeks?.[weekId - 1]?.advancedAccess
+                        : weeks?.[weekId - 1]?.topAccess
+                  }
+                  onChange={() => handleToggle(weeks[weekId - 1])}
+                />
+              </div>
+              <span className="text-3xl font-bold">
+                {weekId}-week
+              </span>
+              <div className="flex justify-center items-center gap-5">
+                <span className="text-xl font-semibold">Timer:</span>
                 <PopoverComponent
                   trigger={
                     <Button
@@ -408,7 +425,7 @@ const VocabularyTest = () => {
                     <div className="grid gap-[2px]">
                       <label
                         htmlFor="question"
-                        className="text-xl my-2 font-medium text-blue-600 text-center"
+                        className="text-xl my-2 text-blue-600 text-center"
                       >
                         Timer:
                       </label>
@@ -441,122 +458,119 @@ const VocabularyTest = () => {
                   </form>
                 </PopoverComponent>
               </div>
-              <div className="text-center">
-                <span>Access</span>
-                <Switch
-                  isChecked={
-                    typeValue === "standard"
-                      ? weeks?.[weekId - 1]?.standardAccess
-                      : typeValue === "advanced"
-                        ? weeks?.[weekId - 1]?.advancedAccess
-                        : weeks?.[weekId - 1]?.topAccess
-                  }
-                  onChange={() => handleToggle(weeks[weekId - 1])}
-                >
-                  Access Test
-                </Switch>
-              </div>
             </div>
           )}
-          <div className="space-y-4">
-            {tests?.map((test, index) => (
-              <div
-                key={test.id}
-                className="p-4 border rounded-lg bg-white shadow-sm"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold">Test {index + 1}</h3>
-                    <p>Question: {test.question}</p>
-                    <p>Answer: {test.answer}</p>
-                  </div>
-                  <div className="space-x-2">
-                    {/* <Switch
-                        checked={test.access}
-                        onCheckedChange={() => handleToggleAccess(test)}
-                      /> */}
-                    <PopoverComponent
-                      trigger={
-                        <Button
-                          size="xl"
-                          className="px-5 py-1.5 max-sm:py-1 max-sm:px-3 max-sm:text-[1rem] rounded-md bg-gray-200 text-black text-xl font-medium"
-                          onClick={() => handleEditClick(test)}
-                        >
-                          <h1 className="text-lg font-medium text-blue-600">
-                            Edit
-                          </h1>
-                        </Button>
-                      }
-                      header={`Edit Test ${test.test}`}
-                    >
-                      <form onSubmit={handleEdit} className="grid gap-2">
-                        <div className="grid gap-[2px]">
-                          <label
-                            htmlFor="question"
-                            className="text-xl my-2 font-medium text-blue-600 text-center"
+          <table className="w-[95%] border-blue-500 border-2 border-collapse m-auto">
+            <thead className="border-b bg-blue-500 font-medium text-white z-[5] sticky -top-[1px]">
+              <tr>
+                <th scope="col" className="px-6 max-md:px-5.5 max-md:py-2 py-4 text-wrap border-r border-white/30">
+                  #
+                </th>
+                <th scope="col" className="px-6 max-md:px-5.5 max-md:py-2 py-4 text-wrap border-r border-white/30">
+                  Question
+                </th>
+                <th scope="col" className="px-6 max-md:px-5.5 max-md:py-2 py-4 text-wrap border-r border-white/30">
+                  Answer
+                </th>
+                <th scope="col" className="px-6 max-md:px-5.5 max-md:py-2 py-4 text-wrap">
+                  Handle
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {tests?.map((test, index) => (
+                <tr
+                  key={test.id}
+                  className={`
+          border-b border-blue-500/30 
+          text-lg font-medium max-sm:text-base 
+          text-center
+          ${index % 2 === 1 ? 'bg-gray-50' : 'bg-white'}
+          hover:bg-blue-50 transition-colors
+        `}
+                >
+                  <td className="whitespace-nowrap px-6 max-sm:ml-[3px] max-sm:px-3 py-4 font-medium max-sm:text-sm border-r border-blue-500/30">
+                    {index + 1}
+                  </td>
+                  <td className="whitespace-nowrap px-6 max-sm:ml-[3px] max-sm:px-3 py-4 font-medium max-sm:text-sm text-wrap border-r border-blue-500/30">
+                    {test.question}
+                  </td>
+                  <td className="whitespace-nowrap px-6 max-sm:ml-[3px] max-sm:px-3 py-4 font-medium max-sm:text-sm text-wrap border-r border-blue-500/30">
+                    {test.answer}
+                  </td>
+                  <td className="whitespace-nowrap px-6 max-sm:ml-[3px] max-sm:px-3 py-4 font-medium max-sm:text-sm">
+                    <div className="flex justify-center gap-2">
+                      <PopoverComponent
+                        trigger={
+                          <Button
+                            size={{ base: "xs", sm: "sm" }}
+                            className="px-4 py-2 rounded-md bg-white hover:bg-blue-50 text-blue-600 font-medium border border-blue-500 transition-colors"
+                            onClick={() => handleEditClick(test)}
                           >
-                            Question:
-                          </label>
-                          <input
-                            type="text"
-                            id="question"
-                            name="question"
-                            value={editData.question}
-                            onChange={handleEditChange}
-                            placeholder="Enter a question..."
-                            required
-                            className="w-full px-5 rounded-lg py-1 border-[1px] border-gray-500"
-                          />
-                        </div>
-                        <div className="grid gap-[2px]">
-                          <label
-                            htmlFor="answer"
-                            className="text-xl my-2 font-medium text-blue-600 text-center"
+                            EDIT
+                          </Button>
+                        }
+                        header={`Edit Test ${test.test}`}
+                      >
+                        <form onSubmit={handleEdit} className="grid gap-2">
+                          <div className="grid gap-[2px]">
+                            <label
+                              htmlFor="question"
+                              className="text-xl my-2 font-medium text-blue-600 text-center"
+                            >
+                              Question:
+                            </label>
+                            <input
+                              type="text"
+                              id="question"
+                              name="question"
+                              value={editData.question}
+                              onChange={handleEditChange}
+                              placeholder="Enter a question..."
+                              required
+                              className="w-full px-5 rounded-lg py-1 border-[1px] border-gray-500"
+                            />
+                          </div>
+                          <div className="grid gap-[2px]">
+                            <label
+                              htmlFor="answer"
+                              className="text-xl my-2 font-medium text-blue-600 text-center"
+                            >
+                              Answer:
+                            </label>
+                            <input
+                              type="text"
+                              id="answer"
+                              name="answer"
+                              value={editData.answer}
+                              onChange={handleEditChange}
+                              placeholder="Enter the answer..."
+                              required
+                              className="w-full px-5 rounded-lg py-1 border-[1px] border-gray-500"
+                            />
+                          </div>
+                          <button
+                            type="submit"
+                            disabled={updateTest.isPending}
+                            className="text-center bg-blue-500 text-white px-4 py-2 mt-2 rounded hover:bg-blue-600 disabled:bg-blue-300"
                           >
-                            Answer:
-                          </label>
-                          <input
-                            type="text"
-                            id="answer"
-                            name="answer"
-                            value={editData.answer}
-                            onChange={handleEditChange}
-                            placeholder="Enter the answer..."
-                            required
-                            className="w-full px-5 rounded-lg py-1 border-[1px] border-gray-500"
-                          />
-                        </div>
-                        <button
-                          type="submit"
-                          disabled={updateTest.isPending}
-                          className="text-center bg-blue-500 text-white px-4 py-2 mt-2 rounded hover:bg-blue-600 disabled:bg-blue-300"
-                        >
-                          {updateTest.isPending ? "Updating..." : "Update Test"}
-                        </button>
-                      </form>
-                    </PopoverComponent>
-                    <Button
-                      variant={"destructive"}
-                      size={{ base: "xs", sm: "sm" }}
-                      className="max-sm:mr-[5px]"
-                      onClick={() => handleDeleteClick(test)}
-                    >
-                      Delete
-                    </Button>
-                    {/* <Button variant="outline" onClick={() => handleEdit(test)}>
-                      Edit
-                    </Button> */}
-                    {/* <Button
-                      variant="destructive"
-                      onClick={() => handleDelete(test)}
-                    >
-                      Delete
-                    </Button> */}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+                            {updateTest.isPending ? "Updating..." : "Update Test"}
+                          </button>
+                        </form>
+                      </PopoverComponent>
+                      <Button
+                        size={{ base: "xs", sm: "sm" }}
+                        className="px-4 py-2 rounded-md bg-white hover:bg-red-50 text-red-600 font-medium border border-red-500 transition-colors"
+                        onClick={() => handleDeleteClick(test)}
+                      >
+                        DELETE
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
           <AlertDialog
             isOpen={isDeleteOpen}
