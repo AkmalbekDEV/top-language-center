@@ -55,6 +55,9 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
                 {journal?.name || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {journal?.login || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInput
                   journalId={journal?.id}
                   attendance1={journal?.attendance1}
@@ -106,6 +109,9 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.name || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {journal?.login || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInput
@@ -162,6 +168,9 @@ function JournalTableTypeBody({ data, handleDeleteClick }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.name || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {journal?.login || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInput

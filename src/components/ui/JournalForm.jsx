@@ -12,6 +12,7 @@ const JournalForm = () => {
   const [standardInputData, setStandardInputData] = useState({
     id: null,
     name: "",
+    login: "",
     groupRef: groupId,
     weekRef: weekId,
     listening: "No",
@@ -28,6 +29,7 @@ const JournalForm = () => {
   const [advancedInputData, setAdvancedInputData] = useState({
     id: null,
     name: "",
+    login: "",
     groupRef: groupId,
     weekRef: weekId,
     listening: "",
@@ -44,6 +46,7 @@ const JournalForm = () => {
   const [topInputData, setTopInputData] = useState({
     id: null,
     name: "",
+    login: "",
     groupRef: groupId,
     weekRef: weekId,
     vocab_result: "No",
@@ -186,6 +189,18 @@ const JournalForm = () => {
         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
       />
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+        Student&apos;s Login
+      </h3>
+      <input
+        name="login"
+        type="text"
+        autoComplete="off"
+        value={standardInputData.login}
+        onChange={standardHandleChange}
+        placeholder="O'quvchining logini..."
+        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+      />
+      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
         Listening
       </h3>
       <select
@@ -301,6 +316,18 @@ const JournalForm = () => {
         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
       />
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+        Student&apos;s Login
+      </h3>
+      <input
+        name="login"
+        type="text"
+        autoComplete="off"
+        value={advancedInputData.login}
+        onChange={advancedHandleChange}
+        placeholder="O'quvchining logini..."
+        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+      />
+      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
         Listening
       </h3>
       <input
@@ -409,6 +436,18 @@ const JournalForm = () => {
         value={topInputData.name}
         onChange={topHandleChange}
         placeholder="O'quvchining ismi..."
+        className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
+      />
+      <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">
+        Student&apos;s Login
+      </h3>
+      <input
+        name="login"
+        type="text"
+        autoComplete="off"
+        value={topInputData.login}
+        onChange={topHandleChange}
+        placeholder="O'quvchining logini..."
         className="w-full px-5 py-1 rounded-xl border-2 border-gray-500"
       />
       <h3 className="text-2xl mt-2 font-medium text-blue-600 text-center">

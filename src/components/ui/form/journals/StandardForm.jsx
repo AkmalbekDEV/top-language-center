@@ -26,6 +26,7 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
   const [standardEditInputData, setStandardEditInputData] = useState({
     id: null,
     name: "",
+    login: "",
     group_id: groupId,
     journal_week_id: weekId,
     listening: "",
@@ -82,6 +83,7 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     setStandardEditInputData({
       id: student.id,
       name: student.name,
+      login: student.login,
       group_id: groupId,
       journal_week_id: weekId,
       listening: student.listening,
@@ -132,6 +134,14 @@ const StandardForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 name="name"
                 autoComplete="off"
                 value={standardEditInputData.name}
+                onChange={standardHandleEditChange}
+                ref={firstFieldRef}
+              />
+              <TextInput
+                label="Student's login:"
+                name="login"
+                autoComplete="off"
+                value={standardEditInputData.login}
                 onChange={standardHandleEditChange}
                 ref={firstFieldRef}
               />

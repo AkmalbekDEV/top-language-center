@@ -50,6 +50,9 @@ function StudentJournalTableBody({ data }) {
                 {journal?.name || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {journal?.login || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInputForStudents
                   attendance1={journal?.attendance1}
                   attendance2={journal?.attendance2}
@@ -90,6 +93,9 @@ function StudentJournalTableBody({ data }) {
                 {journal?.name || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {journal?.login || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInputForStudents
                   attendance1={journal?.attendance1}
                   attendance2={journal?.attendance2}
@@ -128,6 +134,9 @@ function StudentJournalTableBody({ data }) {
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 {journal?.name || "N/A"}
+              </td>
+              <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
+                {journal?.login || "N/A"}
               </td>
               <td className="whitespace-nowrap px-6 max-sm:px-[3px] max-sm:text-sm py-4 text-wrap">
                 <CheckboxInputForStudents

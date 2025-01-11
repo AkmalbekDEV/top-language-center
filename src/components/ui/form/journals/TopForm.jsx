@@ -26,6 +26,7 @@ const TopForm = ({editJournal, firstFieldRef, onCancel, data}) => {
   const [topEditInputData, setTopEditInputData] = useState ({
     id: null,
     name: '',
+    login: '',
     group_id: groupId,
     journal_week_id: weekId,
     vocab_result: '',
@@ -81,6 +82,7 @@ const TopForm = ({editJournal, firstFieldRef, onCancel, data}) => {
     setTopEditInputData ({
       id: student.id,
       name: student.name,
+      login: student.login,
       group_id: groupId,
       journal_week_id: weekId,
       vocab_result: student.vocab_result,
@@ -124,6 +126,14 @@ const TopForm = ({editJournal, firstFieldRef, onCancel, data}) => {
                 name="name"
                 autoComplete="off"
                 value={topEditInputData.name}
+                onChange={topHandleEditChange}
+                ref={firstFieldRef}
+              />
+              <TextInput
+                label="Student's login:"
+                name="login"
+                autoComplete="off"
+                value={topEditInputData.login}
                 onChange={topHandleEditChange}
                 ref={firstFieldRef}
               />

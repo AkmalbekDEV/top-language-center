@@ -9,38 +9,42 @@ export const standardJournalTableJson = [
   },
   {
     id: 3,
-    title: 'Attendance',
+    title: 'Username',
   },
   {
     id: 4,
-    title: 'Listening',
+    title: 'Attendance',
   },
   {
     id: 5,
-    title: 'L / R',
+    title: 'Listening',
   },
   {
     id: 6,
-    title: 'Reading',
+    title: 'L / R',
   },
   {
     id: 7,
-    title: 'Vocabulary',
+    title: 'Reading',
   },
   {
     id: 8,
-    title: 'Grammar',
+    title: 'Vocabulary',
   },
   {
     id: 9,
-    title: 'Writing',
+    title: 'Grammar',
   },
   {
     id: 10,
-    title: 'Vocabulary (HW)',
+    title: 'Writing',
   },
   {
     id: 11,
+    title: 'Vocabulary (HW)',
+  },
+  {
+    id: 12,
     title: 'Handle',
   },
 ];
@@ -56,34 +60,38 @@ export const studentStandardJournalTableJson = [
   },
   {
     id: 3,
-    title: 'Attendance',
+    title: 'Username',
   },
   {
     id: 4,
-    title: 'Listening',
+    title: 'Attendance',
   },
   {
     id: 5,
-    title: 'L / R',
+    title: 'Listening',
   },
   {
     id: 6,
-    title: 'Reading',
+    title: 'L / R',
   },
   {
     id: 7,
-    title: 'Vocabulary',
+    title: 'Reading',
   },
   {
     id: 8,
-    title: 'Grammar',
+    title: 'Vocabulary',
   },
   {
     id: 9,
-    title: 'Writing',
+    title: 'Grammar',
   },
   {
     id: 10,
+    title: 'Writing',
+  },
+  {
+    id: 11,
     title: 'Vocabulary (HW)',
   },
 ];
@@ -99,38 +107,42 @@ export const advancedJournalTableJson = [
   },
   {
     id: 3,
-    title: 'Attendance',
+    title: 'Username',
   },
   {
     id: 4,
-    title: 'Listening',
+    title: 'Attendance',
   },
   {
     id: 5,
-    title: 'Reading',
+    title: 'Listening',
   },
   {
     id: 6,
-    title: 'Vocabulary',
+    title: 'Reading',
   },
   {
     id: 7,
-    title: 'Listening (HW)',
+    title: 'Vocabulary',
   },
   {
     id: 8,
-    title: 'Reading (HW)',
+    title: 'Listening (HW)',
   },
   {
     id: 9,
-    title: 'Grammar',
+    title: 'Reading (HW)',
   },
   {
     id: 10,
-    title: 'Writing',
+    title: 'Grammar',
   },
   {
     id: 11,
+    title: 'Writing',
+  },
+  {
+    id: 12,
     title: 'Handle',
   },
 ];
@@ -146,34 +158,38 @@ export const studentAdvancedJournalTableJson = [
   },
   {
     id: 3,
-    title: 'Attendance',
+    title: 'Username',
   },
   {
     id: 4,
-    title: 'Listening',
+    title: 'Attendance',
   },
   {
     id: 5,
-    title: 'Reading',
+    title: 'Listening',
   },
   {
     id: 6,
-    title: 'Vocabulary',
+    title: 'Reading',
   },
   {
     id: 7,
-    title: 'Listening (HW)',
+    title: 'Vocabulary',
   },
   {
     id: 8,
-    title: 'Reading (HW)',
+    title: 'Listening (HW)',
   },
   {
     id: 9,
-    title: 'Grammar',
+    title: 'Reading (HW)',
   },
   {
     id: 10,
+    title: 'Grammar',
+  },
+  {
+    id: 11,
     title: 'Writing',
   },
 ];
@@ -189,46 +205,50 @@ export const topJournalTableJson = [
   },
   {
     id: 3,
-    title: 'Attendance',
+    title: 'Username',
   },
   {
     id: 4,
-    title: 'Vocab Result',
+    title: 'Attendance',
   },
   {
     id: 5,
-    title: 'Vocab (HW)',
+    title: 'Vocab Result',
   },
   {
     id: 6,
-    title: 'Listening (HW)',
+    title: 'Vocab (HW)',
   },
   {
     id: 7,
-    title: 'Reading (HW)',
+    title: 'Listening (HW)',
   },
   {
     id: 8,
-    title: 'Listening',
+    title: 'Reading (HW)',
   },
   {
     id: 9,
-    title: 'Reading',
+    title: 'Listening',
   },
   {
     id: 10,
-    title: 'Writing',
+    title: 'Reading',
   },
   {
     id: 11,
-    title: 'Speaking',
+    title: 'Writing',
   },
   {
     id: 12,
-    title: 'Overall',
+    title: 'Speaking',
   },
   {
     id: 13,
+    title: 'Overall',
+  },
+  {
+    id: 14,
     title: 'Handle',
   },
 ];
@@ -244,42 +264,46 @@ export const studentTopJournalTableJson = [
   },
   {
     id: 3,
-    title: 'Attendance',
+    title: 'Username',
   },
   {
     id: 4,
-    title: 'Vocab Result',
+    title: 'Attendance',
   },
   {
     id: 5,
-    title: 'Vocab (HW)',
+    title: 'Vocab Result',
   },
   {
     id: 6,
-    title: 'Listening (HW)',
+    title: 'Vocab (HW)',
   },
   {
     id: 7,
-    title: 'Reading (HW)',
+    title: 'Listening (HW)',
   },
   {
     id: 8,
-    title: 'Listening',
+    title: 'Reading (HW)',
   },
   {
     id: 9,
-    title: 'Reading',
+    title: 'Listening',
   },
   {
     id: 10,
-    title: 'Writing',
+    title: 'Reading',
   },
   {
     id: 11,
-    title: 'Speaking',
+    title: 'Writing',
   },
   {
     id: 12,
+    title: 'Speaking',
+  },
+  {
+    id: 13,
     title: 'Overall',
   },
 ];

@@ -26,6 +26,7 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
   const [advancedEditInputData, setAdvancedEditInputData] = useState({
     id: null,
     name: "",
+    login: "",
     group_id: groupId,
     journal_week_id: weekId,
     listening: "",
@@ -82,6 +83,7 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
     setAdvancedEditInputData({
       id: student.id,
       name: student.name,
+      login: student.login,
       group_id: groupId,
       journal_week_id: weekId,
       listening: student.listening,
@@ -132,6 +134,14 @@ const AdvancedForm = ({ editJournal, firstFieldRef, onCancel, data }) => {
                 name="name"
                 autoComplete="off"
                 value={advancedEditInputData.name}
+                onChange={advancedHandleEditChange}
+                ref={firstFieldRef}
+              />
+              <TextInput
+                label="Student's login:"
+                name="login"
+                autoComplete="off"
+                value={advancedEditInputData.login}
                 onChange={advancedHandleEditChange}
                 ref={firstFieldRef}
               />

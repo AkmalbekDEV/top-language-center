@@ -23,14 +23,23 @@ function StudentJournalPage() {
     <div className="min-w-100 grid grid-rows-1">
       <div className="flex items-center justify-center max-sm:justify-between max-sm:flex-col-reverse pt-5">
         <div className="grid w-full gap-10">
-          <div className="w-full flex justify-between">
+          <div className="w-full flex justify-between items-center">
             <Link
               className="px-6 py-1.5 rounded-md bg-[#EDF2F7] text-[#1A202C] text-xl font-semibold"
               to={`/student-groups/${groupId}?type=${students?.groupType}`}
             >
               Back
             </Link>
+            <div className="flex-1 flex justify-center">
+              <Link
+                className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
+                to={`/student-groups/${groupId}/week/${weekId}/vocabulary?type=${typeValue}`}
+              >
+                Vocabulary
+              </Link>
+            </div>
           </div>
+
           <div className="text-center">
             <h1 className="text-4xl font-medium">
               Group in {students?.groupName}
