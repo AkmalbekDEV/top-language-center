@@ -30,7 +30,7 @@ function StudentJournalPage() {
             >
               Back
             </Link>
-            <div className="flex-1 flex justify-center">
+            <div className="flex-1 flex justify-center mr-24">
               <Link
                 className="px-6 py-1.5 rounded-md text-gray-200 text-xl font-medium bg-[#1E40AF]"
                 to={`/student-groups/${groupId}/week/${weekId}/vocabulary?type=${typeValue}`}
