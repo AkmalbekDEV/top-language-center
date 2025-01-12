@@ -4,6 +4,7 @@ import { useVocabManager } from "../../queries/VocabTestManager";
 import { useToast, Button, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Switch } from "@chakra-ui/react";
 import PopoverComponent from "../../components/ui/Popover";
 import { useJournalManager } from "../../queries/JournalManager";
+import ReadyStudentsList from "../../components/ReadyStudents";
 
 const VocabularyTest = () => {
   const {
@@ -33,6 +34,7 @@ const VocabularyTest = () => {
   const searchParams = new URLSearchParams(location.search);
   const typeValue = searchParams.get("type");
   const specificTimer = typeValue + "Timer";
+  const specificAccess = typeValue + "Access";
   const { groupId, weekId } = useParams();
   const [timer, setTimer] = useState({
     weekId: null,
@@ -167,9 +169,10 @@ const VocabularyTest = () => {
 
       // Get current value and toggle it
       const currentValue = weekData[accessType];
-
+      console.log(`journal_weeks-00${weekId}`)
+      console.log(weeks[accessType])
       await editTimer.mutateAsync({
-        weekId: `journal_weeks-${String(weekData.weekId).padStart(3, '0')}`,
+        weekId: `journal_weeks-00${weekId}`,
         updateData: {
           [accessType]: !currentValue  // Toggle the boolean value
         },
@@ -282,7 +285,9 @@ const VocabularyTest = () => {
 
   // EDIT method timer END
 
-  console.log(tests);
+  const selectedWeek = weeks?.filter(week => week.week === weekId)
+
+  console.log(weeks);
   return (
     <div className="min-w-100 grid grid-rows-1">
       <div className="flex items-center justify-center max-sm:justify-between max-sm:flex-col-reverse pt-5">
@@ -461,7 +466,7 @@ const VocabularyTest = () => {
             </div>
           )}
           <table className="w-[95%] border-blue-500 border-2 border-collapse m-auto">
-            <thead className="border-b bg-blue-500 font-medium text-white z-[5] sticky -top-[1px]">
+            <thead className="border-b bg-blue-500 font-medium text-white z-[5]">
               <tr>
                 <th scope="col" className="px-6 max-md:px-5.5 max-md:py-2 py-4 text-wrap border-r border-white/30">
                   #
@@ -571,6 +576,13 @@ const VocabularyTest = () => {
               ))}
             </tbody>
           </table>
+
+          {
+            selectedWeek?.[0]?.[specificAccess] ? (
+              <ReadyStudentsList />
+            )
+              : <></>
+          }
 
           <AlertDialog
             isOpen={isDeleteOpen}

@@ -9,7 +9,9 @@ import { useVocabManager } from "../../queries/VocabTestManager";
 const StudentVocabularyTest = () => {
 
   const [isClicked, setIsClicked] = useState(false);
+  const [isOnceClicked, setIsOnceClicked] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [error, setError] = useState("")
 
   useEffect(() => {
     const getUserDetails = async () => {
@@ -24,6 +26,7 @@ const StudentVocabularyTest = () => {
         setUserDetails({
           username: payload.username,
           name: payload.name,
+          weekId: payload.weekId,
           userId: payload.userId,
           groupId: payload.groupId
         });
@@ -37,7 +40,6 @@ const StudentVocabularyTest = () => {
 
   const { useJournals, useJournalWeeks } = useJournalManager();
   const { useVocabTests } = useVocabManager();
-
 
   const searchParams = new URLSearchParams(location.search);
   const typeValue = searchParams.get("type");
@@ -55,38 +57,52 @@ const StudentVocabularyTest = () => {
   console.log(userDetails);
 
   const handleStartTest = async () => {
-    setIsClicked(true);
-    await addStudent.mutateAsync({
-      studentId: userDetails.userId,
-      studentLogin: userDetails.username,
-      studentName: userDetails.name,
-      score: `0/${tests.length}`,
-      answers: {
-        answer1: ""
-      }
-    });
-    setIsClicked(false)
+    try {
+      setIsClicked(true);
+      setIsOnceClicked(true);
+      await addStudent.mutateAsync({
+        weekRef: userDetails.weekId,
+        studentId: userDetails.userId,
+        studentLogin: userDetails.username,
+        studentName: userDetails.name,
+        score: `0/${tests.length}`,
+        groupRef: userDetails.groupId,
+        answers: {
+          answer1: ""
+        }
+      });
+      setIsClicked(false)
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   if (selectedWeek?.[specificAccess] === false) {
     return "No available vocabularies"
   }
-  console.log(selectedWeek)
+  console.log(isOnceClicked)
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold mb-6">Are You Ready?</h1>
-      <div className="flex space-x-4 gap-10">
-        <button
-          onClick={handleStartTest}
-          disabled={isClicked.isPending}
-          className={`px-6 py-3 text-white font-semibold rounded-lg shadow-md transition ${isClicked ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600"
-            }`}
-        >
-          {isClicked ? "Redirecting..." : "Yes"}
-        </button>
-        <Link to={`/student-groups/${groupId}/week/${weekId}?type=${typeValue}`} className="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition">No</Link>
-      </div>
+    <div>
+      {error && <div className="error">{error}</div>}
+      {
+        isOnceClicked ? <div>
+          Wait until everyone is ready!
+        </div> : <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+          <h1 className="text-4xl font-bold mb-6">Are You Ready?</h1>
+          <div className="flex space-x-4 gap-10">
+            <button
+              onClick={handleStartTest}
+              disabled={isClicked}
+              className={`px-6 py-3 text-white font-semibold rounded-lg shadow-md transition ${isClicked ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600"
+                }`}
+            >
+              {isClicked ? "Redirecting..." : "Yes"}
+            </button>
+            <Link to={`/student-groups/${groupId}/week/${weekId}?type=${typeValue}`} className="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition">No</Link>
+          </div>
+        </div>
+      }
     </div>
   )
 }

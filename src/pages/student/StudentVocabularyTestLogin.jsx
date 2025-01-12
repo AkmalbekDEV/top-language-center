@@ -36,6 +36,7 @@ const StudentVocabularyTestLogin = () => {
       const testToken = await new SignJWT({
         role: `test${checkingEveryGroupUsername.login}`,
         name: checkingEveryGroupUsername.name,
+        weekId: weekId,
         username: checkingEveryGroupUsername.login,
         userId: checkingEveryGroupUsername.id,
         groupId: groupId,

@@ -41,6 +41,21 @@ export const useStudentTestManager = () => {
     });
   };
 
+  // Helper function to check if student already has an attempt for the week
+  const checkExistingAttempt = async (studentId, weekRef, groupRef) => {
+    const testsRef = collection(db, "student_test_attempts");
+    const q = query(
+      testsRef,
+      where("studentId", "==", studentId),
+      where("weekRef", "==", weekRef),
+      where("groupRef", "==", groupRef),
+      where("status", "==", "ready")
+    );
+
+    const snapshot = await getDocs(q);
+    return snapshot.docs.length > 0;
+  };
+
   // Helper function to generate the next test ID
   const getNextTestId = async () => {
     const testsRef = collection(db, "student_test_attempts");
@@ -63,6 +78,19 @@ export const useStudentTestManager = () => {
   const useAddStudentTest = () => {
     return useMutation({
       mutationFn: async (newTest) => {
+
+        // Check if student already has an attempt for this week
+        const hasExistingAttempt = await checkExistingAttempt(
+          newTest.studentId,
+          newTest.weekRef,
+          newTest.groupRef
+        );
+
+        if (hasExistingAttempt) {
+          throw new Error("Test has already started. You cannot join again.");
+        }
+
+        // If no existing attempt, proceed with creating new test
         // Get the next test ID
         const newId = await getNextTestId();
 
